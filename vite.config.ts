@@ -28,10 +28,6 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     base: env.NODE_ENV === 'production' ? './' : '/',
     plugins: [
       react(),
-      // 生产环境删除所有指定console类型
-      removeConsole(),
-      // 用于gzip或Brotli压缩你的资源
-      viteCompression(),
       // 用于将传统 HTML 文件作为输出文件使用
       createHtmlPlugin({
         minify: true,
@@ -42,7 +38,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
             template: 'public/index.html',
             injectOptions: {
               data: {
-                title: 'index',
+                title: 'cloud',
                 // injectScript: `<script src="./inject.js"></script>`,
               },
             },
@@ -51,6 +47,10 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       // 用于自动优化应用程序中的图像文件
       ViteImageOptimizer({
       }),
+      // 生产环境删除所有指定console类型
+      removeConsole(),
+      // 用于gzip或Brotli压缩你的资源
+      viteCompression(),
     ],
     // 项目根目录，index.html 所在的目录
     // 要配置多页面，所以此处更改项目根目录地址，不再是项目根目录
