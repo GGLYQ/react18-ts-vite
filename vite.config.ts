@@ -6,6 +6,14 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import viteCompression from 'vite-plugin-compression';
 import removeConsole from "vite-plugin-remove-console";
+import pxtovw from 'postcss-px-to-viewport'
+
+//配置参数实现屏幕自动适配
+const usePxtovw = pxtovw({
+  // viewportWidth: 375,
+  viewportWidth: 1920,
+  viewportUnit: 'vw'
+})
 
 // 设置不同环境不同命令的入口文件
 function getEntry(moduleName) {
@@ -26,6 +34,20 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
   return {
     // 静态资源基础路径 base: './' || '',
     base: env.NODE_ENV === 'production' ? './' : '/',
+    // 项目根目录，index.html 所在的目录
+    // 要配置多页面，所以此处更改项目根目录地址，不再是项目根目录
+    // 而是指定的目录下， 以便配置多页面index.html入口
+    root: resolve(__dirname, ''),
+    // 静态资源服务目录地址
+    // 根目录变化，原来的public静态资源目录则需要，指向
+    publicDir: resolve(__dirname, './public'),
+    // 存储缓存文件的目录地址
+    cacheDir: '',
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
+    },
     plugins: [
       react(),
       // 用于将传统 HTML 文件作为输出文件使用
@@ -52,20 +74,6 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       // 用于gzip或Brotli压缩你的资源
       viteCompression(),
     ],
-    // 项目根目录，index.html 所在的目录
-    // 要配置多页面，所以此处更改项目根目录地址，不再是项目根目录
-    // 而是指定的目录下， 以便配置多页面index.html入口
-    root: resolve(__dirname, ''),
-    // 静态资源服务目录地址
-    // 根目录变化，原来的public静态资源目录则需要，指向
-    publicDir: resolve(__dirname, './public'),
-    // 存储缓存文件的目录地址
-    cacheDir: '',
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src'),
-      },
-    },
     // 构建目录自动清除
     emptyOutDir: false,
     build: {
@@ -89,6 +97,11 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     esbuild: {
       // 移除日志打印及debugger,可在env配置VITE_DROP_CONSOLE
       drop: env.VITE_DROP_CONSOLE ? ['console', 'debugger'] : []
+    },
+    css: {
+      postcss: {
+        plugins: [usePxtovw]
+      }
     }
   }
 })
