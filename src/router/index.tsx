@@ -1,16 +1,16 @@
 import * as React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import App from "../views/App.tsx"
+import App from "@/views/App.tsx"
+import Home from "@/views/Home"
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
-      // {
-      //   path: 'team',
-      //   element: <Team />,
-      //   loader: teamLoader,
-      // },
+      {
+        path: 'home',
+        element: <Home />
+      },
     ],
   },
 ])
