@@ -96,7 +96,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     },
     esbuild: {
       // 移除日志打印及debugger,可在env配置VITE_DROP_CONSOLE
-      drop: env.VITE_DROP_CONSOLE ? ['console', 'debugger'] : []
+      drop: !env.VITE_DROP_CONSOLE ? ['console', 'debugger'] : []
     },
     css: {
       postcss: {

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './index.scss'
-class Header extends Component {
+class Header extends React.Component {
   // const {user} = this.props;
   componentDidMount(){}
   componentDidUpdate(){}
