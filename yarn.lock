@@ -429,6 +429,11 @@
   resolved "https://registry.npmmirror.com/@eslint/js/-/js-8.56.0.tgz"
   integrity sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==
 
+"@esri/react-arcgis@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.npmmirror.com/@esri/react-arcgis/-/react-arcgis-5.2.0.tgz#fcdb2ff3ddbb85b66bd5f082e0335c5c95ad120c"
+  integrity sha512-85sSih2lI4ISB9ISu77fxIPUg32UaZjM+SrwaJkxwGzdKnmyhdBqOHMm3kTqjLGPCmuDk9xtEDJWqdxxskkLzQ==
+
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.13"
   resolved "https://registry.npmmirror.com/@humanwhocodes/config-array/-/config-array-0.11.13.tgz"
@@ -1453,6 +1458,11 @@ esrecurse@^4.3.0:
   integrity sha512-KmfKL3b6G+RXvP8N1vr3Tq1kL/oCFgn2NYXEtqP8/L3pKapUA4G8cFVaoF3SU323CD4XypR/ffioHmkti6/Tag==
   dependencies:
     estraverse "^5.2.0"
+
+esri-loader@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.npmmirror.com/esri-loader/-/esri-loader-3.7.0.tgz#be2432664f53d4878b34ab903499248bbca3e087"
+  integrity sha512-cB1Sw9EQjtW4mtT7eFBjn/6VaaIWNTjmTd2asnnEyuZk1xVSFRMCfLZSBSjZM7ZarDcVu5WIjOP0t0MYVu4hVQ==
 
 estraverse@^5.1.0, estraverse@^5.2.0:
   version "5.3.0"
