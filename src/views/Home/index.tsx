@@ -6,7 +6,7 @@ import React from 'react'
 import './index.scss'
 function Home(): React.ReactNode {
   return (
-    <div className='App-container-home'>
+    <div className='App-homePage'>
       <Aside />
       <Map></Map>
       <Outlet></Outlet>

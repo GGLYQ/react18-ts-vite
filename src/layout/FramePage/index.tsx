@@ -26,10 +26,10 @@ let FramePage = ({ activeRightPanelName, activeLeftPanelName, children }: FrameI
   }, [])
   return (
     <div className='frame-panel'>
-      <TopPanel component={TopPanelItems}></TopPanel>
-      <LeftPanel component={LeftPanelItems}></LeftPanel>
-      <RightPanel component={RightPanelItems}></RightPanel>
-      <BottomPanel component={BottomPanelItems}></BottomPanel>
+      <TopPanel slot={TopPanelItems}></TopPanel>
+      <LeftPanel slot={LeftPanelItems}></LeftPanel>
+      <RightPanel slot={RightPanelItems}></RightPanel>
+      <BottomPanel slot={BottomPanelItems}></BottomPanel>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 interface propType {
-  component?: () => React.ReactNode
+  slot?: () => React.ReactNode
 }
 interface StateType {}
 class TopPanel extends Component<propType, StateType> {
@@ -11,7 +11,7 @@ class TopPanel extends Component<propType, StateType> {
   componentDidUpdate() {}
   componentWillUnmount() {}
   render() {
-    let Element = this.props.component
+    let Element = this.props.slot
     return <div className='top-panel-wrapper'>{Element ? <Element /> : null}</div>
   }
 }

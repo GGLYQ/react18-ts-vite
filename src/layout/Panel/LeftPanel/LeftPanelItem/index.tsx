@@ -3,7 +3,7 @@ interface propType {
   slot?: () => React.ReactNode
 }
 interface StateType {}
-class LeftPanel extends Component<propType, StateType> {
+class LeftPanelItem extends Component<propType, StateType> {
   constructor(props: propType) {
     super(props)
   }
@@ -12,7 +12,7 @@ class LeftPanel extends Component<propType, StateType> {
   componentWillUnmount() {}
   render() {
     let Element = this.props.slot
-    return <div className='left-panel-wrapper'>{Element ? <Element /> : null}</div>
+    return <div className='left-panel-item'>{Element ? <Element /> : null}</div>
   }
 }
-export default LeftPanel
+export default LeftPanelItem
