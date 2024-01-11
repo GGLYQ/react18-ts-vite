@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 // 使用createSlice方法创建一个slice。每一个slice里面包含了reducer和actions，实现模块化的封装
-export const userInfoSlice = createSlice({
+export let userInfoSlice = createSlice({
   // 命名空间
   name: 'userInfo',
   // state数据的初始值
@@ -26,6 +26,6 @@ export const userInfoSlice = createSlice({
   },
 })
 
-// export const { changeVal } = userInfoSlice.actions
+// export let { changeVal } = userInfoSlice.actions
 
 export default userInfoSlice.reducer

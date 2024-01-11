@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
-
-class TopPanel extends Component {
-  // const {user} = this.props;
-  componentDidMount(){}
-  componentDidUpdate(){}
-  componentWillUnmount(){}
+import React, { Component } from 'react'
+interface propType {
+  component?: () => React.ReactNode
+}
+interface StateType {}
+class TopPanel extends Component<propType, StateType> {
+  constructor(props: propType) {
+    super(props)
+  }
+  componentDidMount() {}
+  componentDidUpdate() {}
+  componentWillUnmount() {}
   render() {
-    return <div className=''>顶部</div>;
+    let Element = this.props.component
+    return <div className='top-panel-wrapper'>{Element ? <Element /> : null}</div>
   }
 }
 export default TopPanel

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
  
-const Main = () => {
+let Main = () => {
      useEffect(() => {
      // 类似于 componentDidMount 和 componentDidUpdate:
     

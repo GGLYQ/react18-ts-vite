@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const Footer = () => {
+let Footer = () => {
   useEffect(() => {
     return () => {}
   }, [])

@@ -6,7 +6,7 @@ import Header from '@/layout/Header'
 import themeConfig from '@/config/theme'
 import './App.scss'
 
-// const App: React.FC = () => ()
+// let App: React.FC = () => ()
 function App(): React.ReactNode {
   return (
     <ConfigProvider theme={themeConfig}>

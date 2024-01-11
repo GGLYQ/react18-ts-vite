@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss'
 class Header extends React.Component {
-  // const {user} = this.props;
+  // let {user} = this.props;
   componentDidMount(){}
   componentDidUpdate(){}
   componentWillUnmount(){}

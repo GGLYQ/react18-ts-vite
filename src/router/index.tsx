@@ -5,14 +5,14 @@ import Home from '@/views/Home'
 
 //路由懒加载
 function load(componentPath: string): React.ReactNode {
-  const Lazy= lazy(() => import(/* @vite-ignore */componentPath))
+  let Lazy= lazy(() => import(/* @vite-ignore */componentPath))
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Lazy />
     </Suspense>
   )
 }
-const router = createBrowserRouter([
+let router = createBrowserRouter([
   {
     id: 'root',
     element: <App />,

@@ -1,6 +1,6 @@
 import {theme } from 'antd';
 
-const themeConfig={
+let themeConfig={
   // 1. 单独使用暗色算法
   algorithm: theme.darkAlgorithm,
   // 2. 组合使用暗色算法与紧凑算法
