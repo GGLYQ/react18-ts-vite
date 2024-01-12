@@ -5,6 +5,8 @@ import { RouterProvider } from 'react-router-dom'
 import router from './router/index.tsx'
 import { Provider } from 'react-redux'
 import { store } from './store'
+import 'amfe-flexible' 
+import './utils/rem.ts'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>

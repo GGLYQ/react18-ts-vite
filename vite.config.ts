@@ -6,15 +6,8 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import viteCompression from 'vite-plugin-compression';
 import removeConsole from "vite-plugin-remove-console";
-import pxtovw from 'postcss-px-to-viewport'
-
-//配置参数实现屏幕自动适配
-const usePxtovw = pxtovw({
-  // viewportWidth: 375,
-  viewportWidth: 1920,
-  viewportUnit: 'vw'
-})
-
+import autoprefixer from 'autoprefixer';
+import postCssPxToRem from 'postcss-pxtorem';
 // 设置不同环境不同命令的入口文件
 function getEntry(moduleName) {
   const input =
@@ -100,7 +93,25 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     },
     css: {
       postcss: {
-        plugins: [usePxtovw]
+        plugins: [
+          autoprefixer({
+            overrideBrowserslist: ['Android 4.1', 'iOS 7.1', 'Chrome > 31', 'ff > 31', 'ie >= 8'],
+          }),
+          postCssPxToRem({
+            // 自适应，px>rem转换
+            rootValue: 16, // 75表示750设计稿，37.5表示375设计稿
+            propList: ['*'], // 需要转换的属性，这里选择全部都进行转换
+            selectorBlackList: ['norem'], // 过滤掉norem-开头的class，不进行rem转换
+            unitPrecision: 5, //允许REM单位增长到的十进制数字。
+            //propWhiteList: [],  //默认值是一个空数组，这意味着禁用白名单并启用所有属性。
+            // propBlackList: [], //黑名单
+            exclude: false,  //默认false，可以（reg）利用正则表达式排除某些文件夹的方法，例如/(node_module)/ 。如果想把前端UI框架内的px也转换成rem，请把此属性设为默认值
+            ignoreIdentifier: false,  //（boolean/string）忽略单个属性的方法，启用ignoreidentifier后，replace将自动设置为true。
+            replace: true, // （布尔值）替换包含REM的规则，而不是添加回退。
+            mediaQuery: false,  //（布尔值）允许在媒体查询中转换px。
+            minPixelValue: 0 //设置要替换的最小像素值(3px会被转rem)。 默认 0
+          }),
+        ],
       }
     }
   }

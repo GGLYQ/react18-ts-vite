@@ -92,4 +92,6 @@ yarn add  @ant-design/icons
 (6)vite-svg-loader 是一个 Vite 插件，用于加载和处理 SVG 文件。它可以帮助开发者在应用程序中无缝使用 SVG 图像，并提供了一些额外的功能来优化和定制 SVG 图像的使用。
 
 (7)unplugin-auto-import 是一个 Vite 插件，可以自动将需要的模块或库注入到 JavaScript 或 TypeScript 文件中。该插件可以帮助开发者减少手动导入模块的工作量，并且可以防止由于拼写错误或路径错误导致的编译错误。
+
+(8) postcss-px-to-viewport
 ```

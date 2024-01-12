@@ -15,10 +15,10 @@ function Map(props: propType): React.ReactNode {
   const watchLayoutFn = useCallback(() => {
     // console.log(leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight)
     setStyle({
-      left: leftPanelWidth + 'vw',
-      right: rightPanelWidth + 'vw',
-      top: topPanelHeight + 'vh',
-      bottom: bottomPanelHeight + 'vh',
+      left: leftPanelWidth + 'rem',
+      right: rightPanelWidth + 'rem',
+      top: topPanelHeight + 'rem',
+      bottom: bottomPanelHeight + 'rem',
     })
   }, [leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight])
   useEffect(() => {
