@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import type { LayoutReducerIState, PropType } from '../type'
 import { setLeftPanelWidth } from '@/store/reducers/LayoutReducer'
 import { getPxToRem } from '@/utils/layout'
+import { watchProps } from '@/utils/hook'
 import './index.scss'
 
 interface StateType {
@@ -27,26 +28,29 @@ class LeftPanel extends Component<PropType, StateType> {
     // console.log('componentDidMount LeftPanel')
     this.handleLeftWidth()
   }
-  componentDidUpdate(prevProps: PropType) {
+  componentDidUpdate(...prev:[PropType,StateType]) {
+    watchProps(
+      this,
+      prev[0],
+      ["topPanelHeight",this.updateLeftAndRightWidth],
+      ["bottomPanelHeight",this.updateLeftAndRightWidth]
+    )
     // console.log('componentDidUpdate LeftPanel')
-    let { topPanelHeight, bottomPanelHeight } = this.props
-    let { topPanelHeight: prevTopPanelHeight, bottomPanelHeight: prevBottomPanelHeight } = prevProps
-
-    if (topPanelHeight !== prevTopPanelHeight || bottomPanelHeight !== prevBottomPanelHeight) {
-      // props 的值发生了改变，在这里进行相应的处理
-      this.setState({
-        ...this.state,
-        style: {
-          width: this.state.leftWidth + 'rem',
-          top: topPanelHeight + 'rem',
-          bottom: bottomPanelHeight + 'rem',
-        },
-      })
-    }
   }
   componentWillUnmount() {}
-
-  // 设置左侧布局的宽度
+  // 设置左右侧的宽度
+  updateLeftAndRightWidth() {
+    let { topPanelHeight, bottomPanelHeight } = this.props
+    this.setState({
+      ...this.state,
+      style: {
+        width: this.state.leftWidth + 'rem',
+        top: topPanelHeight + 'rem',
+        bottom: bottomPanelHeight + 'rem',
+      },
+    })
+  }
+  // 初始化左侧布局的宽度
   handleLeftWidth() {
     let { setLeftWidth, topPanelHeight, bottomPanelHeight } = this.props
     let clientWidth = this.currentRef.current?.clientWidth // 获取DOM元素
