@@ -8,8 +8,10 @@ function Home(): React.ReactNode {
   return (
     <div className='App-homePage'>
       <Aside />
-      <Map></Map>
-      <Outlet></Outlet>
+      <div className='App-homePage-content'>
+        <Map></Map>
+        <Outlet></Outlet>
+      </div>
     </div>
   )
 }
