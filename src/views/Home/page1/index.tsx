@@ -6,16 +6,16 @@ import LeftPanelItem from '@/layout/Panel/LeftPanel/LeftPanelItem'
 import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
 import './index.scss'
 // 右侧面板主标签内容
-let RightPageContent=() => {
-  return <div>pageConent</div>
+let RightPageContent = () => {
+  return <div className='page1-right-content'>pageConent</div>
 }
 // 左侧面板主标签内容
-let LeftPageContent=() => {
-  return <div>pageConent</div>
+let LeftPageContent = () => {
+  return <div className='page1-left-content'>pageConent</div>
 }
 // 顶部面板
 let TopPanelItems = () => {
-  return <div>page1顶部</div>
+  return <div className='page1-top-item'>page1顶部</div>
 }
 // 左侧面板
 let LeftPanelItems = () => {
@@ -37,21 +37,19 @@ let RightPanelItems = () => {
 }
 // 底部面板
 let BottomPanelItems = () => {
-  return <div>page1底部</div>
+  return <div className='page1-bottom-item'>page1底部</div>
 }
 function page1(): React.ReactNode {
   return (
-    <div className='App-home-page1'>
-      <FramePage
-        activeRightPanelName='page1'
-        children={{
-          TopPanelItems,
-          LeftPanelItems,
-          RightPanelItems,
-          BottomPanelItems,
-        }}
-      ></FramePage>
-    </div>
+    <FramePage
+      activeRightPanelName='page1'
+      children={{
+        TopPanelItems,
+        LeftPanelItems,
+        RightPanelItems,
+        BottomPanelItems,
+      }}
+    ></FramePage>
   )
 }
 

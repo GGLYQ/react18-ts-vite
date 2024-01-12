@@ -8,12 +8,12 @@ interface MapState {
 interface propType {}
 
 function Map(props: propType): React.ReactNode {
-  console.log(props)
+  // console.log(props)
   let { leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight } = useSelector((state: MapState) => state.layoutReducer)
   let [style, setStyle] = useState({})
   // 监听布局宽高逻辑
   const watchLayoutFn = useCallback(() => {
-    console.log(leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight)
+    // console.log(leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight)
     setStyle({
       left: leftPanelWidth + 'vw',
       right: rightPanelWidth + 'vw',

@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import Panel from '@/layout/Panel/index'
+import "./index.scss"
+
 let { LeftPanel, RightPanel, TopPanel, BottomPanel } = Panel
 
 interface FrameChildrenIProps {
@@ -16,16 +18,16 @@ interface FrameIProps {
 
 let FramePage = ({ activeRightPanelName, activeLeftPanelName, children }: FrameIProps) => {
   let { TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems } = children
-  console.log('activeRightPanel', activeRightPanelName)
-  console.log('activeLeftPanel', activeLeftPanelName)
+  // console.log('activeRightPanel', activeRightPanelName)
+  // console.log('activeLeftPanel', activeLeftPanelName)
   useEffect(() => {
     // 类似于 componentDidMount 和 componentDidUpdate:
     return () => {
       // 类似于 componentWillUnmount
     }
-  }, [])
+  }, [activeRightPanelName,activeLeftPanelName])
   return (
-    <div className='frame-panel'>
+    <div className='App-frame-panel'>
       <TopPanel slot={TopPanelItems}></TopPanel>
       <LeftPanel slot={LeftPanelItems}></LeftPanel>
       <RightPanel slot={RightPanelItems}></RightPanel>

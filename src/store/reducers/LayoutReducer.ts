@@ -7,10 +7,10 @@ export let userInfoSlice = createSlice({
   name: 'layoutPage',
   // state数据的初始值
   initialState: {
-    leftPanelWidth: 8,
-    rightPanelWidth: 8,
-    topPanelHeight: 3.5,
-    bottomPanelHeight: 2
+    leftPanelWidth: 0,
+    rightPanelWidth: 0,
+    topPanelHeight: 0,
+    bottomPanelHeight: 0
   },
   // 定义的action。由于内置了immutable插件，可以直接使用赋值的方式进行数据的改变
   reducers: {
@@ -28,11 +28,11 @@ export let userInfoSlice = createSlice({
       state.rightPanelWidth = action.payload
     },
     setTopPanelHeight: (state, action) => {
-      console.log('setRightPanelWidth:', JSON.parse(JSON.stringify(state)), state, action)
+      console.log('setTopPanelHeight:', JSON.parse(JSON.stringify(state)), state, action)
       state.topPanelHeight = action.payload
     },
     setBottomPanelHeight: (state, action) => {
-      console.log('setRightPanelWidth:', JSON.parse(JSON.stringify(state)), state, action)
+      console.log('setBottomPanelHeight:', JSON.parse(JSON.stringify(state)), state, action)
       state.bottomPanelHeight = action.payload
     },
   },

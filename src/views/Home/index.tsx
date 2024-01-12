@@ -8,7 +8,7 @@ function Home(): React.ReactNode {
   return (
     <div className='App-homePage'>
       <Aside />
-      <div className='App-homePage-content'>
+      <div className='App-content'>
         <Map></Map>
         <Outlet></Outlet>
       </div>
