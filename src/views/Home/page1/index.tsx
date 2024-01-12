@@ -7,11 +7,11 @@ import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
 import './index.scss'
 // 右侧面板主标签内容
 let RightPageContent = () => {
-  return <div className='page1-right-content'>pageConent</div>
+  return <div className='page1-right-content'>RightPage1Content</div>
 }
 // 左侧面板主标签内容
 let LeftPageContent = () => {
-  return <div className='page1-left-content'>pageConent</div>
+  return <div className='page1-left-content'>LeftPage1Content</div>
 }
 // 顶部面板
 let TopPanelItems = () => {
@@ -22,7 +22,7 @@ let LeftPanelItems = () => {
   return (
     <>
       <LeftPanelItem slot={LeftPageContent}></LeftPanelItem>
-      <LeftPanelItem slot={Query}></LeftPanelItem>
+      {/* <LeftPanelItem slot={Query}></LeftPanelItem> */}
     </>
   )
 }
@@ -31,7 +31,7 @@ let RightPanelItems = () => {
   return (
     <>
       <RightPanelItem slot={RightPageContent}></RightPanelItem>
-      <RightPanelItem slot={Query}></RightPanelItem>
+      {/* <RightPanelItem slot={Query}></RightPanelItem> */}
     </>
   )
 }

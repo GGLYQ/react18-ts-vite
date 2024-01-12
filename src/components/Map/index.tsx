@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react'
 // import { loadModules } from 'esri-loader'
 import { useSelector } from 'react-redux'
+import type {reducerIState} from "@/store/type"
 import './index.scss'
-interface MapState {
-  layoutReducer: { leftPanelWidth: number; rightPanelWidth: number; topPanelHeight: number; bottomPanelHeight: number }
-}
-interface propType {}
 
-function Map(props: propType): React.ReactNode {
+// interface propType {}
+// function Map(props: propType): React.ReactNode {
+
+function Map(): React.ReactNode {
   // console.log(props)
-  let { leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight } = useSelector((state: MapState) => state.layoutReducer)
+  let { leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight } = useSelector((state: reducerIState) => state.layoutReducer)
   let [style, setStyle] = useState({})
   // 监听布局宽高逻辑
   const watchLayoutFn = useCallback(() => {
