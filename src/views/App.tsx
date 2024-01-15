@@ -6,11 +6,10 @@ import Header from '@/layout/Header'
 import themeConfig from '@/config/theme'
 import './App.scss'
 
-// let App: React.FC = () => ()
 function App(): React.ReactNode {
   return (
     <ConfigProvider theme={themeConfig}>
-      <Header></Header>
+      <Header ></Header>
       <div className='App-container'>
         <Outlet></Outlet>
       </div>

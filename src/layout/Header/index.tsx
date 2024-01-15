@@ -5,15 +5,15 @@ import type { IObj, IRouter } from '@/utils/base'
 import { withRouter } from '@/utils/withRouter'
 
 interface PropType {
-  router: IRouter
+  router?: IRouter
 }
 class Header extends React.Component<PropType> {
   componentDidMount() {}
   componentDidUpdate() {}
   componentWillUnmount() {}
   menuClick(item: IObj) {
-    let { navigate } = this.props.router
-    navigate(item.router)
+    let { navigate } = this.props.router ||{}
+    navigate && navigate(item.router)
   }
   render() {
     return (

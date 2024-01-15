@@ -1,4 +1,4 @@
-let systemTitle = "勘地云·社区服务"
+let systemTitle = "勘地云·社区服务政务版"
 let menuList = [
   {
     title: "服务页面1",
