@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 
 interface RightPanelItemIProps {
   slot?: () => React.ReactNode
+  label?:string
+  name?:string
 }
 let RightPanelItem = (props: RightPanelItemIProps) => {
   useEffect(() => {

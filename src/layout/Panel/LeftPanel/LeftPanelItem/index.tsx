@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 interface propType {
-  slot?: () => React.ReactNode
+  slot?: () => React.ReactNode,
+  label?:string
+  name?:string
 }
 interface StateType {}
 class LeftPanelItem extends Component<propType, StateType> {

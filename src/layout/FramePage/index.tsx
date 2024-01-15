@@ -29,8 +29,8 @@ let FramePage = ({ activeRightPanelName, activeLeftPanelName, children }: FrameI
   return (
     <div className='App-frame-panel'>
       <TopPanel slot={TopPanelItems}></TopPanel>
-      <LeftPanel slot={LeftPanelItems}></LeftPanel>
-      <RightPanel slot={RightPanelItems}></RightPanel>
+      <LeftPanel slot={LeftPanelItems} activePanelName={activeLeftPanelName}></LeftPanel>
+      <RightPanel slot={RightPanelItems} activePanelName={activeRightPanelName}></RightPanel>
       <BottomPanel slot={BottomPanelItems}></BottomPanel>
     </div>
   )

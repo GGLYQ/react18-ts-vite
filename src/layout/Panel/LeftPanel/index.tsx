@@ -28,13 +28,8 @@ class LeftPanel extends Component<PropType, StateType> {
     // console.log('componentDidMount LeftPanel')
     this.handleLeftWidth()
   }
-  componentDidUpdate(...prev:[PropType,StateType]) {
-    watchProps(
-      this,
-      prev[0],
-      ["topPanelHeight",this.updateLeftAndRightWidth],
-      ["bottomPanelHeight",this.updateLeftAndRightWidth]
-    )
+  componentDidUpdate(...prev: [PropType, StateType]) {
+    watchProps(this, prev[0], ['topPanelHeight', this.updateLeftAndRightWidth], ['bottomPanelHeight', this.updateLeftAndRightWidth])
     // console.log('componentDidUpdate LeftPanel')
   }
   componentWillUnmount() {}
@@ -68,12 +63,27 @@ class LeftPanel extends Component<PropType, StateType> {
     setLeftWidth && setLeftWidth(clientWidthRem)
   }
   render() {
-    let Element = this.props.slot
-    return (
-      <div id='leftPanelWrapper' className='left-panel-wrapper' ref={this.currentRef} style={this.state.style}>
-        {Element ? <Element /> : null}
-      </div>
-    )
+    let Elements = this.props.slot
+    let activePanelName = this.props.activePanelName
+    let ElementsTem = Elements && Elements()
+    if (ElementsTem) {
+      let children = ElementsTem?.props?.children
+      if (!children) return ''
+      // console.log(children)
+      let element = null
+      let type = Object.prototype.toString.call(children)
+      if (type === '[object Object]') {
+        element = children
+      } else if (type === '[object Array]') {
+        element = children?.find((e: any) => e.props.name === activePanelName)
+      }
+      return (
+        <div id='leftPanelWrapper' className='left-panel-wrapper' ref={this.currentRef} style={this.state.style}>
+          {element || ''}
+        </div>
+      )
+    }
+    return ''
   }
 }
 /**

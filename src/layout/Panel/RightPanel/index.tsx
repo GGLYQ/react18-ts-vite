@@ -33,11 +33,26 @@ let RightPanel = (props: PropType) => {
     // return 清理工作
     return () => {}
   }, [setLayoutFn])
-  let Element = props.slot
-  return (
-    <div id='rightPanelWrapper' className='right-panel-wrapper' ref={currentRef} style={style}>
-      {Element ? <Element /> : null}
-    </div>
-  )
+  let Elements = props.slot
+  let activePanelName = props.activePanelName
+  let ElementsTem = Elements && Elements()
+  if (ElementsTem) {
+    let children = ElementsTem?.props?.children
+    if (!children) return ''
+    // console.log(children)
+    let element = null
+    let type = Object.prototype.toString.call(children)
+    if (type === '[object Object]') {
+      element = children
+    } else if (type === '[object Array]') {
+      element = children?.find((e: any) => e.props.name === activePanelName)
+    }
+    return (
+      <div id='rightPanelWrapper' className='right-panel-wrapper' ref={currentRef} style={style}>
+        {element || ''}
+      </div>
+    )
+  }
+  return ''
 }
 export default RightPanel
