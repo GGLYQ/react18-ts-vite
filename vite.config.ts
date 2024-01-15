@@ -8,6 +8,7 @@ import viteCompression from 'vite-plugin-compression';
 import removeConsole from "vite-plugin-remove-console";
 import autoprefixer from 'autoprefixer';
 import postCssPxToRem from 'postcss-pxtorem';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 // 设置不同环境不同命令的入口文件
 function getEntry(moduleName) {
   const input =
@@ -67,6 +68,24 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       removeConsole(),
       // 用于gzip或Brotli压缩你的资源
       viteCompression(),
+      createSvgIconsPlugin({
+        // 指定需要缓存的图标文件夹
+        iconDirs: [path.resolve(__dirname, './src/assets/icons')],
+        // 指定symbolId格式
+        symbolId: 'svgicon-[dir]-[name]',
+
+        /**
+         * 自定义插入位置
+         * @default: body-last
+         */
+        // inject?: 'body-last' | 'body-first'
+
+        /**
+         * custom dom id
+         * @default: __svg__icons__dom__
+         */
+        // customDomId: '__svg__icons__dom__',
+      }),
     ],
     // 构建目录自动清除
     emptyOutDir: false,

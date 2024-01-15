@@ -4,6 +4,7 @@ import { systemTitle, menuList, useInfo } from '@/data/header'
 import type { IObj, IRouter } from '@/utils/base'
 import { withRouter } from '@/utils/withRouter'
 import Icon from '@/components/Icon'
+import SvgIcon from '@/components/SvgIcon'
 interface PropType {
   router?: IRouter
 }
@@ -32,7 +33,11 @@ class Header extends React.Component<PropType> {
             })}
           </div>
           {/* 用户信息 */}
-          <div className='App-header-useinfo'>{useInfo.name}</div>
+          <div className='App-header-useinfo  flex flex-center'>
+            <SvgIcon name='user' color='#ffffff' size='1.25rem'/>
+            <span className='useinfo-name'>{useInfo.name}</span>
+            <SvgIcon name='downOutlined' color='#ffffff' />
+          </div>
         </div>
       </div>
     )
