@@ -15,6 +15,7 @@ class Header extends React.Component<PropType> {
   menuClick(item: IObj) {
     let { navigate } = this.props.router || {}
     navigate && navigate(item.router)
+
   }
   render() {
     return (
@@ -34,9 +35,9 @@ class Header extends React.Component<PropType> {
           </div>
           {/* 用户信息 */}
           <div className='App-header-useinfo  flex flex-center'>
-            <SvgIcon name='user' color='#ffffff' size='1.25rem'/>
+            <SvgIcon name='user'/>
             <span className='useinfo-name'>{useInfo.name}</span>
-            <SvgIcon name='downOutlined' color='#ffffff' />
+            <SvgIcon name='downOutlined' />
           </div>
         </div>
       </div>

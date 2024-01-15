@@ -17,7 +17,7 @@ function SvgIcon(props: iconProps): ReactElement {
   )
 }
 SvgIcon.defaultProps = {
-  color: '#333',
+  color: '#ffffff',
   size: '1rem',
   prefix: 'svgicon',
 }
