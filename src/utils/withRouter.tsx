@@ -2,7 +2,7 @@ import { useNavigate, useLocation, useParams, useSearchParams } from 'react-rout
 import React, { FC } from 'react'
 // 高阶函数接收一个泛型参数 P，表示原始组件的 props 类型
 interface WithRouterProps {
-  router: any
+  router?: any
 }
 // Router6 之后，代码类的API都迁移到了hooks上，但不能再类组件中调用
 // 封装高阶组件，使hooks可以在class类组件中调用

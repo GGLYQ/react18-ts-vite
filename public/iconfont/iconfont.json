@@ -1,0 +1,205 @@
+{
+  "id": "4410858",
+  "name": "云平台",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1236837",
+      "name": "地图",
+      "font_class": "03",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "1724840",
+      "name": "地图",
+      "font_class": "ditu",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "3722136",
+      "name": "地图",
+      "font_class": "ditu1",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "4294101",
+      "name": "数据6",
+      "font_class": "shuju",
+      "unicode": "e793",
+      "unicode_decimal": 59283
+    },
+    {
+      "icon_id": "5961317",
+      "name": "数据挖掘",
+      "font_class": "shujuwajue",
+      "unicode": "ec5c",
+      "unicode_decimal": 60508
+    },
+    {
+      "icon_id": "9097245",
+      "name": "我的",
+      "font_class": "wode",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "10594604",
+      "name": "云数据_数据库_jurassic",
+      "font_class": "jurassic_cloud-data",
+      "unicode": "e6a8",
+      "unicode_decimal": 59048
+    },
+    {
+      "icon_id": "12433027",
+      "name": "数据库",
+      "font_class": "shujuku",
+      "unicode": "e6c8",
+      "unicode_decimal": 59080
+    },
+    {
+      "icon_id": "13102541",
+      "name": "我的",
+      "font_class": "wode1",
+      "unicode": "e6e3",
+      "unicode_decimal": 59107
+    },
+    {
+      "icon_id": "16605385",
+      "name": "彩友多_我的-我的关注",
+      "font_class": "caiyouduo_wode-wodeguanzhu",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "16921567",
+      "name": "我的",
+      "font_class": "wode2",
+      "unicode": "e7ee",
+      "unicode_decimal": 59374
+    },
+    {
+      "icon_id": "18164068",
+      "name": "大数据,科技,数据流转",
+      "font_class": "bigdata",
+      "unicode": "e854",
+      "unicode_decimal": 59476
+    },
+    {
+      "icon_id": "18164069",
+      "name": "大数据,科技,数据流转",
+      "font_class": "bigdata-full",
+      "unicode": "e857",
+      "unicode_decimal": 59479
+    },
+    {
+      "icon_id": "18169760",
+      "name": "数据库,数据",
+      "font_class": "database-full",
+      "unicode": "e940",
+      "unicode_decimal": 59712
+    },
+    {
+      "icon_id": "18169761",
+      "name": "数据库,数据",
+      "font_class": "database",
+      "unicode": "e941",
+      "unicode_decimal": 59713
+    },
+    {
+      "icon_id": "18169821",
+      "name": "usb,数据,数据线,接口",
+      "font_class": "usb",
+      "unicode": "e94c",
+      "unicode_decimal": 59724
+    },
+    {
+      "icon_id": "20075862",
+      "name": "数据、数据点",
+      "font_class": "shujushujudian",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "979710",
+      "name": "统计分析",
+      "font_class": "tongjifenxi",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "1411030",
+      "name": "1统计分析",
+      "font_class": "tongjifenxi1",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "8329620",
+      "name": "统计分析",
+      "font_class": "tongjifenxi2",
+      "unicode": "e6db",
+      "unicode_decimal": 59099
+    },
+    {
+      "icon_id": "11799009",
+      "name": "统计分析",
+      "font_class": "tongjifenxi3",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "18164075",
+      "name": "统计分析,统计报表,研判",
+      "font_class": "board",
+      "unicode": "e855",
+      "unicode_decimal": 59477
+    },
+    {
+      "icon_id": "18164076",
+      "name": "统计分析,统计报表,研判",
+      "font_class": "board-full",
+      "unicode": "e856",
+      "unicode_decimal": 59478
+    },
+    {
+      "icon_id": "18164833",
+      "name": "统计分析,统计报表,研判,演示",
+      "font_class": "statistics",
+      "unicode": "e86b",
+      "unicode_decimal": 59499
+    },
+    {
+      "icon_id": "18164834",
+      "name": "统计分析,统计报表,研判,演示",
+      "font_class": "statistics-full",
+      "unicode": "e86c",
+      "unicode_decimal": 59500
+    },
+    {
+      "icon_id": "24272081",
+      "name": "工单统计分析",
+      "font_class": "gongdantongjifenxi",
+      "unicode": "e689",
+      "unicode_decimal": 59017
+    },
+    {
+      "icon_id": "31358503",
+      "name": "统计分析",
+      "font_class": "tongjifenxi4",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "32499734",
+      "name": "统计分析",
+      "font_class": "tongjifenxi5",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    }
+  ]
+}

@@ -3,7 +3,7 @@ import './index.scss'
 import { systemTitle, menuList, useInfo } from '@/data/header'
 import type { IObj, IRouter } from '@/utils/base'
 import { withRouter } from '@/utils/withRouter'
-
+import Icon from '@/components/Icon'
 interface PropType {
   router?: IRouter
 }
@@ -12,7 +12,7 @@ class Header extends React.Component<PropType> {
   componentDidUpdate() {}
   componentWillUnmount() {}
   menuClick(item: IObj) {
-    let { navigate } = this.props.router ||{}
+    let { navigate } = this.props.router || {}
     navigate && navigate(item.router)
   }
   render() {
@@ -24,8 +24,9 @@ class Header extends React.Component<PropType> {
           <div className='App-header-menu flex'>
             {menuList.map((menu) => {
               return (
-                <div className='App-header-menu-item' onClick={() => this.menuClick(menu)} key={menu.title}>
-                  {menu.title}
+                <div className='App-header-menu-item flex flex-center' onClick={() => this.menuClick(menu)} key={menu.title}>
+                  <Icon iconName={menu.icon} />
+                  <span className='menu-item-title'>{menu.title}</span>
                 </div>
               )
             })}
