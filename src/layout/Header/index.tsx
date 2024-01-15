@@ -15,8 +15,8 @@ class Header extends React.Component<PropType> {
   menuClick(item: IObj) {
     let { navigate } = this.props.router || {}
     navigate && navigate(item.router)
-
   }
+
   render() {
     return (
       <div className='App-header flex flex-center-between'>
@@ -35,7 +35,7 @@ class Header extends React.Component<PropType> {
           </div>
           {/* 用户信息 */}
           <div className='App-header-useinfo  flex flex-center'>
-            <SvgIcon name='user'/>
+            <SvgIcon name='user' />
             <span className='useinfo-name'>{useInfo.name}</span>
             <SvgIcon name='downOutlined' />
           </div>

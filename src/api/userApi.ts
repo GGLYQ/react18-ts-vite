@@ -1,13 +1,8 @@
-// import { baseRequest } from "@/http/index"
+import { http } from "@/http/index"
 
-// function getUserInfo(data:any) {
-//   return baseRequest.get({
-//     url: "",
-//     data,
-//     headers:{
+function getUserInfo(params: any = {}) {
+  let url = ""
+  return http.httpRequestGet(url, params)
+}
 
-//     }
-//   })
-// }
-
-// export {getUserInfo}
+export { getUserInfo }
