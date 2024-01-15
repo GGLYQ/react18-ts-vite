@@ -38,7 +38,8 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     cacheDir: '',
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(__dirname, './src')
+        // '@public': path.resolve(__dirname, './public'),
       },
     },
     plugins: [

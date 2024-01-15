@@ -1,22 +1,22 @@
-let systemTitle = "勘地云"
+let systemTitle = "勘地云·社区服务"
 let menuList = [
   {
-    title: "页面1",
+    title: "服务页面1",
     router: "home/page1"
   }, {
-    title: "页面2",
+    title: "服务页面2",
     router: "home/page2"
   },
   {
-    title: "页面3",
+    title: "服务页面3",
     router: "home/page3"
   }, {
-    title: "页面4",
+    title: "服务页面4",
     router: "home/page4"
   }
 ]
 let useInfo = {
-  name: "开发测试"
+  name: "管理员"
 }
 export {
   systemTitle,

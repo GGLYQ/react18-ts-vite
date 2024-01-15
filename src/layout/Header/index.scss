@@ -1,11 +1,30 @@
-.App-header{
+.App-header {
   padding: 0 20px;
   background-color: var(--app-header-background-color);
   box-sizing: border-box;
-  .App-header-title{
-
+  .App-header-title {
+    font-size: 24px;
+    color: rgb(255, 255, 255);
   }
-  .App-header-menu{
-
+  .App-header-content {
+    height: 100%;
+    color: rgb(255, 255, 255);
+    .App-header-menu {
+      height: 100%;
+      padding-right: 60px;
+      cursor: pointer;
+      .App-header-menu-item {
+        height: 100%;
+        padding: 20px 30px;
+        &:hover {
+          background: rgb(0, 0, 0, 0.15);
+          color:rgb(247, 247, 247);
+        }
+      }
+    }
+  }
+  .App-header-useinfo {
+    padding: 20px 0;
+    color: rgb(255, 255, 255);
   }
 }

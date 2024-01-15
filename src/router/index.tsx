@@ -37,6 +37,16 @@ let router = createBrowserRouter([
             path: 'page3',
             element: load('../views/Home/page3'),
           },
+          {
+            id: 'page4',
+            path: 'page4',
+            element: load('../views/Home/page4'),
+          },
+          {
+            id: 'page5',
+            path: 'page5',
+            element: load('../views/Home/page5'),
+          },
         ],
       },
     ],
