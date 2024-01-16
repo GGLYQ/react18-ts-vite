@@ -38,6 +38,7 @@ let RightPanel = (props: PropType) => {
     return v === props.activePanelName ? 'actived' : ''
   }
   // 渲染页面模板的逻辑
+  let visibleTabs = props.visibleTabs
   let slot = props.slot
   let slotTem = slot && slot()
   if (slotTem) {
@@ -47,13 +48,9 @@ let RightPanel = (props: PropType) => {
     let panels = null
     let rightPanels = null
     let rightTabs = null
+
     let type = Object.prototype.toString.call(children)
-    if (type === '[object Object]') {
-      panels = [children]
-    } else if (type === '[object Array]') {
-      panels = children
-    }
-    let rightTabsProps = panels?.map((e: any) => e.props)
+    panels = type === '[object Object]' ? [children] : type === '[object Array]' ? children : []
 
     rightPanels = (
       <div className='right-panel-content'>
@@ -62,15 +59,19 @@ let RightPanel = (props: PropType) => {
         })}
       </div>
     )
-    rightTabs = (
-      <div className='right-panel-tabs'>
-        {rightTabsProps.map((tab: any) => (
-          <div className={`right-tab-item ${getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`}>
-            {tab.label}
-          </div>
-        ))}
-      </div>
-    )
+    // 是否显示标签
+    if (visibleTabs) {
+      let rightTabsProps = panels?.map((e: any) => e.props)
+      rightTabs = (
+        <div className='right-panel-tabs'>
+          {rightTabsProps.map((tab: any) => (
+            <div className={`right-tab-item ${getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`}>
+              {tab.label}
+            </div>
+          ))}
+        </div>
+      )
+    }
     return (
       <div id='rightPanelWrapper' className='right-panel-wrapper' ref={currentRef} style={style}>
         {rightTabs}

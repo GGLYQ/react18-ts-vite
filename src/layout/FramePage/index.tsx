@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Panel from '@/layout/Panel/index'
-import "./index.scss"
+import './index.scss'
 
 let { LeftPanel, RightPanel, TopPanel, BottomPanel } = Panel
 
@@ -13,10 +13,12 @@ interface FrameChildrenIProps {
 interface FrameIProps {
   activeRightPanelName?: string
   activeLeftPanelName?: string
+  visibleRightTabs?: boolean
+  visibleLeftTabs?: boolean
   children: FrameChildrenIProps
 } // 布局主框架的参数类型声明
 
-let FramePage = ({ activeRightPanelName, activeLeftPanelName, children }: FrameIProps) => {
+function FramePage({ activeRightPanelName, activeLeftPanelName, visibleLeftTabs, visibleRightTabs, children }: FrameIProps) {
   let { TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems } = children
   // console.log('activeLeftPanel', activeLeftPanelName)
   // console.log('activeRightPanel', activeRightPanelName)
@@ -25,14 +27,18 @@ let FramePage = ({ activeRightPanelName, activeLeftPanelName, children }: FrameI
     return () => {
       // 类似于 componentWillUnmount
     }
-  }, [activeRightPanelName,activeLeftPanelName])
+  }, [activeRightPanelName, activeLeftPanelName])
   return (
     <div className='App-frame-panel'>
       <TopPanel slot={TopPanelItems}></TopPanel>
-      <LeftPanel slot={LeftPanelItems} activePanelName={activeLeftPanelName}></LeftPanel>
-      <RightPanel slot={RightPanelItems} activePanelName={activeRightPanelName}></RightPanel>
+      <LeftPanel slot={LeftPanelItems} activePanelName={activeLeftPanelName} visibleTabs={visibleLeftTabs}></LeftPanel>
+      <RightPanel slot={RightPanelItems} activePanelName={activeRightPanelName} visibleTabs={visibleRightTabs}></RightPanel>
       <BottomPanel slot={BottomPanelItems}></BottomPanel>
     </div>
   )
+}
+FramePage.defaultProps={
+  visibleRightTabs:true,
+  visibleLeftTabs:true
 }
 export default FramePage

@@ -21,8 +21,8 @@ let TopPanelItems = () => {
 let LeftPanelItems = () => {
   return (
     <>
-      <LeftPanelItem slot={LeftPageContent} label="插槽1" name='page1LeftSlot1'></LeftPanelItem>
-      <LeftPanelItem slot={Query} label="插槽2" name='page1LeftSlot2'></LeftPanelItem>
+      <LeftPanelItem slot={LeftPageContent} label='插槽1' name='page1LeftSlot1'></LeftPanelItem>
+      <LeftPanelItem slot={Query} label='插槽2' name='page1LeftSlot2'></LeftPanelItem>
     </>
   )
 }
@@ -30,8 +30,8 @@ let LeftPanelItems = () => {
 let RightPanelItems = () => {
   return (
     <>
-      <RightPanelItem slot={RightPageContent} label="插槽3" name='page1RightSlot1'></RightPanelItem>
-      <RightPanelItem slot={Query} label="插槽4" name='page1RightSlot2'></RightPanelItem>
+      <RightPanelItem slot={RightPageContent} label='插槽3' name='page1RightSlot1'></RightPanelItem>
+      <RightPanelItem slot={Query} label='插槽4' name='page1RightSlot2'></RightPanelItem>
     </>
   )
 }

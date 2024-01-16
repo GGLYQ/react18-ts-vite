@@ -5,6 +5,7 @@ interface LayoutReducerIState {
 interface PropType {
   slot?: () => React.ReactElement,
   activePanelName?: string,
+  visibleTabs?: boolean,
   topPanelHeight?: number,
   bottomPanelHeight?: number,
   setTopHeight?: (value: number) => void

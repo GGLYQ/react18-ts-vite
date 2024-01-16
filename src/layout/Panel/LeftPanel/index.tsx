@@ -67,6 +67,7 @@ class LeftPanel extends Component<PropType, StateType> {
   }
   render() {
     // 渲染页面模板的逻辑
+    let visibleTabs = this.props.visibleTabs
     let slot = this.props.slot
     let slotTem = slot && slot()
     if (slotTem) {
@@ -76,13 +77,10 @@ class LeftPanel extends Component<PropType, StateType> {
       let panels = null
       let leftPanels = null
       let leftTabs = null
+      
       let type = Object.prototype.toString.call(children)
-      if (type === '[object Object]') {
-        panels = [children]
-      } else if (type === '[object Array]') {
-        panels = children
-      }
-      let leftTabsProps = panels?.map((e: any) => e.props)
+      panels = type === '[object Object]' ? [children] : type === '[object Array]' ? children : []
+
 
       leftPanels = (
         <div className='left-panel-content'>
@@ -91,15 +89,19 @@ class LeftPanel extends Component<PropType, StateType> {
           })}
         </div>
       )
-      leftTabs = (
-        <div className='left-panel-tabs'>
-          {leftTabsProps.map((tab: any) => (
-            <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`}>
-              {tab.label}
-            </div>
-          ))}
-        </div>
-      )
+      // 是否显示标签
+      if (visibleTabs) {
+        let leftTabsProps = panels?.map((e: any) => e.props)
+        leftTabs = (
+          <div className='left-panel-tabs'>
+            {leftTabsProps.map((tab: any) => (
+              <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`}>
+                {tab.label}
+              </div>
+            ))}
+          </div>
+        )
+      }
       return (
         <div id='leftPanelWrapper' className='left-panel-wrapper' ref={this.currentRef} style={this.state.style}>
           {leftTabs}

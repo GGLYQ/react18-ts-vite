@@ -17,6 +17,10 @@ let menuList = [
     title: "服务页面4",
     router: "home/page4",
     icon: "icon-bigdata"
+  }, {
+    title: "服务页面5",
+    router: "home/page5",
+    icon: "icon-a-zhongbuhuabuxuanzezhongdietuceng"
   }
 ]
 let useInfo = {
