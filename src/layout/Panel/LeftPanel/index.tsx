@@ -63,8 +63,18 @@ class LeftPanel extends Component<PropType, StateType> {
     })
     setLeftWidth && setLeftWidth(clientWidthRem)
   }
+  // 判断是否被激活的面板 设置激活的className
   getActivedClassName(v: string) {
     return v === this.props.activePanelName ? 'actived' : ''
+  }
+  // 点击便签的事件
+  clickTabActived(name: string) {
+    if (this.props.activePanelName === name) return
+    this.props.onActivedPanel && this.props.onActivedPanel(name)
+  }
+  // 点击删除图标的事件
+  clickTabDelete(name: string) {
+    this.props.onDeletePanel && this.props.onDeletePanel(name)
   }
   render() {
     // 渲染页面模板的逻辑
@@ -82,7 +92,6 @@ class LeftPanel extends Component<PropType, StateType> {
       let type = Object.prototype.toString.call(children)
       panels = type === '[object Object]' ? [children] : type === '[object Array]' ? children : []
 
-
       leftPanels = (
         <div className='left-panel-content'>
           {React.Children.map(panels, (panel) => {
@@ -96,9 +105,11 @@ class LeftPanel extends Component<PropType, StateType> {
         leftTabs = (
           <div className='left-panel-tabs'>
             {leftTabsProps.map((tab: any) => (
-              <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')} flex-cloumn-center`} key={`tabItem-${tab.name}`}>
+              <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')} flex-cloumn-center`} key={`tabItem-${tab.name}`} onClick={() => this.clickTabActived(tab.name)}>
                 <div className='tab-item-title'>{tab.label}</div>
-                <Icon iconName='icon-guanbi'></Icon>
+                <div className='tab-item-icon' onClick={() => this.clickTabDelete(tab.name)}>
+                  <Icon iconName='icon-guanbi'></Icon>
+                </div>
               </div>
             ))}
           </div>

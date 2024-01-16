@@ -35,8 +35,18 @@ let RightPanel = (props: PropType) => {
     // return 清理工作
     return () => {}
   }, [setLayoutFn])
+  // 判断是否被激活的面板 设置激活的className
   const getActivedClassName = (v: string) => {
     return v === props.activePanelName ? 'actived' : ''
+  }
+  // 点击便签的事件
+  const clickTabActived = (name: string) => {
+    if (props.activePanelName === name) return
+    props.onActivedPanel && props.onActivedPanel(name)
+  }
+  // 点击删除图标的事件
+  const clickTabDelete = (name: string) => {
+    props.onDeletePanel && props.onDeletePanel(name)
   }
   // 渲染页面模板的逻辑
   let visibleTabs = props.visibleTabs
@@ -66,9 +76,11 @@ let RightPanel = (props: PropType) => {
       rightTabs = (
         <div className='right-panel-tabs'>
           {rightTabsProps.map((tab: any) => (
-            <div className={`right-tab-item ${getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`}>
-               <div className='tab-item-title'>{tab.label}</div>
+            <div className={`right-tab-item ${getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`} onClick={() => clickTabActived(tab.name)}>
+              <div className='tab-item-title'>{tab.label}</div>
+              <div className='tab-item-icon' onClick={() => clickTabDelete(tab.name)}>
                 <Icon iconName='icon-guanbi'></Icon>
+              </div>
             </div>
           ))}
         </div>

@@ -10,5 +10,7 @@ interface PropType {
   bottomPanelHeight?: number,
   setTopHeight?: (value: number) => void
   setLeftWidth?: (value: number) => void
+  onActivedPanel?: (name: string) => void
+  onDeletePanel?: (name: string) => void
 }
 export { LayoutReducerIState, PropType }
