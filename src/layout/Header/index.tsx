@@ -19,14 +19,14 @@ class Header extends React.Component<PropType> {
 
   render() {
     return (
-      <div className='App-header flex flex-center-between'>
+      <div className='App-header flex-center-between'>
         <div className='App-header-title font-yzHei'>{systemTitle}</div>
         <div className='App-header-content flex'>
           {/* 菜单栏 */}
           <div className='App-header-menu flex'>
             {menuList.map((menu) => {
               return (
-                <div className='App-header-menu-item flex flex-center' onClick={() => this.menuClick(menu)} key={menu.title}>
+                <div className='App-header-menu-item flex-center' onClick={() => this.menuClick(menu)} key={menu.title}>
                   <Icon iconName={menu.icon} />
                   <span className='menu-item-title'>{menu.title}</span>
                 </div>
@@ -34,7 +34,7 @@ class Header extends React.Component<PropType> {
             })}
           </div>
           {/* 用户信息 */}
-          <div className='App-header-useinfo  flex flex-center'>
+          <div className='App-header-useinfo flex-center'>
             <SvgIcon name='user' />
             <span className='useinfo-name'>{useInfo.name}</span>
             <SvgIcon name='downOutlined' />

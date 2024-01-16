@@ -1,7 +1,7 @@
 .right-panel-wrapper {
   position: absolute;
   right: 0;
-  background-color: "#ffffff";
+  background-color: '#ffffff';
   border-left: #eeeeee;
   .right-panel-content {
     height: 100%;
@@ -20,13 +20,14 @@
     .right-tab-item {
       width: 15px;
       margin-top: 10px;
-      padding: 13px 8px;
+      padding: 12px 8px;
       background: #dcdcdc;
       border: 2px solid transparent;
-      border-radius: 5px 0px 0px 5px;
-      color: #666666;
+      border-radius: 5px 0 0 5px;
+      color: #aaaaaa;
       cursor: pointer;
       border: 1px solid rgba(201, 205, 221, 1);
+      text-align: center;
       &:hover {
         background-color: #f7f7f7;
       }
@@ -34,9 +35,22 @@
         color: #666666;
         background: rgba(255, 255, 255, 1);
         border: 1px solid rgba(201, 205, 221, 1);
-        border-radius: 5px 0px 0px 5px;
+        border-radius: 5px 0 0 5px;
         &:hover {
           background-color: #f7f7f7;
+        }
+        span {
+          &:hover {
+            color: #333333;
+          }
+        }
+      }
+      .tab-item-title {
+        margin-bottom: 6px;
+      }
+      span {
+        .iconfont {
+          margin-left: -2px;
         }
       }
     }

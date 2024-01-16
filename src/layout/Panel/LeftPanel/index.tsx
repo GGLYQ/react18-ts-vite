@@ -5,6 +5,7 @@ import type { LayoutReducerIState, PropType } from '../type'
 import { setLeftPanelWidth } from '@/store/reducers/LayoutReducer'
 import { getPxToRem } from '@/utils/layout'
 import { watchProps } from '@/utils/hook'
+import Icon from '@/components/Icon'
 import './index.scss'
 
 interface StateType {
@@ -77,7 +78,7 @@ class LeftPanel extends Component<PropType, StateType> {
       let panels = null
       let leftPanels = null
       let leftTabs = null
-      
+
       let type = Object.prototype.toString.call(children)
       panels = type === '[object Object]' ? [children] : type === '[object Array]' ? children : []
 
@@ -95,8 +96,9 @@ class LeftPanel extends Component<PropType, StateType> {
         leftTabs = (
           <div className='left-panel-tabs'>
             {leftTabsProps.map((tab: any) => (
-              <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`}>
-                {tab.label}
+              <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')} flex-cloumn-center`} key={`tabItem-${tab.name}`}>
+                <div className='tab-item-title'>{tab.label}</div>
+                <Icon iconName='icon-guanbi'></Icon>
               </div>
             ))}
           </div>

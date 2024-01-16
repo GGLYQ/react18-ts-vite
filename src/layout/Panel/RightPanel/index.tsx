@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getPxToRem } from '@/utils/layout'
 import { setRightPanelWidth } from '@/store/reducers/LayoutReducer'
 import './index.scss'
+import Icon from '@/components/Icon'
 
 let RightPanel = (props: PropType) => {
   const dispatch = useDispatch()
@@ -66,7 +67,8 @@ let RightPanel = (props: PropType) => {
         <div className='right-panel-tabs'>
           {rightTabsProps.map((tab: any) => (
             <div className={`right-tab-item ${getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`}>
-              {tab.label}
+               <div className='tab-item-title'>{tab.label}</div>
+                <Icon iconName='icon-guanbi'></Icon>
             </div>
           ))}
         </div>

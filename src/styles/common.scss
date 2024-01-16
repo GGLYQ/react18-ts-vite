@@ -8,23 +8,39 @@
 .flex {
   display: flex;
 }
+.flex-cloumn{
+  display: flex;
+  flex-direction: column;
+}
+.flex-cloumn-center{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+}
 .flex-align-center {
+  display: flex;
   align-items: center;
 }
 .flex-justify-center {
+  display: flex;
   justify-content: center;
 }
 .flex-justify-between {
+  display: flex;
   justify-content: space-between;
 }
 .flex-justify-end {
+  display: flex;
   justify-content: flex-end;
 }
 .flex-center {
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 .flex-center-between {
+  display: flex;
+
   align-items: center;
   justify-content: space-between;
 }
