@@ -27,29 +27,54 @@ let RightPanel = (props: PropType) => {
     dispatch(setRightPanelWidth(clientWidthRem))
   }, [dispatch, topPanelHeight, bottomPanelHeight])
 
+  // 监听面板尺寸
   useEffect(() => {
     setLayoutFn()
     // console.log("RightPanel",currentRef) // 获取DOM元素
     // return 清理工作
     return () => {}
   }, [setLayoutFn])
-  let Elements = props.slot
-  let activePanelName = props.activePanelName
-  let ElementsTem = Elements && Elements()
-  if (ElementsTem) {
-    let children = ElementsTem?.props?.children
+  const getActivedClassName = (v: string) => {
+    return v === props.activePanelName ? 'actived' : ''
+  }
+  // 渲染页面模板的逻辑
+  let slot = props.slot
+  let slotTem = slot && slot()
+  if (slotTem) {
+    let children = slotTem?.props?.children
     if (!children) return ''
     // console.log(children)
-    let element = null
+    let panels = null
+    let rightPanels = null
+    let rightTabs = null
     let type = Object.prototype.toString.call(children)
     if (type === '[object Object]') {
-      element = children
+      panels = [children]
     } else if (type === '[object Array]') {
-      element = children?.find((e: any) => e.props.name === activePanelName)
+      panels = children
     }
+    let rightTabsProps = panels?.map((e: any) => e.props)
+
+    rightPanels = (
+      <div className='right-panel-content'>
+        {React.Children.map(panels, (panel) => {
+          return React.cloneElement(panel, { className: getActivedClassName(panel.props?.name || '') })
+        })}
+      </div>
+    )
+    rightTabs = (
+      <div className='right-panel-tabs'>
+        {rightTabsProps.map((tab: any) => (
+          <div className={`right-tab-item ${getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`}>
+            {tab.label}
+          </div>
+        ))}
+      </div>
+    )
     return (
       <div id='rightPanelWrapper' className='right-panel-wrapper' ref={currentRef} style={style}>
-        {element || ''}
+        {rightTabs}
+        {rightPanels}
       </div>
     )
   }

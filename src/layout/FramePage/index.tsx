@@ -5,10 +5,10 @@ import "./index.scss"
 let { LeftPanel, RightPanel, TopPanel, BottomPanel } = Panel
 
 interface FrameChildrenIProps {
-  TopPanelItems?: () => React.ReactNode
-  LeftPanelItems?: () => React.ReactNode
-  RightPanelItems?: () => React.ReactNode
-  BottomPanelItems?: () => React.ReactNode
+  TopPanelItems?: () => React.ReactElement
+  LeftPanelItems?: () => React.ReactElement
+  RightPanelItems?: () => React.ReactElement
+  BottomPanelItems?: () => React.ReactElement
 }
 interface FrameIProps {
   activeRightPanelName?: string
@@ -18,8 +18,8 @@ interface FrameIProps {
 
 let FramePage = ({ activeRightPanelName, activeLeftPanelName, children }: FrameIProps) => {
   let { TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems } = children
-  // console.log('activeRightPanel', activeRightPanelName)
   // console.log('activeLeftPanel', activeLeftPanelName)
+  // console.log('activeRightPanel', activeRightPanelName)
   useEffect(() => {
     // 类似于 componentDidMount 和 componentDidUpdate:
     return () => {

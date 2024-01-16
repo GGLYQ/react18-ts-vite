@@ -62,24 +62,48 @@ class LeftPanel extends Component<PropType, StateType> {
     })
     setLeftWidth && setLeftWidth(clientWidthRem)
   }
+  getActivedClassName(v: string) {
+    return v === this.props.activePanelName ? 'actived' : ''
+  }
   render() {
-    let Elements = this.props.slot
-    let activePanelName = this.props.activePanelName
-    let ElementsTem = Elements && Elements()
-    if (ElementsTem) {
-      let children = ElementsTem?.props?.children
+    // 渲染页面模板的逻辑
+    let slot = this.props.slot
+    let slotTem = slot && slot()
+    if (slotTem) {
+      let children = slotTem?.props?.children
       if (!children) return ''
       // console.log(children)
-      let element = null
+      let panels = null
+      let leftPanels = null
+      let leftTabs = null
       let type = Object.prototype.toString.call(children)
       if (type === '[object Object]') {
-        element = children
+        panels = [children]
       } else if (type === '[object Array]') {
-        element = children?.find((e: any) => e.props.name === activePanelName)
+        panels = children
       }
+      let leftTabsProps = panels?.map((e: any) => e.props)
+
+      leftPanels = (
+        <div className='left-panel-content'>
+          {React.Children.map(panels, (panel) => {
+            return React.cloneElement(panel, { className: this.getActivedClassName(panel.props?.name || '') })
+          })}
+        </div>
+      )
+      leftTabs = (
+        <div className='left-panel-tabs'>
+          {leftTabsProps.map((tab: any) => (
+            <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`}>
+              {tab.label}
+            </div>
+          ))}
+        </div>
+      )
       return (
         <div id='leftPanelWrapper' className='left-panel-wrapper' ref={this.currentRef} style={this.state.style}>
-          {element || ''}
+          {leftTabs}
+          {leftPanels}
         </div>
       )
     }

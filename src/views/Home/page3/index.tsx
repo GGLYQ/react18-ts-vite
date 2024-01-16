@@ -16,7 +16,7 @@ let TopPanelItems = () => {
 let RightPanelItems = () => {
   return (
     <>
-      <RightPanelItem slot={RightPageContent}></RightPanelItem>
+      <RightPanelItem slot={RightPageContent} label="插槽1" name='page3RightSlot1'></RightPanelItem>
       {/* <RightPanelItem slot={Query}></RightPanelItem> */}
     </>
   )
