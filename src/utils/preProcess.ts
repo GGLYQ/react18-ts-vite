@@ -4,6 +4,7 @@ import { store } from '@/store'
 // 自适应
 const baseSize = 16;
 
+// 根据当前页面屏幕分辨率，做布局自适应
 function resize() {
     // 当前页面屏幕分辨率相对于1920宽的缩放比例，可根据自己需要修改
     let scale = document.documentElement.clientWidth / 1920;
@@ -15,5 +16,6 @@ function resize() {
     document.body.style.fontSize = `${fontSize}px`;
     store.dispatch(setFontSize(fontSize))
 }
+
 resize();
 window.onresize = resize;

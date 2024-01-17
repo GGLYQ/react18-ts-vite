@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import type { LayoutReducerIState, PropType } from '../type'
+import type { reducerIState, PropType } from '../type'
 import { setTopPanelHeight } from '@/store/reducers/LayoutReducer'
 import { getPxToRem } from '@/utils/layout'
 import './index.scss'
@@ -47,7 +47,7 @@ class TopPanel extends Component<PropType, StateType> {
  * 将仓库的state映射到props(获取state)
  * @param state
  */
-const mapStateToProps = (state: LayoutReducerIState) => {
+const mapStateToProps = (state: reducerIState) => {
   return {
     topPanelHeight: state.layoutReducer.topPanelHeight,
   }

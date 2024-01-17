@@ -1,14 +1,17 @@
 import React from 'react'
 import './index.scss'
 import { systemTitle, menuList, useInfo } from '@/data/header'
-import type { IObj, IRouter } from '@/utils/base'
+import type { IObj, IRouter } from '@/utils/type'
 import { withRouter } from '@/utils/withRouter'
 import Icon from '@/components/Icon'
 import SvgIcon from '@/components/SvgIcon'
 import { watchProps } from '@/utils/hook'
+import { connect } from 'react-redux'
+import { reducerIState } from '@/store/type'
 
 interface PropType {
   router?: IRouter
+  isHideHeader?:boolean
 }
 interface StateType {
   currentPathName?: string | undefined | object
@@ -41,7 +44,7 @@ class Header extends React.Component<PropType, StateType> {
     }
   }
   render() {
-    return (
+    return !this.props.isHideHeader && (
       <div className='App-header flex-center-between'>
         <div className='App-header-title font-yzHei'>{systemTitle}</div>
         <div className='App-header-content flex'>
@@ -69,6 +72,15 @@ class Header extends React.Component<PropType, StateType> {
   }
 }
 
+/**
+ * 将仓库的state映射到props(获取state)
+ * @param state
+ */
+const mapStateToProps = (state: reducerIState) => {
+  return {
+    isHideHeader: state.gobalReducer.isHideHeader
+  }
+}
 // 使用高阶组件包裹当前类组件
-const NavigateComponent = withRouter(Header)
+const NavigateComponent = withRouter(connect(mapStateToProps)(Header))
 export default NavigateComponent

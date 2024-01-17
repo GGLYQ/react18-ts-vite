@@ -6,7 +6,7 @@ import router from './router/index.tsx'
 import { Provider } from 'react-redux'
 import { store } from './store'
 import 'amfe-flexible' 
-import './utils/rem.ts'
+import './utils/preProcess.ts'
 import 'virtual:svg-icons-register'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

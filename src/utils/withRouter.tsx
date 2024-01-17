@@ -1,9 +1,11 @@
 import { useNavigate, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import React, { FC } from 'react'
+import { IObj } from './type'
 // 高阶函数接收一个泛型参数 P，表示原始组件的 props 类型
 interface WithRouterProps {
   router?: any
 }
+
 // Router6 之后，代码类的API都迁移到了hooks上，但不能再类组件中调用
 // 封装高阶组件，使hooks可以在class类组件中调用
 const withRouter = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
@@ -19,10 +21,25 @@ const withRouter = <P extends object>(WrappedComponent: React.ComponentType<P>) 
     const searchParams = useSearchParams()
     // 将获取到的navigate放到一个对象中
     const router = { navigate, location, params, searchParams }
-    return <WrappedComponent { ...props as P } router = { router }/>;
-  };
+    return <WrappedComponent {...(props as P)} router={router} />
+  }
   // 设置新组件的 displayName，便于调试
-  WithRouterCom.displayName = `WithRouterComHook(${WrappedComponent.displayName || WrappedComponent.name})`;
-  return WithRouterCom;
-};
-export { withRouter }
+  WithRouterCom.displayName = `WithRouterComHook(${WrappedComponent.displayName || WrappedComponent.name})`
+  return WithRouterCom
+}
+
+const getQueryParams = (url: string) => {
+  const paramsString = new URLSearchParams(url).toString() // 将查询字符串转换为字符串
+  const paramsArray = paramsString.split('&') // 将字符串按 & 分割成数组
+
+  // 遍历数组，将每个参数存储到对象中
+  const paramsObj = {} as IObj
+  for (let i = 0; i < paramsArray.length; i++) {
+    let [key, value] = paramsArray[i].split('=')
+    let k = decodeURIComponent(key)
+    k && (paramsObj[k] = decodeURIComponent(value))
+  }
+
+  return paramsObj
+}
+export { withRouter, getQueryParams }

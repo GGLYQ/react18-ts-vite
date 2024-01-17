@@ -1,5 +1,5 @@
 import React from 'react'
-interface LayoutReducerIState {
+interface reducerIState {
   layoutReducer: { leftPanelWidth: number; rightPanelWidth: number; topPanelHeight: number; bottomPanelHeight: number }
 }
 interface PropType {
@@ -13,4 +13,4 @@ interface PropType {
   onActivedPanel?: (name: string) => void
   onDeletePanel?: (name: string) => void
 }
-export { LayoutReducerIState, PropType }
+export { reducerIState, PropType }

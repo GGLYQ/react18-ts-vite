@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import type { LayoutReducerIState, PropType } from '../type'
+import type { reducerIState, PropType } from '../type'
 import { setLeftPanelWidth } from '@/store/reducers/LayoutReducer'
 import { getPxToRem } from '@/utils/layout'
 import { watchProps } from '@/utils/hook'
@@ -131,7 +131,7 @@ class LeftPanel extends Component<PropType, StateType> {
  * 将仓库的state映射到props(获取state)
  * @param state
  */
-const mapStateToProps = (state: LayoutReducerIState) => {
+const mapStateToProps = (state: reducerIState) => {
   return {
     topPanelHeight: state.layoutReducer.topPanelHeight,
     bottomPanelHeight: state.layoutReducer.bottomPanelHeight,

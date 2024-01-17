@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect } from 'react'
 // import { loadModules } from 'esri-loader'
 import './index.scss'
 

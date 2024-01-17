@@ -1,4 +1,4 @@
-import type { IFn, IObj } from "./base"
+import type { IFn, IObj } from "./type"
 type ArrayParamType = [string, IFn, ...any]
 
 // 监听props
