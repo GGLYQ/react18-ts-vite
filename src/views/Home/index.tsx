@@ -1,7 +1,7 @@
 // import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import Map from '@/components/Map'
-import Aside from '@/components/Aside'
+import Main from '@/layout/Main'
+import Aside from '@/layout/Aside'
 import React from 'react'
 import './index.scss'
 function Home(): React.ReactNode {
@@ -9,7 +9,7 @@ function Home(): React.ReactNode {
     <div className='App-homePage'>
       <Aside />
       <div className='App-content'>
-        <Map></Map>
+        <Main></Main>
         <Outlet></Outlet>
       </div>
     </div>

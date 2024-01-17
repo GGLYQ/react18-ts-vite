@@ -10,7 +10,7 @@ const withRouter = <P extends object>(WrappedComponent: React.ComponentType<P>) 
   // 返回一个新的函数组件，这个组件可以包装原始组件
   const WithRouterCom: FC<P & WithRouterProps> = (props) => {
     // 在渲染时添加日志信息
-    console.log(`Rendering component: ${WrappedComponent.displayName || WrappedComponent.name}`);
+    // console.log(`Rendering component: ${WrappedComponent.displayName || WrappedComponent.name}`);
     // 在函数组件中通过hook拿到navigate对象
     const navigate = useNavigate()
     // 获取navigate中state传的参数
