@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { watchProps } from '@/utils/hook'
 
 interface propType {
-  slot?: () => React.ReactNode
-  label: string
-  name: string
-  className?: string
+  slot?: () => React.ReactNode //插槽内容
+  label: string //标签内容
+  name: string //容器标识
+  className?: string //扩展css类class属性值
+  cancelClose?:boolean //是否有关闭功能
 }
 interface StateType {
 }

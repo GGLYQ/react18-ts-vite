@@ -78,9 +78,11 @@ let RightPanel = (props: PropType) => {
           {rightTabsProps.map((tab: any) => (
             <div className={`right-tab-item ${getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`} onClick={() => clickTabActived(tab.name)}>
               <div className='tab-item-title'>{tab.label}</div>
-              <div className='tab-item-icon' onClick={() => clickTabDelete(tab.name)}>
-                <Icon iconName='icon-guanbi'></Icon>
-              </div>
+              {!tab.cancelClose && (
+                <div className='tab-item-icon' onClick={() => clickTabDelete(tab.name)}>
+                  <Icon iconName='icon-guanbi'></Icon>
+                </div>
+              )}
             </div>
           ))}
         </div>

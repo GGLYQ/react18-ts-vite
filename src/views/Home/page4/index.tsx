@@ -1,7 +1,6 @@
 // import { useState } from 'react'
 import React from 'react'
 import FramePage from '@/layout/FramePage'
-import Query from '../components/Query'
 import LeftPanelItem from '@/layout/Panel/LeftPanel/LeftPanelItem'
 import './index.scss'
 

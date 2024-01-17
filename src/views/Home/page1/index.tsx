@@ -24,7 +24,7 @@ function page1(): React.ReactNode {
     return (
       <>
         <LeftPanelItem slot={LeftPageContent} label='插槽1' name='page1LeftSlot1'></LeftPanelItem>
-        <LeftPanelItem slot={Query} label='插槽2' name='page1LeftSlot2'></LeftPanelItem>
+        <LeftPanelItem slot={Query} label='插槽2' name='page1LeftSlot2' cancelClose></LeftPanelItem>
       </>
     )
   }

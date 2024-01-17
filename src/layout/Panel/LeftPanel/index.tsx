@@ -107,9 +107,11 @@ class LeftPanel extends Component<PropType, StateType> {
             {leftTabsProps.map((tab: any) => (
               <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')} flex-cloumn-center`} key={`tabItem-${tab.name}`} onClick={() => this.clickTabActived(tab.name)}>
                 <div className='tab-item-title'>{tab.label}</div>
-                <div className='tab-item-icon' onClick={() => this.clickTabDelete(tab.name)}>
-                  <Icon iconName='icon-guanbi'></Icon>
-                </div>
+                {!tab.cancelClose && (
+                  <div className='tab-item-icon' onClick={() => this.clickTabDelete(tab.name)}>
+                    <Icon iconName='icon-guanbi'></Icon>
+                  </div>
+                )}
               </div>
             ))}
           </div>
