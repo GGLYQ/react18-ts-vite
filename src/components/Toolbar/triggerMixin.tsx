@@ -18,8 +18,7 @@ function useTriggerMixin() {
   function clearHandler() {}
   // 全屏
   function fullScreenHandler() {
-    // 设置全屏
-    console.log('设置全屏')
+    // 是否设置全屏
     dispatch(setIsFullScreen(!(isHideHeader && isHideAside)))
   }
   return {
