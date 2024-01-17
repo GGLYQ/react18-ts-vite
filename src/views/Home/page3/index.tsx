@@ -1,10 +1,12 @@
 // import { useState } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
+import Query from '../components/Query'
 import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
 import './index.scss'
 
 function Page3(): React.ReactNode {
+  let [activeRightPanelName, setActiveRightPanelName] = useState('page3RightSlot1')
   // 右侧面板主标签内容
   let RightPageContent = () => {
     return <div className='page3-right-content'>Rightpage3Content</div>
@@ -18,7 +20,8 @@ function Page3(): React.ReactNode {
     return (
       <>
         <RightPanelItem slot={RightPageContent} label='插槽1' name='page3RightSlot1'></RightPanelItem>
-        {/* <RightPanelItem slot={Query}></RightPanelItem> */}
+        <RightPanelItem slot={Query} label='插槽2' name='page3RightSlot2' cancelClose></RightPanelItem>
+        <RightPanelItem slot={Query} label='插槽3' name='page3RightSlot3' cancelClose></RightPanelItem>
       </>
     )
   }
@@ -26,9 +29,18 @@ function Page3(): React.ReactNode {
   let BottomPanelItems = () => {
     return <div className='page3-bottom-item'>page3底部</div>
   }
+  let onRightPanelActived = (name: string) => {
+    // console.log('onRightPanelActived', name)
+    setActiveRightPanelName(name)
+  }
+  let onRightPanelDelete = (name: string) => {
+    console.log('onRightPanelDelete', name)
+  }
   return (
     <FramePage
-      activeRightPanelName='page3'
+      activeRightPanelName={activeRightPanelName}
+      onRightPanelActived={(name) => onRightPanelActived(name)}
+      onRightPanelDelete={(name) => onRightPanelDelete(name)}
       children={{
         TopPanelItems,
         RightPanelItems,

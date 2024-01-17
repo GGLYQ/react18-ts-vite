@@ -1,13 +1,14 @@
-// import { useState } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
 import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
 import './index.scss'
 
 function Page5(): React.ReactNode {
+  let [activeRightPanelName, setActiveRightPanelName] = useState('page5RightSlot1')
+
   // 左侧面板主标签内容
   let RightPageContent = () => {
-    return <div className='page4-Right-content'>Rightpage5Content</div>
+    return <div className='page5-right-content'>Rightpage5Content</div>
   }
 
   // 左侧面板
@@ -18,9 +19,18 @@ function Page5(): React.ReactNode {
       </>
     )
   }
+  let onRightPanelActived = (name: string) => {
+    // console.log('onRightPanelActived', name)
+    setActiveRightPanelName(name)
+  }
+  let onRightPanelDelete = (name: string) => {
+    console.log('onRightPanelDelete', name)
+  }
   return (
     <FramePage
-      activeRightPanelName='page5RightSlot1'
+      activeRightPanelName={activeRightPanelName}
+      onRightPanelActived={(name) => onRightPanelActived(name)}
+      onRightPanelDelete={(name) => onRightPanelDelete(name)}
       children={{
         RightPanelItems,
       }}

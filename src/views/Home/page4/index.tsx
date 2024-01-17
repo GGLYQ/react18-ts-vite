@@ -1,10 +1,10 @@
-// import { useState } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
 import LeftPanelItem from '@/layout/Panel/LeftPanel/LeftPanelItem'
 import './index.scss'
 
 function Page4(): React.ReactNode {
+  let [activeLeftPanelName, serActiveLeftPanelName] = useState('page4LeftSlot1')
   // 左侧面板主标签内容
   let LeftPageContent = () => {
     return <div className='page4-left-content'>Leftpage4Content</div>
@@ -26,9 +26,20 @@ function Page4(): React.ReactNode {
   let BottomPanelItems = () => {
     return <div className='page4-bottom-item'>page4底部</div>
   }
+  let onLeftPanelActived = (name: string) => {
+    // console.log('onLeftPanelActived', name)
+    serActiveLeftPanelName(name)
+  }
+  
+  let onLeftPanelDelete = (name: string) => {
+    console.log('onLeftPanelDelete', name)
+  }
+  
   return (
     <FramePage
-      activeRightPanelName='page4'
+      activeLeftPanelName={activeLeftPanelName}
+      onLeftPanelActived={(name) => onLeftPanelActived(name)}
+      onLeftPanelDelete={(name) => onLeftPanelDelete(name)}
       children={{
         TopPanelItems,
         LeftPanelItems,
