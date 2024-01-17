@@ -1,16 +1,16 @@
 // import { useState } from 'react'
 import React from 'react'
 import FramePage from '@/layout/FramePage'
-import Query from '../components/Query'
 import LeftPanelItem from '@/layout/Panel/LeftPanel/LeftPanelItem'
 import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
 import './index.scss'
-// 右侧面板主标签内容
-let RightPageContent = () => {
-  return <div className='page2-right-content'>Rightpage2Content</div>
-}
 
-function page2(): React.ReactNode {
+function Page2(): React.ReactNode {
+  // 右侧面板主标签内容
+  let RightPageContent = () => {
+    return <div className='page2-right-content'>Rightpage2Content</div>
+  }
+
   // 左侧面板主标签内容
   let LeftPageContent = () => {
     return <div className='page2-left-content'>Leftpage2Content</div>
@@ -49,4 +49,4 @@ function page2(): React.ReactNode {
   )
 }
 
-export default page2
+export default Page2

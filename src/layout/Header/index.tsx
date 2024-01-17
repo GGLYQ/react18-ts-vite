@@ -5,18 +5,41 @@ import type { IObj, IRouter } from '@/utils/base'
 import { withRouter } from '@/utils/withRouter'
 import Icon from '@/components/Icon'
 import SvgIcon from '@/components/SvgIcon'
+import { watchProps } from '@/utils/hook'
+
 interface PropType {
   router?: IRouter
 }
-class Header extends React.Component<PropType> {
-  componentDidMount() {}
-  componentDidUpdate() {}
+interface StateType {
+  currentPathName?: string | undefined | object
+}
+class Header extends React.Component<PropType, StateType> {
+  constructor(props: PropType) {
+    super(props)
+    this.state = {
+      currentPathName: '',
+    }
+  }
+  componentDidMount() {
+    this.watchRouter()
+  }
+  componentDidUpdate(...prev: [PropType]) {
+    watchProps(this, prev[0], ['router', this.watchRouter])
+  }
   componentWillUnmount() {}
   menuClick(item: IObj) {
     let { navigate } = this.props.router || {}
     navigate && navigate(item.router)
   }
-
+  watchRouter() {
+    let location = this.props.router?.location || {}
+    if (location && typeof location === 'object' && 'pathname' in location) {
+      let value = location?.pathname || ''
+      this.setState({
+        currentPathName: value,
+      })
+    }
+  }
   render() {
     return (
       <div className='App-header flex-center-between'>
@@ -25,8 +48,9 @@ class Header extends React.Component<PropType> {
           {/* 菜单栏 */}
           <div className='App-header-menu flex'>
             {menuList.map((menu) => {
+              let className = this.state.currentPathName === menu.router ? 'actived' : ''
               return (
-                <div className='App-header-menu-item flex-center' onClick={() => this.menuClick(menu)} key={menu.title}>
+                <div className={`App-header-menu-item flex-center ${className}`} onClick={() => this.menuClick(menu)} key={menu.title}>
                   <Icon iconName={menu.icon} />
                   <span className='menu-item-title'>{menu.title}</span>
                 </div>

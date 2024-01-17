@@ -4,7 +4,7 @@ import FramePage from '@/layout/FramePage'
 import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
 import './index.scss'
 
-function page3(): React.ReactNode {
+function Page3(): React.ReactNode {
   // 右侧面板主标签内容
   let RightPageContent = () => {
     return <div className='page3-right-content'>Rightpage3Content</div>
@@ -38,4 +38,4 @@ function page3(): React.ReactNode {
   )
 }
 
-export default page3
+export default Page3

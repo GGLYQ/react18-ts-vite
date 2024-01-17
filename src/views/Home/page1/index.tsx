@@ -1,12 +1,14 @@
 // import { useState } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
 import Query from '../components/Query'
 import LeftPanelItem from '@/layout/Panel/LeftPanel/LeftPanelItem'
 import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
 import './index.scss'
 
-function page1(): React.ReactNode {
+function Page1(): React.ReactNode {
+  let [activeRightPanelName, setActiveRightPanelName] = useState('page1RightSlot1')
+  let [activeLeftPanelName, serActiveLeftPanelName] = useState('page1LeftSlot1')
   // 右侧面板主标签内容
   let RightPageContent = () => {
     return <div className='page1-right-content'>RightPage1Content</div>
@@ -41,22 +43,24 @@ function page1(): React.ReactNode {
   let BottomPanelItems = () => {
     return <div className='page1-bottom-item'>page1底部</div>
   }
-  let onLeftPanelActived = (name:string) => {
-    console.log("onLeftPanelActived",name);
+  let onLeftPanelActived = (name: string) => {
+    // console.log('onLeftPanelActived', name)
+    serActiveLeftPanelName(name)
   }
-  let onRightPanelActived = (name:string) => {
-    console.log("onRightPanelActived",name);
+  let onRightPanelActived = (name: string) => {
+    // console.log('onRightPanelActived', name)
+    setActiveRightPanelName(name)
   }
-  let onLeftPanelDelete = (name:string) => {
-    console.log("onLeftPanelDelete",name);
+  let onLeftPanelDelete = (name: string) => {
+    console.log('onLeftPanelDelete', name)
   }
-  let onRightPanelDelete = (name:string) => {
-    console.log("onRightPanelDelete",name);
+  let onRightPanelDelete = (name: string) => {
+    console.log('onRightPanelDelete', name)
   }
   return (
     <FramePage
-      activeRightPanelName='page1RightSlot1'
-      activeLeftPanelName='page1LeftSlot1'
+      activeRightPanelName={activeRightPanelName}
+      activeLeftPanelName={activeLeftPanelName}
       onLeftPanelActived={(name) => onLeftPanelActived(name)}
       onRightPanelActived={(name) => onRightPanelActived(name)}
       onLeftPanelDelete={(name) => onLeftPanelDelete(name)}
@@ -71,4 +75,4 @@ function page1(): React.ReactNode {
   )
 }
 
-export default page1
+export default Page1

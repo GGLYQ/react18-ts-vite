@@ -4,7 +4,7 @@ import FramePage from '@/layout/FramePage'
 import LeftPanelItem from '@/layout/Panel/LeftPanel/LeftPanelItem'
 import './index.scss'
 
-function page4(): React.ReactNode {
+function Page4(): React.ReactNode {
   // 左侧面板主标签内容
   let LeftPageContent = () => {
     return <div className='page4-left-content'>Leftpage4Content</div>
@@ -38,4 +38,4 @@ function page4(): React.ReactNode {
   )
 }
 
-export default page4
+export default Page4

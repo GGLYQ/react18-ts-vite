@@ -16,7 +16,8 @@
       .App-header-menu-item {
         height: calc(100% - 40px);
         padding: 20px 30px;
-        &:hover {
+        &:hover,
+        &.actived {
           background: rgb(0, 0, 0, 0.15);
           color: rgb(247, 247, 247);
         }
