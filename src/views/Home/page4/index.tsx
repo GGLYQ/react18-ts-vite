@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
 import LeftPanelItem from '@/layout/Panel/LeftPanel/LeftPanelItem'
+import Toolbar from '@/components/Toolbar'
 import './index.scss'
 
 function Page4(): React.ReactNode {
@@ -11,7 +12,7 @@ function Page4(): React.ReactNode {
   }
   // 顶部面板
   let TopPanelItems = () => {
-    return <div className='page4-top-item'>page4顶部</div>
+    return <div className='page4-top-item'><Toolbar/></div>
   }
   // 左侧面板
   let LeftPanelItems = () => {

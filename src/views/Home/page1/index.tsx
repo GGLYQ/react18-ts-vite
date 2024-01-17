@@ -4,6 +4,7 @@ import FramePage from '@/layout/FramePage'
 import Query from '../components/Query'
 import LeftPanelItem from '@/layout/Panel/LeftPanel/LeftPanelItem'
 import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
+import Toolbar from '@/components/Toolbar'
 import './index.scss'
 
 function Page1(): React.ReactNode {
@@ -19,7 +20,7 @@ function Page1(): React.ReactNode {
   }
   // 顶部面板
   let TopPanelItems = () => {
-    return <div className='page1-top-item'>page1顶部</div>
+    return <div className='page1-top-item'><Toolbar/></div>
   }
   // 左侧面板
   let LeftPanelItems = () => {

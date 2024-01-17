@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
 import Query from '../components/Query'
 import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
+import Toolbar from '@/components/Toolbar'
 import './index.scss'
 
 function Page3(): React.ReactNode {
@@ -13,7 +14,7 @@ function Page3(): React.ReactNode {
   }
   // 顶部面板
   let TopPanelItems = () => {
-    return <div className='page3-top-item'>page3顶部</div>
+    return <div className='page3-top-item'><Toolbar/></div>
   }
   // 右侧面板
   let RightPanelItems = () => {
