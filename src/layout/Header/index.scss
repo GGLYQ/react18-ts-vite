@@ -4,11 +4,11 @@
   box-sizing: border-box;
   .App-header-title {
     font-size: 24px;
-    color: rgb(255, 255, 255);
+    color: var(--app-header-color);
   }
   .App-header-content {
     height: 100%;
-    color: rgb(255, 255, 255);
+    color: var(--app-header-color);
     .App-header-menu {
       height: 100%;
       padding-right: 60px;
@@ -19,7 +19,7 @@
         &:hover,
         &.actived {
           background: rgb(0, 0, 0, 0.15);
-          color: rgb(247, 247, 247);
+          color: var(--app-header-hover-color);
         }
         .menu-item-title {
           padding-left: 8px;
@@ -29,7 +29,7 @@
   }
   .App-header-useinfo {
     padding: 20px 0;
-    color: rgb(255, 255, 255);
+    color: var(--app-header-color);
     .useinfo-name {
       padding: 0 10px;
     }

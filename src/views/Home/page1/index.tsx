@@ -20,7 +20,7 @@ function Page1(): React.ReactNode {
   }
   // 顶部面板
   let TopPanelItems = () => {
-    return <div className='page1-top-item'><Toolbar/></div>
+    return <Toolbar/>
   }
   // 左侧面板
   let LeftPanelItems = () => {

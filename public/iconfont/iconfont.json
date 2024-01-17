@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "577352",
+      "name": "清除",
+      "font_class": "qingchu",
+      "unicode": "e747",
+      "unicode_decimal": 59207
+    },
+    {
+      "icon_id": "2076217",
+      "name": "缩小",
+      "font_class": "suoxiao",
+      "unicode": "e87b",
+      "unicode_decimal": 59515
+    },
+    {
+      "icon_id": "3987489",
+      "name": "全屏",
+      "font_class": "quanping",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "4777232",
+      "name": "全屏",
+      "font_class": "quanping1",
+      "unicode": "ec13",
+      "unicode_decimal": 60435
+    },
+    {
+      "icon_id": "37506026",
+      "name": "删除1-L",
+      "font_class": "shanchu1-L",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
       "icon_id": "907937",
       "name": "办理条件",
       "font_class": "banlitiaojian",

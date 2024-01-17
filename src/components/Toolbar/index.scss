@@ -1,4 +1,29 @@
-.toolbar-container{
+.toolbar-container {
   width: 100%;
   height: 50px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+  color: var(--app-toolbar-color);
+  .toolbar-location {
+    span {
+      margin-right: 20px;
+    }
+    margin-right: 20px;
+  }
+  .toolbar-content {
+    flex: 1;
+    cursor: pointer;
+    .toolbar-item {
+      &:not(:last-of-type) {
+        margin-right: 30px;
+      }
+      span {
+        padding-left: 6px;
+      }
+    }
+  }
+  .ant-divider {
+    border-color: var(--app-toolbar-color) !important;
+  }
 }

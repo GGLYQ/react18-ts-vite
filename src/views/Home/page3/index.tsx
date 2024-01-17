@@ -14,7 +14,7 @@ function Page3(): React.ReactNode {
   }
   // 顶部面板
   let TopPanelItems = () => {
-    return <div className='page3-top-item'><Toolbar/></div>
+    return <Toolbar/>
   }
   // 右侧面板
   let RightPanelItems = () => {
