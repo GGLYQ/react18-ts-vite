@@ -4,7 +4,7 @@ import { existAttribute } from '@/utils/base';
 import { setIsFullScreen, setIsHideHeader, setIsHideAside } from '@/store/reducers/GobalReducer'
 import { useDispatch } from 'react-redux'
 
-function AppMixin() {
+function useAppMixin() {
   let dispatch = useDispatch()
   let location = useLocation()
 
@@ -26,4 +26,4 @@ function AppMixin() {
   }
 }
 
-export default AppMixin
+export default useAppMixin

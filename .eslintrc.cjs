@@ -15,7 +15,7 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "@typescript-eslint/no-explicit-any": ["off"],
-    'prefer-const':0
+    'prefer-const':0,
   },
   env: {
     node: true

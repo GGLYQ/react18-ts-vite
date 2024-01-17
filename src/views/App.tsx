@@ -5,14 +5,14 @@ import Header from '@/layout/Header'
 // import Footer from '@/layout/Footer'
 import themeConfig from '@/config/theme'
 import './App.scss'
-import AppMixin from './mixins/AppMixin'
+import useAppMixin from './mixins/AppMixin'
 import { useSelector } from 'react-redux'
 import type { reducerIState } from '@/store/type'
 
 function App(): React.ReactNode {
   let [className, setClassName] = useState('')
   let { isHideHeader } = useSelector((state: reducerIState) => state.gobalReducer)
-  let { handleUrlParams } = AppMixin()
+  let { handleUrlParams } = useAppMixin()
   handleUrlParams()
   useEffect(() => {
     setClassName(isHideHeader ? 'fullScreen' : '')

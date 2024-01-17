@@ -7,7 +7,7 @@ let menuList = [
   }, {
     title: "服务页面2",
     router: "/home/page2",
-    icon: "icon-shujushujudian"
+    icon: "icon-tiaojiantiqushuju"
   },
   {
     title: "服务页面3",

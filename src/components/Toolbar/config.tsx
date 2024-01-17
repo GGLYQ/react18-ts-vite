@@ -8,7 +8,7 @@ let toolbar = {
   ],
   rightList: [
     { id: 'clear', label: '清除', icon: 'icon-qingchu' },
-    { id: 'fullScreen', label: '全屏', icon: 'icon-quanping1' },
+    // { id: 'fullScreen', label: '全屏', icon: 'icon-quanping1', antonymLabel: '退出全屏' },
   ],
 }
 export { toolbar }

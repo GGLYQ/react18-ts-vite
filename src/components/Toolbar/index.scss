@@ -18,6 +18,10 @@
       &:not(:last-of-type) {
         margin-right: 30px;
       }
+      &:hover,
+      &.actived {
+        color: var(--app-toolbar-hover-scolor);
+      }
       span {
         padding-left: 6px;
       }
