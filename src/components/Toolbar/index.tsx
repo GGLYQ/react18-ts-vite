@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 
 // interface PropType {}
 function Toolbar(): React.ReactNode {
-  let { isHideHeader, isHideAside, activedToolbarId } = useSelector((state: reducerIState) => state.gobalReducer)
+  let { isHideHeader, isHideAside, activedToolbar } = useSelector((state: reducerIState) => state.gobalReducer)
 
   let triggerMap = triggerMixin() as IObj
   const handleClick = (item: IObj) => {
@@ -26,7 +26,7 @@ function Toolbar(): React.ReactNode {
       <div className='toolbar-content flex-justify-between align-centerr'>
         <div className='toolbar-left-content flex-align-center'>
           {toolbarList.leftList.map((item) => {
-            let className = item.id === activedToolbarId ? 'actived' : ''
+            let className = item.id === activedToolbar.id ? 'actived' : ''
             return (
               <div className={`toolbar-item  toolbar-right-item flex-align-center ${className}`} key={item.id} onClick={() => handleClick(item)}>
                 <Icon iconName={item.icon}></Icon>
@@ -37,7 +37,7 @@ function Toolbar(): React.ReactNode {
         </div>
         <div className='toolbar-right-content flex-align-center '>
           {toolbarList.rightList.map((item) => {
-            let className = item.id === activedToolbarId ? 'actived' : ''
+            let className = item.id === activedToolbar.id ? 'actived' : ''
             return (
               <div className={`toolbar-item  toolbar-right-item flex-align-center ${className}`} key={item.id} onClick={() => handleClick(item)}>
                 <Icon iconName={item.icon}></Icon>

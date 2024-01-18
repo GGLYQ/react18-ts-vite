@@ -10,7 +10,8 @@ export let layoutSlice = createSlice({
     leftPanelWidth: 0,
     rightPanelWidth: 0,
     topPanelHeight: 0,
-    bottomPanelHeight: 0
+    bottomPanelHeight: 0,
+    asidePanelWidth:0,
   },
   // 定义的action。由于内置了immutable插件，可以直接使用赋值的方式进行数据的改变
   reducers: {
@@ -35,9 +36,12 @@ export let layoutSlice = createSlice({
       // console.log('setBottomPanelHeight:', JSON.parse(JSON.stringify(state)), state, action)
       state.bottomPanelHeight = action.payload
     },
+    setAsidePanelWidth: (state, action) => {
+      state.asidePanelWidth = action.payload
+    },
   },
 })
 
-export let { setLeftPanelWidth, setRightPanelWidth, setTopPanelHeight, setBottomPanelHeight } = layoutSlice.actions
+export let { setLeftPanelWidth, setRightPanelWidth, setTopPanelHeight, setBottomPanelHeight,setAsidePanelWidth } = layoutSlice.actions
 
 export default layoutSlice.reducer

@@ -1,17 +1,8 @@
-import React, { Suspense,lazy } from 'react'
-import { createBrowserRouter,Navigate } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 import App from '@/views/App.tsx'
 import Home from '@/views/Home'
+import { load } from '@/utils/withRouter'
 
-//路由懒加载
-function load(componentPath: string): React.ReactNode {
-  let Lazy= lazy(() => import(/* @vite-ignore */componentPath))
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Lazy />
-    </Suspense>
-  )
-}
 let router = createBrowserRouter([
   {
     id: 'root',
@@ -53,8 +44,8 @@ let router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Navigate to="/home"/>
-  }
+    element: <Navigate to='/home' />,
+  },
 ])
 
 export default router

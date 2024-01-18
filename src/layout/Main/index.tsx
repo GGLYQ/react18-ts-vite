@@ -8,17 +8,17 @@ interface propType {
 }
 function Main(props: propType): React.ReactNode {
   // console.log(props)
-  let { leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight } = useSelector((state: reducerIState) => state.layoutReducer)
+  let { leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight, asidePanelWidth } = useSelector((state: reducerIState) => state.layoutReducer)
   let [style, setStyle] = useState({})
   // 监听布局宽高逻辑
   const watchLayoutFn = useCallback(() => {
     setStyle({
-      left: leftPanelWidth + 'rem',
+      left: leftPanelWidth + asidePanelWidth + 'rem',
       right: rightPanelWidth + 'rem',
       top: topPanelHeight + 'rem',
       bottom: bottomPanelHeight + 'rem',
     })
-  }, [leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight])
+  }, [leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight, asidePanelWidth])
   useEffect(() => {
     watchLayoutFn()
   }, [watchLayoutFn])
@@ -29,5 +29,5 @@ function Main(props: propType): React.ReactNode {
     </div>
   )
 }
-let MemoComponent=memo(Main)
+let MemoComponent = memo(Main)
 export default MemoComponent

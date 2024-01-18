@@ -1,5 +1,5 @@
 import { useNavigate, useLocation, useParams, useSearchParams } from 'react-router-dom'
-import React, { FC } from 'react'
+import React, { FC, lazy, Suspense } from 'react'
 import { IObj } from './type'
 // 高阶函数接收一个泛型参数 P，表示原始组件的 props 类型
 interface WithRouterProps {
@@ -42,4 +42,14 @@ const getQueryParams = (url: string) => {
 
   return paramsObj
 }
-export { withRouter, getQueryParams }
+
+//路由懒加载
+function load(componentPath: string): React.ReactNode {
+  let Lazy = lazy(() => import(/* @vite-ignore */ componentPath))
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Lazy />
+    </Suspense>
+  )
+}
+export { withRouter, getQueryParams, load }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import type { reducerIState, PropType } from '../type'
+import type { PropType } from '../type'
+import type { reducerIState } from '@/store/type'
 import { setLeftPanelWidth } from '@/store/reducers/LayoutReducer'
 import { getPxToRem } from '@/utils/layout'
 import { watchProps } from '@/utils/hook'
@@ -30,19 +31,20 @@ class LeftPanel extends Component<PropType, StateType> {
     this.handleLeftWidth()
   }
   componentDidUpdate(...prev: [PropType, StateType]) {
-    watchProps(this, prev[0], ['topPanelHeight', this.updateLeftAndRightWidth], ['bottomPanelHeight', this.updateLeftAndRightWidth])
+    watchProps(this, prev[0], ['topPanelHeight', this.updateLeftAndRightWidth], ['bottomPanelHeight', this.updateLeftAndRightWidth], ['asidePanelWidth', this.updateLeftAndRightWidth])
     // console.log('componentDidUpdate LeftPanel')
   }
   componentWillUnmount() {}
   // 设置左右侧的宽度
   updateLeftAndRightWidth() {
-    let { topPanelHeight, bottomPanelHeight } = this.props
+    let { topPanelHeight, bottomPanelHeight, asidePanelWidth } = this.props
     this.setState({
       ...this.state,
       style: {
         width: this.state.leftWidth + 'rem',
         top: topPanelHeight + 'rem',
         bottom: bottomPanelHeight + 'rem',
+        left: asidePanelWidth + 'rem',
       },
     })
   }
@@ -135,6 +137,7 @@ const mapStateToProps = (state: reducerIState) => {
   return {
     topPanelHeight: state.layoutReducer.topPanelHeight,
     bottomPanelHeight: state.layoutReducer.bottomPanelHeight,
+    asidePanelWidth: state.layoutReducer.asidePanelWidth,
   }
 }
 
@@ -149,5 +152,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
   }
 }
-let NavigateComponent=connect(mapStateToProps, mapDispatchToProps)(LeftPanel)
-export default  NavigateComponent
+let NavigateComponent = connect(mapStateToProps, mapDispatchToProps)(LeftPanel)
+export default NavigateComponent

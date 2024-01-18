@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import type { reducerIState, PropType } from '../type'
+import type { PropType } from '../type'
+import type { reducerIState } from '@/store/type' 
 import { setTopPanelHeight } from '@/store/reducers/LayoutReducer'
 import { getPxToRem } from '@/utils/layout'
 import './index.scss'
@@ -65,4 +66,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(TopPanel)
+let NavigateComponent=connect(mapStateToProps, mapDispatchToProps)(TopPanel)
+
+export default NavigateComponent

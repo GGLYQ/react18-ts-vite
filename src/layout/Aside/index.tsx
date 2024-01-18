@@ -5,20 +5,21 @@ import { connect } from 'react-redux'
 import { reducerIState } from '@/store/type'
 import Icon from '@/components/Icon'
 import { navlist } from '@/data/aside'
-import { setActivedAsideId } from '@/store/reducers/GobalReducer'
+import { setActivedAside } from '@/store/reducers/GobalReducer'
+import { IObj } from '@/utils/type'
 interface PropType {
   isHideAside?: boolean
   activedAsideId?: string
-  setActivedAside?: (id: string) => void
+  setActivedAside?: (item: IObj) => void
 }
 class Aside extends PureComponent<PropType> {
   // let {user} = this.props;
   componentDidMount() {}
   componentDidUpdate() {}
   componentWillUnmount() {}
-  handleClick(id: string) {
+  handleClick(item: IObj) {
     let activedAsideId = this.props.activedAsideId
-    let val = activedAsideId === id ? '' : id
+    let val = item.id === activedAsideId ? {} : item
     this.props.setActivedAside && this.props.setActivedAside(val)
   }
   render() {
@@ -28,7 +29,7 @@ class Aside extends PureComponent<PropType> {
           {navlist.map((item) => {
             let className = item.id === this.props.activedAsideId ? 'actived' : ''
             return (
-              <div className={`App-aside-item flex-cloumn align-center ${className}`} key={item.id} onClick={() => this.handleClick(item.id)}>
+              <div className={`App-aside-item flex-cloumn align-center ${className}`} key={item.id} onClick={() => this.handleClick(item)}>
                 <Icon iconName={item.icon} />
                 <div className='aside-item-title'>{item.title}</div>
               </div>
@@ -46,7 +47,7 @@ class Aside extends PureComponent<PropType> {
 const mapStateToProps = (state: reducerIState) => {
   return {
     isHideAside: state.gobalReducer.isHideAside,
-    activedAsideId: state.gobalReducer.activedAsideId,
+    activedAsideId: state.gobalReducer.activedAside.id,
   }
 }
 /**
@@ -55,8 +56,8 @@ const mapStateToProps = (state: reducerIState) => {
  */
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setActivedAside(value: string) {
-      dispatch(setActivedAsideId(value))
+    setActivedAside(value: IObj) {
+      dispatch(setActivedAside(value))
     },
   }
 }
