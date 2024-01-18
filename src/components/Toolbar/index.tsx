@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import './index.scss'
-import { toolbar } from './config'
+import { toolbarList } from '@/data/toolbar'
 import Icon from '../Icon'
 import { Divider } from 'antd'
 import triggerMixin from './triggerMixin'
@@ -10,12 +10,12 @@ import { useSelector } from 'react-redux'
 
 // interface PropType {}
 function Toolbar(): React.ReactNode {
-  let { isHideHeader, isHideAside } = useSelector((state: reducerIState) => state.gobalReducer)
+  let { isHideHeader, isHideAside, activedToolbarId } = useSelector((state: reducerIState) => state.gobalReducer)
 
   let triggerMap = triggerMixin() as IObj
   const handleClick = (item: IObj) => {
     let attr = `${item.id}Handler`
-    triggerMap[attr] && triggerMap[attr]()
+    triggerMap[attr] && triggerMap[attr](item)
   }
   return (
     <div className='toolbar-container flex-align-center'>
@@ -25,9 +25,10 @@ function Toolbar(): React.ReactNode {
       </div>
       <div className='toolbar-content flex-justify-between align-centerr'>
         <div className='toolbar-left-content flex-align-center'>
-          {toolbar.leftList.map((item) => {
+          {toolbarList.leftList.map((item) => {
+            let className = item.id === activedToolbarId ? 'actived' : ''
             return (
-              <div className='toolbar-item toolbar-left-item flex-align-center' key={item.id} onClick={() => handleClick(item)}>
+              <div className={`toolbar-item  toolbar-right-item flex-align-center ${className}`} key={item.id} onClick={() => handleClick(item)}>
                 <Icon iconName={item.icon}></Icon>
                 <span>{item.label}</span>
               </div>
@@ -35,9 +36,10 @@ function Toolbar(): React.ReactNode {
           })}
         </div>
         <div className='toolbar-right-content flex-align-center '>
-          {toolbar.rightList.map((item) => {
+          {toolbarList.rightList.map((item) => {
+            let className = item.id === activedToolbarId ? 'actived' : ''
             return (
-              <div className='toolbar-item  toolbar-right-item flex-align-center' key={item.id} onClick={() => handleClick(item)}>
+              <div className={`toolbar-item  toolbar-right-item flex-align-center ${className}`} key={item.id} onClick={() => handleClick(item)}>
                 <Icon iconName={item.icon}></Icon>
                 <span>{item.label}</span>
               </div>

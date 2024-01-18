@@ -3,11 +3,11 @@
   height: 100%;
   background-color: var(--app-aside-background-color);
   color: var(--app-aside-color);
-  padding: 20px;
+  padding: 50px 20px;
   box-sizing: border-box;
   text-align: center;
   .App-aside-item {
-    margin-bottom: 24px;
+    margin-bottom: 26px;
     cursor: pointer;
     &:hover,
     &.actived {
@@ -17,7 +17,7 @@
       font-size: 28px;
     }
     .aside-item-title {
-      margin-top: 2px;
+      margin-top: 4px;
     }
   }
 }

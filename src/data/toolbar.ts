@@ -1,4 +1,4 @@
-let toolbar = {
+let toolbarList = {
   leftList: [
     { id: 'position', label: '全图', icon: 'icon-ditu1' },
     { id: 'plotting', label: '标绘', icon: 'icon-gis_biaohui' },
@@ -12,4 +12,4 @@ let toolbar = {
     // { id: 'fullScreen', label: '全屏', icon: 'icon-quanping1', antonymLabel: '退出全屏' },
   ],
 }
-export { toolbar }
+export { toolbarList }

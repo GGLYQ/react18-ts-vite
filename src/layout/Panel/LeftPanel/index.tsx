@@ -149,4 +149,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(LeftPanel)
+let NavigateComponent=connect(mapStateToProps, mapDispatchToProps)(LeftPanel)
+export default  NavigateComponent
