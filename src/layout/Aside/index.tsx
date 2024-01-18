@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import './index.scss'
 import { connect } from 'react-redux'
 import { reducerIState } from '@/store/type'
@@ -6,7 +6,7 @@ import { reducerIState } from '@/store/type'
 interface PropType {
   isHideAside?: boolean
 }
-class Aside extends Component<PropType> {
+class Aside extends PureComponent<PropType> {
   // let {user} = this.props;
   componentDidMount() {}
   componentDidUpdate() {

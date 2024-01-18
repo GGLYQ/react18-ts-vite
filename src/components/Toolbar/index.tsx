@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import './index.scss'
 import { toolbar } from './config'
 import Icon from '../Icon'
@@ -52,4 +52,8 @@ function Toolbar(): React.ReactNode {
     </div>
   )
 }
-export default Toolbar
+function arePropsEqual(prevProps: any, nextProps: any) {
+  return prevProps === nextProps
+}
+let MemoComponent = memo(Toolbar, arePropsEqual)
+export default MemoComponent

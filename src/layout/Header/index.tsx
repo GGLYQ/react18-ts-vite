@@ -16,7 +16,7 @@ interface PropType {
 interface StateType {
   currentPathName?: string | undefined | object
 }
-class Header extends React.Component<PropType, StateType> {
+class Header extends React.PureComponent<PropType, StateType> {
   constructor(props: PropType) {
     super(props)
     this.state = {
