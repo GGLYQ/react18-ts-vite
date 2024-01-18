@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4410858 */
-  src: url('iconfont.woff2?t=1705481008833') format('woff2'),
-       url('iconfont.woff?t=1705481008833') format('woff'),
-       url('iconfont.ttf?t=1705481008833') format('truetype');
+  src: url('iconfont.woff2?t=1705544643929') format('woff2'),
+       url('iconfont.woff?t=1705544643929') format('woff'),
+       url('iconfont.ttf?t=1705544643929') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,234 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shenhe:before {
+  content: "\e69e";
+}
+
+.icon-shenhe1:before {
+  content: "\e64f";
+}
+
+.icon-shebeileibanqiugis:before {
+  content: "\e9f6";
+}
+
+.icon-diqufenxi:before {
+  content: "\e61c";
+}
+
+.icon-buzhou:before {
+  content: "\e619";
+}
+
+.icon-logistic:before {
+  content: "\e811";
+}
+
+.icon-buzhoutiao:before {
+  content: "\e690";
+}
+
+.icon-fenxi:before {
+  content: "\e668";
+}
+
+.icon-buzhou1:before {
+  content: "\e674";
+}
+
+.icon-wj-wssc:before {
+  content: "\e751";
+}
+
+.icon-zhutifenxi:before {
+  content: "\e6d0";
+}
+
+.icon-fenbufenxi:before {
+  content: "\e93c";
+}
+
+.icon-tijiaochuangyi-buzhouer:before {
+  content: "\e618";
+}
+
+.icon-icon-GIS_fangda:before {
+  content: "\e608";
+}
+
+.icon-icon-GIS_suoxiao:before {
+  content: "\e60a";
+}
+
+.icon-icon-GIS_shouqi:before {
+  content: "\e60c";
+}
+
+.icon-GIS-tulitucengicon_yalifa:before {
+  content: "\e61a";
+}
+
+.icon-GIS-tulitucengicon_zhafa:before {
+  content: "\e61f";
+}
+
+.icon-GIS-tulitucengicon_celiudian:before {
+  content: "\e622";
+}
+
+.icon-GIS-tulitucengicon_dayonghu:before {
+  content: "\e623";
+}
+
+.icon-GIS-tulitucengicon_celiujing:before {
+  content: "\e624";
+}
+
+.icon-GIS-tulitucengicon_chudidian:before {
+  content: "\e626";
+}
+
+.icon-GIS-tulitucengicon_jingshi:before {
+  content: "\e627";
+}
+
+.icon-GIS-tulitucengicon_kaohebiao:before {
+  content: "\e628";
+}
+
+.icon-GIS-tulitucengicon_lvhuabiao:before {
+  content: "\e629";
+}
+
+.icon-GIS-tulitucengicon_painijing:before {
+  content: "\e62a";
+}
+
+.icon-GIS-tulitucengicon_paiqifa:before {
+  content: "\e62b";
+}
+
+.icon-GIS-tulitucengicon_paiwujing:before {
+  content: "\e62c";
+}
+
+.icon-GIS-tulitucengicon_qita:before {
+  content: "\e62f";
+}
+
+.icon-GIS-tulitucengicon_weixiudian-:before {
+  content: "\e631";
+}
+
+.icon-gistuceng:before {
+  content: "\e7b5";
+}
+
+.icon-tuli:before {
+  content: "\e64a";
+}
+
+.icon-shenhe2:before {
+  content: "\e633";
+}
+
+.icon-gis-jz-jienengjianzhu:before {
+  content: "\e634";
+}
+
+.icon-circulation:before {
+  content: "\e858";
+}
+
+.icon-juanzongshencha:before {
+  content: "\e693";
+}
+
+.icon-gis-cluster:before {
+  content: "\e67e";
+}
+
+.icon-gis_dixing:before {
+  content: "\e6ee";
+}
+
+.icon-gis_biaohui:before {
+  content: "\e6ef";
+}
+
+.icon-gis_zengjiakejigan:before {
+  content: "\e706";
+}
+
+.icon-05gongyegongcheng_lingjianfenxi:before {
+  content: "\e665";
+}
+
+.icon-a-jishushenchahuiyi-16px3:before {
+  content: "\e635";
+}
+
+.icon-fenxi_analyze:before {
+  content: "\e637";
+}
+
+.icon-shujufenxi-baobeifenxi:before {
+  content: "\e69f";
+}
+
+.icon-dagang-buzhoutiao_buzhoutiao:before {
+  content: "\e638";
+}
+
+.icon-toushifenxi:before {
+  content: "\e765";
+}
+
+.icon-fenxicelve_fenxigeshixianzhi:before {
+  content: "\e639";
+}
+
+.icon-logistics-data:before {
+  content: "\e82c";
+}
+
+.icon-shencha:before {
+  content: "\e9ee";
+}
+
+.icon-buzhou2:before {
+  content: "\e63b";
+}
+
+.icon-logistics-map:before {
+  content: "\e63c";
+}
+
+.icon-buzhou-01:before {
+  content: "\ec19";
+}
+
+.icon-shoucang:before {
+  content: "\e7ce";
+}
+
+.icon-weibiaoti2fuzhi03:before {
+  content: "\e621";
+}
+
+.icon-shoucang1:before {
+  content: "\e630";
+}
+
+.icon-shoucang2:before {
+  content: "\e632";
+}
+
+.icon-shezhi:before {
+  content: "\e683";
 }
 
 .icon-qingchu:before {

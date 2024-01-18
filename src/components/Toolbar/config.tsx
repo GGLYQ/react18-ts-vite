@@ -1,6 +1,7 @@
 let toolbar = {
   leftList: [
     { id: 'position', label: '全图', icon: 'icon-ditu1' },
+    { id: 'plotting', label: '标绘', icon: 'icon-gis_biaohui' },
     { id: 'ranging', label: '测距', icon: 'icon-shujushujudian' },
     { id: 'surfaceMeasurement', label: '测面', icon: 'icon-bianjietiaojian' },
     { id: 'attributeQuery', label: '属性', icon: 'icon-dietu' },

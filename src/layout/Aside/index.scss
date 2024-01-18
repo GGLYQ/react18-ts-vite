@@ -1,5 +1,23 @@
-.App-aside{
+.App-aside {
   width: 80px;
   height: 100%;
   background-color: var(--app-aside-background-color);
+  color: var(--app-aside-color);
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  .App-aside-item {
+    margin-bottom: 24px;
+    cursor: pointer;
+    &:hover,
+    &.actived {
+      color: var(--app-aside-actived-color);
+    }
+    .iconfont {
+      font-size: 28px;
+    }
+    .aside-item-title {
+      margin-top: 2px;
+    }
+  }
 }

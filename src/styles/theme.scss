@@ -1,11 +1,19 @@
 :root {
   --app-primary-color: #fff;
+
   --app-header-color: rgb(255, 255, 255);
   --app-header-hover-color: rgb(247, 247, 247);
   --app-header-background-color: #75baff;
-  --app-aside-background-color: #e1f0ff;
+
+  --app-aside-background-color: #daecff;
+  --app-aside-color: #6c9dce;
+  --app-aside-actived-color: #5085ff;
+
   --app-map-background-color: #dddddd;
-  --app-top-panel-background-color: #aad4ff;
-  --app-toolbar-color: #f5f5f5;
-  --app-toolbar-hover-scolor: #42a1ff;
+
+  --app-top-panel-background-color: #cae4ff;
+
+  --app-toolbar-color: #6c9dce;
+  --app-toolbar-hover-color: #5085ff;
+  --app-toolbar-actived-color: #5085ff;
 }

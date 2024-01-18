@@ -4,16 +4,20 @@ import { reducerIState } from '@/store/type'
 
 function useTriggerMixin() {
   let dispatch = useDispatch()
-  let { isHideHeader,isHideAside } = useSelector((state: reducerIState) => state.gobalReducer)
+  let { isHideHeader, isHideAside } = useSelector((state: reducerIState) => state.gobalReducer)
 
   // 全图
   function positionHandler() {}
+  // 标绘
+  function plottingHandler() {}
   // 测面
   function rangingHandler() {}
-  // 属性
+  // 测面
   function surfaceMeasurementHandler() {}
-  // 数据叠加
+  // 属性
   function attributeQueryHandler() {}
+  // 数据叠加
+  function dataOverlayHandler() {}
   // 清除
   function clearHandler() {}
   // 全屏
@@ -23,9 +27,11 @@ function useTriggerMixin() {
   }
   return {
     positionHandler,
+    plottingHandler,
     rangingHandler,
     surfaceMeasurementHandler,
     attributeQueryHandler,
+    dataOverlayHandler,
     clearHandler,
     fullScreenHandler,
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, memo } from 'react'
 import { useSelector } from 'react-redux'
 import type { reducerIState } from '@/store/type'
 import './index.scss'
@@ -29,4 +29,5 @@ function Main(props: propType): React.ReactNode {
     </div>
   )
 }
-export default Main
+let MemoComponent=memo(Main)
+export default MemoComponent

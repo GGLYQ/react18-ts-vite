@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import './index.scss'
 import { connect } from 'react-redux'
 import { reducerIState } from '@/store/type'
-
+import Icon from '@/components/Icon'
 interface PropType {
   isHideAside?: boolean
 }
@@ -13,7 +13,16 @@ class Aside extends PureComponent<PropType> {
   }
   componentWillUnmount() {}
   render() {
-    return !this.props.isHideAside && <div className='App-aside'>Aside</div>
+    return !this.props.isHideAside && <div className='App-aside'>
+      <div className="App-aside-item flex-cloumn align-center">
+        <Icon iconName='icon-shoucang1'/>
+        <div className='aside-item-title'>我的收藏</div>
+      </div>
+      <div className="App-aside-item flex-cloumn align-center">
+        <Icon iconName='icon-database'/>
+        <div className='aside-item-title'>数据资源</div>
+      </div>
+    </div>
   }
 }
 /**
