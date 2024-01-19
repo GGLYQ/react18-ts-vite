@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
 import Query from '../components/Query'
-import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
+import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import Toolbar from '@/components/Toolbar'
 import './index.scss'
 

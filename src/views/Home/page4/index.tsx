@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
-import LeftPanelItem from '@/layout/Panel/LeftPanel/LeftPanelItem'
+import LeftPanelItem from '@/layout/LayoutPanel/LeftPanel/LeftPanelItem'
 import Toolbar from '@/components/Toolbar'
 import './index.scss'
 

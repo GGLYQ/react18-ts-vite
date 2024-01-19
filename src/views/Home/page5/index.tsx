@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
-import RightPanelItem from '@/layout/Panel/RightPanel/RightPanelItem'
+import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import './index.scss'
 
 function Page5(): React.ReactNode {

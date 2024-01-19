@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Panel from '@/layout/Panel/index'
+import Panel from '@/layout/LayoutPanel/index'
 import './index.scss'
 
 let { LeftPanel, RightPanel, TopPanel, BottomPanel } = Panel
