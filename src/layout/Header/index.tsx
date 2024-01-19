@@ -11,7 +11,7 @@ import { reducerIState } from '@/store/type'
 
 interface PropType {
   router?: IRouter
-  isHideHeader?:boolean
+  isHideHeader?: boolean
 }
 interface StateType {
   currentPathName?: string | undefined | object
@@ -30,10 +30,16 @@ class Header extends React.PureComponent<PropType, StateType> {
     watchProps(this, prev[0], ['router', this.watchRouter])
   }
   componentWillUnmount() {}
+  // 菜单栏点击事件
   menuClick(item: IObj) {
-    let { navigate } = this.props.router || {}
-    navigate && navigate(item.router)
+    if (this.state.currentPathName === item.router) {
+      this.gobackHome()
+    } else {
+      let { navigate } = this.props.router || {}
+      navigate && navigate(item.router)
+    }
   }
+  // 监听路由
   watchRouter() {
     let location = this.props.router?.location || {}
     if (location && typeof location === 'object' && 'pathname' in location) {
@@ -43,31 +49,40 @@ class Header extends React.PureComponent<PropType, StateType> {
       })
     }
   }
+  // 跳转首页
+  gobackHome() {
+    let { navigate } = this.props.router || {}
+    navigate && navigate('/home')
+  }
   render() {
-    return !this.props.isHideHeader && (
-      <div className='App-header flex-center-between'>
-        <div className='App-header-title font-yzHei'>{systemTitle}</div>
-        <div className='App-header-content flex'>
-          {/* 菜单栏 */}
-          <div className='App-header-menu flex'>
-            {menuList.map((menu) => {
-              let className = this.state.currentPathName === menu.router ? 'actived' : ''
-              return (
-                <div className={`App-header-menu-item flex-center ${className}`} onClick={() => this.menuClick(menu)} key={menu.title}>
-                  <Icon iconName={menu.icon} />
-                  <span className='menu-item-title'>{menu.title}</span>
-                </div>
-              )
-            })}
+    return (
+      !this.props.isHideHeader && (
+        <div className='App-header flex-center-between'>
+          <div className='App-header-title font-yzHei' onClick={() => this.gobackHome()}>
+            {systemTitle}
           </div>
-          {/* 用户信息 */}
-          <div className='App-header-useinfo flex-center'>
-            <SvgIcon name='user' />
-            <span className='useinfo-name'>{useInfo.name}</span>
-            <SvgIcon name='downOutlined' />
+          <div className='App-header-content flex'>
+            {/* 菜单栏 */}
+            <div className='App-header-menu flex'>
+              {menuList.map((menu) => {
+                let className = this.state.currentPathName === menu.router ? 'actived' : ''
+                return (
+                  <div className={`App-header-menu-item flex-center ${className}`} onClick={() => this.menuClick(menu)} key={menu.title}>
+                    <Icon iconName={menu.icon} />
+                    <span className='menu-item-title'>{menu.title}</span>
+                  </div>
+                )
+              })}
+            </div>
+            {/* 用户信息 */}
+            <div className='App-header-useinfo flex-center'>
+              <SvgIcon name='user' />
+              <span className='useinfo-name'>{useInfo.name}</span>
+              <SvgIcon name='downOutlined' />
+            </div>
           </div>
         </div>
-      </div>
+      )
     )
   }
 }
@@ -78,7 +93,7 @@ class Header extends React.PureComponent<PropType, StateType> {
  */
 const mapStateToProps = (state: reducerIState) => {
   return {
-    isHideHeader: state.gobalReducer.isHideHeader
+    isHideHeader: state.gobalReducer.isHideHeader,
   }
 }
 // 使用高阶组件包裹当前类组件
