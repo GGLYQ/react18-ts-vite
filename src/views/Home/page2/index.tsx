@@ -8,7 +8,7 @@ import './index.scss'
 
 function Page2(): React.ReactNode {
   let [activeRightPanelName, setActiveRightPanelName] = useState('page2RightSlot1')
-  let [activeLeftPanelName, serActiveLeftPanelName] = useState('page2LeftSlot1')
+  let [activeLeftPanelName, setActiveLeftPanelName] = useState('page2LeftSlot1')
   // 右侧面板主标签内容
   let RightPageContent = () => {
     return <div className='page2-right-content'>Rightpage2Content</div>
@@ -42,7 +42,7 @@ function Page2(): React.ReactNode {
   }
   let onLeftPanelActived = (name: string) => {
     // console.log('onLeftPanelActived', name)
-    serActiveLeftPanelName(name)
+    setActiveLeftPanelName(name)
   }
   let onRightPanelActived = (name: string) => {
     // console.log('onRightPanelActived', name)

@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef, useState } from 'react'
 import FramePage from '@/layout/FramePage'
 import Query from '../components/Query'
@@ -10,14 +10,24 @@ import { Button } from 'antd'
 
 function Page1(): React.ReactNode {
   let [activeRightPanelName, setActiveRightPanelName] = useState('page1RightSlot1')
-  let [activeLeftPanelName, serActiveLeftPanelName] = useState('page1LeftSlot1')
-  let FramePageRef=useRef(null)
-  let updateLayout = () => {}
+  let [activeLeftPanelName, setActiveLeftPanelName] = useState('page1LeftSlot1')
+  let [className, setClassName] = useState('')
+  let FramePageRef = useRef(null)
+  let updateLayout = () => {
+    let current = FramePageRef.current || { updateLayout: (_sides?: number[]) => {} }
+    'updateLayout' in current && current?.updateLayout([0, 1, 0, 0])
+  }
+  let buttonClick = () => {
+    setClassName('page1-right-content2')
+    updateLayout()
+  }
   // 右侧面板主标签内容
   let RightPageContent = () => {
     return (
-      <div className='page1-right-content'>
-        <Button onClick={updateLayout}>重新渲染布局</Button>
+      <div className={`page1-right-content hight-fill padding-12 ${className}`}>
+        <Button type='primary' onClick={buttonClick}>
+          重新渲染布局
+        </Button>
       </div>
     )
   }
@@ -51,17 +61,21 @@ function Page1(): React.ReactNode {
   let BottomPanelItems = () => {
     return <div className='page1-bottom-item'>page1底部</div>
   }
+  // 左侧面板标签激活事件
   let onLeftPanelActived = (name: string) => {
     // console.log('onLeftPanelActived', name)
-    serActiveLeftPanelName(name)
+    setActiveLeftPanelName(name)
   }
+  // 右侧面板标签激活事件
   let onRightPanelActived = (name: string) => {
     // console.log('onRightPanelActived', name)
     setActiveRightPanelName(name)
   }
+  // 左侧面板标签关闭事件
   let onLeftPanelDelete = (name: string) => {
     console.log('onLeftPanelDelete', name)
   }
+  // 右侧面板标签关闭事件
   let onRightPanelDelete = (name: string) => {
     console.log('onRightPanelDelete', name)
   }

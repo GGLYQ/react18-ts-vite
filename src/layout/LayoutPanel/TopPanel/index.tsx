@@ -37,7 +37,8 @@ class TopPanel extends Component<PropType, StateType> {
   }
   // 重新计算偏移量
   updateLayout() {
-    console.log('重新计算偏移量 bottompanel')
+    console.log('重新计算偏移量 topPanel')
+    this.handleTopHeight()
   }
   render() {
     let Element = this.props.slot

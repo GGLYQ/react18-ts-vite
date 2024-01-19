@@ -5,7 +5,7 @@ import Toolbar from '@/components/Toolbar'
 import './index.scss'
 
 function Page4(): React.ReactNode {
-  let [activeLeftPanelName, serActiveLeftPanelName] = useState('page4LeftSlot1')
+  let [activeLeftPanelName, setActiveLeftPanelName] = useState('page4LeftSlot1')
   // 左侧面板主标签内容
   let LeftPageContent = () => {
     return <div className='page4-left-content'>Leftpage4Content</div>
@@ -29,7 +29,7 @@ function Page4(): React.ReactNode {
   }
   let onLeftPanelActived = (name: string) => {
     // console.log('onLeftPanelActived', name)
-    serActiveLeftPanelName(name)
+    setActiveLeftPanelName(name)
   }
   
   let onLeftPanelDelete = (name: string) => {

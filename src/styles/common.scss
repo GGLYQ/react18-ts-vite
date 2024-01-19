@@ -8,14 +8,14 @@
 .flex {
   display: flex;
 }
-.flex-cloumn{
+.flex-cloumn {
   display: flex;
   flex-direction: column;
 }
-.flex-cloumn-center{
+.flex-cloumn-center {
   display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content: center;
 }
 .flex-align-center {
   display: flex;
@@ -46,6 +46,18 @@
 .align-center {
   align-items: center;
 }
-.justify-center{
-  justify-content:center;
+.justify-center {
+  justify-content: center;
+}
+
+.padding-12 {
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.height-fill {
+  height: 100%;
+}
+.width-fill{
+  width: 100%;
 }

@@ -4,11 +4,12 @@ import './index.scss'
 
 let { LeftPanel, RightPanel, TopPanel, BottomPanel } = Panel
 
+type PanelType = (() => React.ReactElement) | null
 interface FrameChildrenIProps {
-  TopPanelItems?: () => React.ReactElement
-  LeftPanelItems?: () => React.ReactElement
-  RightPanelItems?: () => React.ReactElement
-  BottomPanelItems?: () => React.ReactElement
+  TopPanelItems?: PanelType
+  LeftPanelItems?: PanelType
+  RightPanelItems?: PanelType
+  BottomPanelItems?: PanelType
 }
 interface FrameIProps {
   activeRightPanelName?: string
@@ -23,6 +24,10 @@ interface FrameIProps {
 } // 布局主框架的参数类型声明
 
 function FramePage(props: FrameIProps, ref: any) {
+  let TopPanelRef = useRef(null)
+  let LeftPanelRef = useRef(null)
+  let RightPanelRef = useRef(null)
+  let BottomPanelRef = useRef(null)
   let { activeRightPanelName, activeLeftPanelName, visibleLeftTabs, visibleRightTabs, children, onRightPanelActived, onLeftPanelActived, onLeftPanelDelete, onRightPanelDelete } = props
   let { TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems } = children
   // console.log('activeLeftPanel', activeLeftPanelName)
@@ -33,39 +38,51 @@ function FramePage(props: FrameIProps, ref: any) {
       // 类似于 componentWillUnmount
     }
   }, [activeRightPanelName, activeLeftPanelName])
+
+  // 重新计算右侧面板的偏移量
+  let updateRightLayout = () => {
+    let current = RightPanelRef.current || { updateLayout: () => {} }
+    'updateLayout' in current && current?.updateLayout()
+  }
+  // 重新计算左侧面板的偏移量
+  let updateLeftLayout = () => {
+    let current = LeftPanelRef.current || { updateLayout: () => {} }
+    'updateLayout' in current && current?.updateLayout()
+  }
+  // 重新计算顶部面板的偏移量
+  let updateTopLayout = () => {
+    let current = TopPanelRef.current || { updateLayout: () => {} }
+    'updateLayout' in current && current?.updateLayout()
+  }
+  // 重新计算底部面板的偏移量
+  let updateBottomLayout = () => {
+    let current = BottomPanelRef.current || { updateLayout: () => {} }
+    'updateLayout' in current && current?.updateLayout()
+  }
+  // 重新计算四周面板的偏移量
+  /**
+   * @param sides [top,right,bottom,left] 0:否 1:是
+   */
+  let updateLayout = (sides: number[] | undefined = [1, 1, 1, 1]) => {
+    // 判断值是否有效
+    if (!sides.every((e) => [0, 1].includes(e))) return console.error('updateLayout函数的入参sides的类型为数组，所有索引值只能为0或1的number类型')
+    sides.length > 4 && (sides = sides.slice(0, 4)) //超出裁剪为4长度的数组
+    sides.length < 4 && sides.push(...Array(4 - sides.length).fill(0)) //不足长度补0
+    sides[0] === 1 && updateTopLayout() //  Top
+    sides[1] === 1 && updateRightLayout() // Right
+    sides[2] === 1 && updateBottomLayout() // Bottom
+    sides[3] === 1 && updateLeftLayout() // Left
+  }
   //监听props.updateLayout值的变化
   //打开弹窗
   useImperativeHandle(ref, () => ({
-    // 重新计算四周面板的偏移量
-    updateLayout: (newVal: boolean) => {
-      console.log(ref, newVal)
-      console.log('重新计算偏移量 FramePage')
-    },
-    // 重新计算右侧面板的偏移量
-    updateRightLayout: (newVal: boolean) => {
-      console.log(ref, newVal)
-      console.log('重新计算偏移量 FramePage right')
-    },
-    // 重新计算左侧面板的偏移量
-    updateLeftLayout: (newVal: boolean) => {
-      console.log(ref, newVal)
-      console.log('重新计算偏移量 FramePage left')
-    },
-    // 重新计算顶部面板的偏移量
-    updateTopLayout: (newVal: boolean) => {
-      console.log(ref, newVal)
-      console.log('重新计算偏移量 FramePage top')
-    },
-    // 重新计算底部面板的偏移量
-    updateBottomLayout: (newVal: boolean) => {
-      console.log(ref, newVal)
-      console.log('重新计算偏移量 FramePage bottom')
-    },
+    updateLayout,
+    updateRightLayout,
+    updateLeftLayout,
+    updateTopLayout,
+    updateBottomLayout,
   }))
-  let TopPanelRef = useRef(null)
-  let LeftPanelRef = useRef(null)
-  let RightPanelRef = useRef(null)
-  let BottomPanelRef = useRef(null)
+
   // 激活左侧面板的某个项
   function onActivedLeftPanel(name: string) {
     if (activeLeftPanelName === name) return
@@ -86,24 +103,32 @@ function FramePage(props: FrameIProps, ref: any) {
   }
   return (
     <div className='App-frame-panel'>
-      <TopPanel ref={TopPanelRef} slot={TopPanelItems}></TopPanel>
-      <LeftPanel
-        ref={LeftPanelRef}
-        slot={LeftPanelItems}
-        activePanelName={activeLeftPanelName}
-        visibleTabs={visibleLeftTabs}
-        onActivedPanel={(name) => onActivedLeftPanel(name)}
-        onDeletePanel={(name) => onDeleteLeftPanel(name)}
-      ></LeftPanel>
-      <RightPanel
-        ref={RightPanelRef}
-        slot={RightPanelItems}
-        activePanelName={activeRightPanelName}
-        visibleTabs={visibleRightTabs}
-        onActivedPanel={(name) => onActivedRightPanel(name)}
-        onDeletePanel={(name) => onDeleteRightPanel(name)}
-      ></RightPanel>
-      <BottomPanel ref={BottomPanelRef} slot={BottomPanelItems}></BottomPanel>
+      {/* 顶部面板 */}
+      {TopPanelItems && <TopPanel ref={TopPanelRef} slot={TopPanelItems}></TopPanel>}
+      {/* 左侧面板 */}
+      {LeftPanelItems && (
+        <LeftPanel
+          ref={LeftPanelRef}
+          slot={LeftPanelItems}
+          activePanelName={activeLeftPanelName}
+          visibleTabs={visibleLeftTabs}
+          onActivedPanel={(name) => onActivedLeftPanel(name)}
+          onDeletePanel={(name) => onDeleteLeftPanel(name)}
+        ></LeftPanel>
+      )}
+      {/* 右侧面板 */}
+      {RightPanelItems && (
+        <RightPanel
+          ref={RightPanelRef}
+          slot={RightPanelItems}
+          activePanelName={activeRightPanelName}
+          visibleTabs={visibleRightTabs}
+          onActivedPanel={(name) => onActivedRightPanel(name)}
+          onDeletePanel={(name) => onDeleteRightPanel(name)}
+        ></RightPanel>
+      )}
+      {/* 底部面板 */}
+      {BottomPanelItems && <BottomPanel ref={BottomPanelRef} slot={BottomPanelItems}></BottomPanel>}
     </div>
   )
 }

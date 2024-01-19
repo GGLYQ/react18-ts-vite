@@ -14,7 +14,7 @@ function App(): React.ReactNode {
   let [className, setClassName] = useState('')
   let { isHideHeader } = useSelector((state: reducerIState) => state.gobalReducer)
   let { handleUrlParams } = useAppMixin()
-  handleUrlParams() //处理路由地址的参数
+  handleUrlParams()//处理路由地址的参数
   useEffect(() => {
     setClassName(isHideHeader ? 'fullScreen' : '')
   }, [isHideHeader])

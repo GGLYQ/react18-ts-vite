@@ -1,8 +1,10 @@
 import React from 'react'
 import './index.scss'
+import { Dispatch } from 'redux'
 import { systemTitle, menuList, useInfo } from '@/data/header'
 import type { IObj, IRouter } from '@/utils/type'
 import { withRouter } from '@/utils/withRouter'
+import { setActivedToolbar } from '@/store/reducers/GobalReducer'
 import Icon from '@/components/Icon'
 import SvgIcon from '@/components/SvgIcon'
 import { watchProps } from '@/utils/hook'
@@ -12,6 +14,7 @@ import { reducerIState } from '@/store/type'
 interface PropType {
   router?: IRouter
   isHideHeader?: boolean
+  setActivedToolbar?: (_value: IObj) => void
 }
 interface StateType {
   currentPathName?: string | undefined | object
@@ -36,7 +39,9 @@ class Header extends React.PureComponent<PropType, StateType> {
       this.gobackHome()
     } else {
       let { navigate } = this.props.router || {}
+      let { setActivedToolbar } = this.props
       navigate && navigate(item.router)
+      setActivedToolbar && setActivedToolbar({}) //清除工具栏被激活的状态
     }
   }
   // 监听路由
@@ -96,6 +101,17 @@ const mapStateToProps = (state: reducerIState) => {
     isHideHeader: state.gobalReducer.isHideHeader,
   }
 }
+/**
+ *  将dispatch映射到props(改变state)
+ * @param dispatch
+ */
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setActivedToolbar(value: IObj) {
+      dispatch(setActivedToolbar(value))
+    },
+  }
+}
 // 使用高阶组件包裹当前类组件
-const NavigateComponent = withRouter(connect(mapStateToProps)(Header))
+const NavigateComponent = withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))
 export default NavigateComponent

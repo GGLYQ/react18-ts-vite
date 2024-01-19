@@ -78,7 +78,8 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   }
   // 重新计算偏移量
   updateLayout() {
-    console.log('重新计算偏移量 leftpanel')
+    console.log('重新计算偏移量 leftPanel')
+    this.handleLeftWidth()
   }
   render() {
     // 渲染页面模板的逻辑
@@ -154,7 +155,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
   }
 }
-let NavigateComponent = connect(mapStateToProps, mapDispatchToProps, null, {
-  forwardRef: true,
-})(LeftPanel)
+let NavigateComponent = connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true,})(LeftPanel)
 export default NavigateComponent

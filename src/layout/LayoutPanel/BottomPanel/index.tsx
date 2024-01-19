@@ -31,9 +31,9 @@ let BottomPanel = (props: PropType, ref: any) => {
   //监听props.updateLayout值的变化
   //打开弹窗
   useImperativeHandle(ref, () => ({
-    updateLayout: (newVal: boolean) => {
-      console.log(ref, newVal)
-      console.log('重新计算偏移量 bottompanel')
+    updateLayout: () => {
+    console.log('重新计算偏移量 bottomPanel')
+      setLayoutFn()
     },
   }))
 

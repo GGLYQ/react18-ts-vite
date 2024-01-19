@@ -2,15 +2,24 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setIsFullScreen, setActivedToolbar } from '@/store/reducers/GobalReducer'
 import { reducerIState } from '@/store/type'
 import { IObj } from '@/utils/type'
+import { useLocation } from 'react-router-dom'
 
 function useTriggerMixin() {
   let dispatch = useDispatch()
+  let location = useLocation()
+  // let navigate = useNavigate()
   let { isHideHeader, isHideAside, activedToolbar } = useSelector((state: reducerIState) => state.gobalReducer)
 
   function clearActived() {
     dispatch(setActivedToolbar({}))
   }
   function setActived(item: IObj) {
+    // 第一种情况：toolbar不能点击
+    if (location.pathname != '/home') return dispatch(setActivedToolbar({}))
+    // 第二种：回到首页
+    // if (location.pathname != '/home') {
+    //   navigate('/home')
+    // }
     dispatch(setActivedToolbar(item.id === activedToolbar.id ? {} : item))
   }
   // 全图
