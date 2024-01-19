@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react'
+import React, { useEffect, useState, useCallback, useRef, useImperativeHandle, forwardRef } from 'react'
 import type { PropType } from '../type'
 import type { reducerIState } from '@/store/type'
 import { useSelector, useDispatch } from 'react-redux'
@@ -7,7 +7,7 @@ import { setRightPanelWidth } from '@/store/reducers/LayoutReducer'
 import './index.scss'
 import Icon from '@/components/Icon'
 
-let RightPanel = (props: PropType) => {
+let RightPanel = (props: PropType, ref: any) => {
   const dispatch = useDispatch()
   const currentRef = useRef<HTMLInputElement | null>(null)
   let { topPanelHeight, bottomPanelHeight } = useSelector((state: reducerIState) => state.layoutReducer)
@@ -48,6 +48,14 @@ let RightPanel = (props: PropType) => {
   const clickTabDelete = (name: string) => {
     props.onDeletePanel && props.onDeletePanel(name)
   }
+  //监听props.updateLayout值的变化
+  //打开弹窗
+  useImperativeHandle(ref, () => ({
+    updateLayout: (newVal: boolean) => {
+      console.log(ref, newVal)
+      console.log('重新计算偏移量 rightpanel')
+    },
+  }))
   // 渲染页面模板的逻辑
   let visibleTabs = props.visibleTabs
   let slot = props.slot
@@ -97,4 +105,5 @@ let RightPanel = (props: PropType) => {
   }
   return ''
 }
-export default RightPanel
+let ForwardRefComponents = forwardRef(RightPanel)
+export default ForwardRefComponents

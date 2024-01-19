@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import type { PropType } from '../type'
-import type { reducerIState } from '@/store/type' 
+import type { reducerIState } from '@/store/type'
 import { setTopPanelHeight } from '@/store/reducers/LayoutReducer'
 import { getPxToRem } from '@/utils/layout'
 import './index.scss'
@@ -35,10 +35,14 @@ class TopPanel extends Component<PropType, StateType> {
     let clientHeightRem = clientHeight ? getPxToRem(clientHeight) : 0
     setTopHeight && setTopHeight(clientHeightRem)
   }
+  // 重新计算偏移量
+  updateLayout() {
+    console.log('重新计算偏移量 bottompanel')
+  }
   render() {
     let Element = this.props.slot
     return (
-      <div  id='topPanelWrapper' className='top-panel-wrapper' ref={this.currentRef} >
+      <div id='topPanelWrapper' className='top-panel-wrapper' ref={this.currentRef}>
         {Element ? <Element /> : null}
       </div>
     )
@@ -66,6 +70,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
   }
 }
-let NavigateComponent=connect(mapStateToProps, mapDispatchToProps)(TopPanel)
+let NavigateComponent = connect(mapStateToProps, mapDispatchToProps, null, {
+  forwardRef: true,
+})(TopPanel)
 
 export default NavigateComponent

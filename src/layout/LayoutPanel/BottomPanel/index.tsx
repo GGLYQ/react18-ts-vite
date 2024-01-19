@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from 'react'
+import React, { useEffect, useCallback, useRef, useImperativeHandle, forwardRef } from 'react'
 import type { PropType } from '../type'
 import { useDispatch } from 'react-redux'
 import { getPxToRem } from '@/utils/layout'
@@ -7,7 +7,7 @@ import './index.scss'
 import { useSelector } from 'react-redux'
 import { reducerIState } from '@/store/type'
 
-let BottomPanel = (props: PropType) => {
+let BottomPanel = (props: PropType, ref: any) => {
   const dispatch = useDispatch()
   let { asidePanelWidth } = useSelector((state: reducerIState) => state.layoutReducer)
 
@@ -28,6 +28,15 @@ let BottomPanel = (props: PropType) => {
     // console.log("BottomPanel",currentRef) // 获取DOM元素
     return () => {}
   }, [setLayoutFn])
+  //监听props.updateLayout值的变化
+  //打开弹窗
+  useImperativeHandle(ref, () => ({
+    updateLayout: (newVal: boolean) => {
+      console.log(ref, newVal)
+      console.log('重新计算偏移量 bottompanel')
+    },
+  }))
+
   let Element = props.slot
   return (
     <div id='bottomPanelWrapper' className='bottom-panel-wrapper' ref={currentRef} style={{ left: asidePanelWidth + 'rem' }}>
@@ -35,4 +44,6 @@ let BottomPanel = (props: PropType) => {
     </div>
   )
 }
-export default BottomPanel
+let ForwardRefComponents = forwardRef(BottomPanel)
+
+export default ForwardRefComponents

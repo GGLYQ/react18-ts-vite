@@ -76,6 +76,10 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   clickTabDelete(name: string) {
     this.props.onDeletePanel && this.props.onDeletePanel(name)
   }
+  // 重新计算偏移量
+  updateLayout() {
+    console.log('重新计算偏移量 leftpanel')
+  }
   render() {
     // 渲染页面模板的逻辑
     let visibleTabs = this.props.visibleTabs
@@ -150,5 +154,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
   }
 }
-let NavigateComponent = connect(mapStateToProps, mapDispatchToProps)(LeftPanel)
+let NavigateComponent = connect(mapStateToProps, mapDispatchToProps, null, {
+  forwardRef: true,
+})(LeftPanel)
 export default NavigateComponent

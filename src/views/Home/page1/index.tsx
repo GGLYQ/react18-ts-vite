@@ -1,18 +1,25 @@
 // import { useState } from 'react'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import FramePage from '@/layout/FramePage'
 import Query from '../components/Query'
 import LeftPanelItem from '@/layout/LayoutPanel/LeftPanel/LeftPanelItem'
 import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import Toolbar from '@/components/Toolbar'
 import './index.scss'
+import { Button } from 'antd'
 
 function Page1(): React.ReactNode {
   let [activeRightPanelName, setActiveRightPanelName] = useState('page1RightSlot1')
   let [activeLeftPanelName, serActiveLeftPanelName] = useState('page1LeftSlot1')
+  let FramePageRef=useRef(null)
+  let updateLayout = () => {}
   // 右侧面板主标签内容
   let RightPageContent = () => {
-    return <div className='page1-right-content'>RightPage1Content</div>
+    return (
+      <div className='page1-right-content'>
+        <Button onClick={updateLayout}>重新渲染布局</Button>
+      </div>
+    )
   }
   // 左侧面板主标签内容
   let LeftPageContent = () => {
@@ -20,7 +27,7 @@ function Page1(): React.ReactNode {
   }
   // 顶部面板
   let TopPanelItems = () => {
-    return <Toolbar/>
+    return <Toolbar />
   }
   // 左侧面板
   let LeftPanelItems = () => {
@@ -60,6 +67,7 @@ function Page1(): React.ReactNode {
   }
   return (
     <FramePage
+      ref={FramePageRef}
       activeRightPanelName={activeRightPanelName}
       activeLeftPanelName={activeLeftPanelName}
       onLeftPanelActived={(name) => onLeftPanelActived(name)}
