@@ -47,7 +47,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   }
   // 初始化左侧布局的宽度
   handleLeftWidth() {
-    let { setLeftWidth, topPanelHeight, bottomPanelHeight } = this.props
+    let { setLeftWidth, topPanelHeight, bottomPanelHeight, asidePanelWidth } = this.props
     let clientWidth = this.currentRef.current?.clientWidth // 获取DOM元素
     let clientWidthRem = clientWidth ? getPxToRem(clientWidth) : 0
     // console.log(clientWidthRem, this)
@@ -58,6 +58,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
         width: clientWidthRem + 'rem',
         top: topPanelHeight + 'rem',
         bottom: bottomPanelHeight + 'rem',
+        left: asidePanelWidth + 'rem',
       },
     })
     setLeftWidth && setLeftWidth(clientWidthRem)
