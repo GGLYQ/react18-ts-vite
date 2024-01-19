@@ -6,17 +6,34 @@ import { reducerIState } from '@/store/type'
 import Icon from '@/components/Icon'
 import { navlist } from '@/data/aside'
 import { setActivedAside } from '@/store/reducers/GobalReducer'
+import { setAsideWidth } from '@/store/reducers/LayoutReducer'
+import { getPxToRem } from '@/utils/layout'
 import { IObj } from '@/utils/type'
 interface PropType {
   isHideAside?: boolean
   activedAsideId?: string
   setActivedAside?: (item: IObj) => void
+  setAsideWidth?: (item: number) => void
 }
 class Aside extends PureComponent<PropType> {
-  // let {user} = this.props;
-  componentDidMount() {}
+  // 定义一个对象的属性，类型是react的对象
+  private currentRef: React.RefObject<HTMLDivElement>
+  componentDidMount() {
+    this.handleAsideWidth()
+  }
   componentDidUpdate() {}
   componentWillUnmount() {}
+  constructor(props: PropType) {
+    super(props)
+    this.currentRef = React.createRef()
+  }
+  handleAsideWidth() {
+    let { setAsideWidth } = this.props
+    let clientWidth = this.currentRef.current?.clientWidth // 获取DOM元素
+    let clientWidthRem = clientWidth ? getPxToRem(clientWidth) : 0
+    // 设置侧边栏宽度
+    setAsideWidth && setAsideWidth(clientWidthRem)
+  }
   handleClick(item: IObj) {
     let activedAsideId = this.props.activedAsideId
     let val = item.id === activedAsideId ? {} : item
@@ -25,7 +42,7 @@ class Aside extends PureComponent<PropType> {
   render() {
     return (
       !this.props.isHideAside && (
-        <div className='App-aside'>
+        <div className='App-aside' ref={this.currentRef}>
           {navlist.map((item) => {
             let className = item.id === this.props.activedAsideId ? 'actived' : ''
             return (
@@ -58,6 +75,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setActivedAside(value: IObj) {
       dispatch(setActivedAside(value))
+    },
+    setAsideWidth(value: number) {
+      dispatch(setAsideWidth(value))
     },
   }
 }

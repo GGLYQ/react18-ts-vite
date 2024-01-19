@@ -1,12 +1,16 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react'
+import React, { useEffect, useCallback, useRef } from 'react'
 import type { PropType } from '../type'
 import { useDispatch } from 'react-redux'
 import { getPxToRem } from '@/utils/layout'
 import { setBottomPanelHeight } from '@/store/reducers/LayoutReducer'
 import './index.scss'
+import { useSelector } from 'react-redux'
+import { reducerIState } from '@/store/type'
 
 let BottomPanel = (props: PropType) => {
   const dispatch = useDispatch()
+  let { asidePanelWidth } = useSelector((state: reducerIState) => state.layoutReducer)
+
   const currentRef = useRef<HTMLInputElement | null>(null)
   // let [bottomHeight, setBottomHeight] = useState<number>(0)
 
@@ -26,7 +30,7 @@ let BottomPanel = (props: PropType) => {
   }, [setLayoutFn])
   let Element = props.slot
   return (
-    <div id='bottomPanelWrapper' className='bottom-panel-wrapper' ref={currentRef}>
+    <div id='bottomPanelWrapper' className='bottom-panel-wrapper' ref={currentRef} style={{ left: asidePanelWidth + 'rem' }}>
       {Element ? <Element /> : null}
     </div>
   )

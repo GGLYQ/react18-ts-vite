@@ -8,7 +8,7 @@ import './App.scss'
 import useAppMixin from './mixins/AppMixin'
 import { useSelector } from 'react-redux'
 import type { reducerIState } from '@/store/type'
-import AsidePanel from "@/layout/Aside/AsidePanel"
+import AsidePanel from '@/layout/Aside/AsidePanel'
 
 function App(): React.ReactNode {
   let [className, setClassName] = useState('')
@@ -23,8 +23,8 @@ function App(): React.ReactNode {
       <Header></Header>
       <div className={`App-container ${className}`}>
         <Outlet></Outlet>
+        <AsidePanel />
       </div>
-      <AsidePanel/>
       {/* <Footer></Footer> */}
     </ConfigProvider>
   )

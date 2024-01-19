@@ -7,7 +7,6 @@ interface propType {
   slot?: () => React.ReactElement
 }
 function Main(props: propType): React.ReactNode {
-  // console.log(props)
   let { leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight, asidePanelWidth } = useSelector((state: reducerIState) => state.layoutReducer)
   let [style, setStyle] = useState({})
   // 监听布局宽高逻辑

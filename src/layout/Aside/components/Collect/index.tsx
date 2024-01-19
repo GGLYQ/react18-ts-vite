@@ -5,7 +5,9 @@ interface StateType {}
 class Collect extends React.Component<PropType, StateType> {
   render(): React.ReactNode {
     return (
-      <div className='aside-panel-collect'></div>
+      <div className='aside-panel-collect'>
+        我的收藏
+      </div>
     ) 
   }
 }

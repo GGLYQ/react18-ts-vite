@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import type { PropType } from '../type'
@@ -13,7 +13,7 @@ interface StateType {
   leftWidth: number
   style: object
 }
-class LeftPanel extends Component<PropType, StateType> {
+class LeftPanel extends PureComponent<PropType, StateType> {
   // 定义一个对象的属性，类型是react的对象
   private currentRef: React.RefObject<HTMLDivElement>
   constructor(props: PropType) {
@@ -26,13 +26,10 @@ class LeftPanel extends Component<PropType, StateType> {
   }
   // 组件内生命周期
   componentDidMount() {
-    // console.log(this.props)
-    // console.log('componentDidMount LeftPanel')
     this.handleLeftWidth()
   }
   componentDidUpdate(...prev: [PropType, StateType]) {
     watchProps(this, prev[0], ['topPanelHeight', this.updateLeftAndRightWidth], ['bottomPanelHeight', this.updateLeftAndRightWidth], ['asidePanelWidth', this.updateLeftAndRightWidth])
-    // console.log('componentDidUpdate LeftPanel')
   }
   componentWillUnmount() {}
   // 设置左右侧的宽度

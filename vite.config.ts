@@ -24,7 +24,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
   const env = loadEnv(mode, process.cwd(), '')
   const moduleName = mode || 'development'
   const input = getEntry(moduleName)
-  console.log(command, mode);
+  // console.log(command, mode);
   return {
     // 静态资源基础路径 base: './' || '',
     base: env.NODE_ENV === 'production' ? './' : '/',
