@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface PropType {
-  slot?: () => React.ReactElement,
+  slot?: (() => React.ReactElement) | null,
   activePanelName?: string,
   visibleTabs?: boolean,
   topPanelHeight?: number,

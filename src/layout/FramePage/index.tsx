@@ -34,10 +34,11 @@ function FramePage(props: FrameIProps, ref: any) {
   // console.log('activeRightPanel', activeRightPanelName)
   useEffect(() => {
     // 类似于 componentDidMount 和 componentDidUpdate:
+
     return () => {
       // 类似于 componentWillUnmount
     }
-  }, [activeRightPanelName, activeLeftPanelName])
+  }, [ TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems])
 
   // 重新计算右侧面板的偏移量
   let updateRightLayout = () => {
@@ -104,10 +105,9 @@ function FramePage(props: FrameIProps, ref: any) {
   return (
     <div className='App-frame-panel'>
       {/* 顶部面板 */}
-      {TopPanelItems && <TopPanel ref={TopPanelRef} slot={TopPanelItems}></TopPanel>}
+      <TopPanel ref={TopPanelRef} slot={TopPanelItems}></TopPanel>
       {/* 左侧面板 */}
-      {LeftPanelItems && (
-        <LeftPanel
+      <LeftPanel
           ref={LeftPanelRef}
           slot={LeftPanelItems}
           activePanelName={activeLeftPanelName}
@@ -115,10 +115,8 @@ function FramePage(props: FrameIProps, ref: any) {
           onActivedPanel={(name) => onActivedLeftPanel(name)}
           onDeletePanel={(name) => onDeleteLeftPanel(name)}
         ></LeftPanel>
-      )}
       {/* 右侧面板 */}
-      {RightPanelItems && (
-        <RightPanel
+      <RightPanel
           ref={RightPanelRef}
           slot={RightPanelItems}
           activePanelName={activeRightPanelName}
@@ -126,9 +124,8 @@ function FramePage(props: FrameIProps, ref: any) {
           onActivedPanel={(name) => onActivedRightPanel(name)}
           onDeletePanel={(name) => onDeleteRightPanel(name)}
         ></RightPanel>
-      )}
       {/* 底部面板 */}
-      {BottomPanelItems && <BottomPanel ref={BottomPanelRef} slot={BottomPanelItems}></BottomPanel>}
+      <BottomPanel ref={BottomPanelRef} slot={BottomPanelItems}></BottomPanel>
     </div>
   )
 }
