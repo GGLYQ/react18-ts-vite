@@ -4,11 +4,13 @@ import { connect } from 'react-redux'
 import type { PropType } from '../type'
 import type { reducerIState } from '@/store/type'
 import { setLeftPanelWidth } from '@/store/reducers/LayoutReducer'
-import { setLeftPanelContainer } from '@/store/reducers/GobalReducer'
+import { setLeftPanelContainer, setActivedToolbar } from '@/store/reducers/GobalReducer'
 import { getPxToRem } from '@/utils/layout'
 import { watchProps } from '@/utils/hook'
 import Icon from '@/components/Icon'
 import './index.scss'
+import _ from 'lodash'
+import { IObj } from '@/utils/type'
 
 interface StateType {
   leftWidth: number
@@ -82,7 +84,21 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   }
   // 点击删除图标的事件
   clickTabDelete(name: string) {
-    this.props.onDeletePanel && this.props.onDeletePanel(name)
+    // 删除右侧容器的某一项
+    let { leftPanelContainer, setLeftPanelContainer, activedToolbar, setActivedToolbar } = this.props
+    let newLeftPanelContainer = _.cloneDeep(leftPanelContainer) || []
+    if (newLeftPanelContainer) {
+      let removeArray = _.remove(newLeftPanelContainer, function (n) {
+        return n === name
+      })
+      removeArray.length && setLeftPanelContainer && setLeftPanelContainer(newLeftPanelContainer)
+    }
+    console.log(activedToolbar, name)
+    // 取消激活的工具栏
+    if (activedToolbar && activedToolbar.id === name) {
+      setActivedToolbar && setActivedToolbar({})
+    }
+    this.props.onDeletePanel && this.props.onDeletePanel(newLeftPanelContainer.length ? newLeftPanelContainer[0] : '', name)
   }
   // 重新计算偏移量
   updateLayout() {
@@ -172,6 +188,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
     setLeftPanelContainer(value: string[]) {
       dispatch(setLeftPanelContainer(value))
+    },
+    setActivedToolbar(value: IObj) {
+      dispatch(setActivedToolbar(value))
     },
   }
 }

@@ -8,12 +8,16 @@ interface PropType {
   topPanelHeight?: number,
   bottomPanelHeight?: number,
   asidePanelWidth?: number,
-  activedToolbar?:IObj,
-  leftPanelContainer?:string[]
-  rightPanelContainer?:string[]
+  activedToolbar?: IObj,
+  leftPanelContainer?: string[]
+  rightPanelContainer?: string[]
+  setLeftPanelContainer?: (name: string[]) => void
+  setRightPanelContainer?: (name: string[]) => void
   setTopHeight?: (value: number) => void
   setLeftWidth?: (value: number) => void
   onActivedPanel?: (name: string) => void
-  onDeletePanel?: (name: string) => void
+  onDeletePanel?: (name: string,deletedName?:string) => void
+  setActivedToolbar?: (value: IObj) => void
+  isAllDisplay?: boolean
 }
 export { PropType }

@@ -8,12 +8,18 @@ import { IObj } from '@/utils/type'
 import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import Com from './components'
 import LeftPanelItem from '@/layout/LayoutPanel/LeftPanel/LeftPanelItem'
+import { setLeftPanelContainer, setRightPanelContainer } from '@/store/reducers/GobalReducer'
+import { Dispatch } from 'redux'
 import { toolbarList } from '@/data/toolbar'
 import './index.scss'
 import _ from 'lodash'
 
 interface PropType {
   activedToolbar: IObj
+  leftPanelContainer: string[]
+  rightPanelContainer: string[]
+  setRightPanelContainer: (_value: string[]) => void
+  setLeftPanelContainer: (_value: string[]) => void
 }
 interface StateType {
   leftPanelName: string
@@ -48,11 +54,22 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
         if (activedToolbar.id !== this.state.rightPanelName) this.onRightPanelActived(activedToolbar.id)
         break
       default:
+        this.setState({
+          ...this.state,
+          rightPanelName: '',
+          leftPanelName: '',
+        })
         break
     }
   }
   // 右侧面板标签激活事件
   onRightPanelActived(name: string) {
+    let { rightPanelContainer, setRightPanelContainer } = this.props
+    let newRightPanelContainer = _.cloneDeep(rightPanelContainer) || []
+    if (!newRightPanelContainer.includes(name)) {
+      newRightPanelContainer.push(name)
+      setRightPanelContainer(newRightPanelContainer)
+    }
     this.setState({
       ...this.state,
       rightPanelName: name,
@@ -61,11 +78,21 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
     // setActiveRightPanelName(name)
   }
   // 右侧面板标签关闭事件
-  onRightPanelDelete(name: string) {
-    console.log('onRightPanelDelete', name)
+  onRightPanelDelete(name: string, deletedName?: string) {
+    console.log('onRightPanelDelete', name, deletedName)
+    this.setState({
+      ...this.state,
+      rightPanelName: name,
+    })
   }
   // 左侧面板标签激活事件
   onLeftPanelActived(name: string) {
+    let { leftPanelContainer, setLeftPanelContainer } = this.props
+    let newLeftPanelContainer = _.cloneDeep(leftPanelContainer) || []
+    if (!newLeftPanelContainer.includes(name)) {
+      newLeftPanelContainer.push(name)
+      setLeftPanelContainer(newLeftPanelContainer)
+    }
     this.setState({
       ...this.state,
       leftPanelName: name,
@@ -74,8 +101,12 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
     // setActiveRightPanelName(name)
   }
   // 左侧面板标签关闭事件
-  onLeftPanelDelete(name: string) {
-    console.log('onLeftPanelDelete', name)
+  onLeftPanelDelete(name: string, deletedName?: string) {
+    console.log('onLeftPanelDelete', name, deletedName)
+    this.setState({
+      ...this.state,
+      leftPanelName: name,
+    })
   }
   // 右侧面板
   LeftPanelItems() {
@@ -109,9 +140,10 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
         activeRightPanelName={this.state.rightPanelName}
         activeLeftPanelName={this.state.leftPanelName}
         onRightPanelActived={(name) => this.onRightPanelActived(name)}
-        onRightPanelDelete={(name) => this.onRightPanelDelete(name)}
+        onRightPanelDelete={(name, deletedName) => this.onRightPanelDelete(name, deletedName)}
         onLeftPanelActived={(name) => this.onLeftPanelActived(name)}
-        onLeftPanelDelete={(name) => this.onLeftPanelDelete(name)}
+        onLeftPanelDelete={(name, deletedName) => this.onLeftPanelDelete(name, deletedName)}
+        isAllDisplay={false}
         children={{
           TopPanelItems: this.TopPanelItems,
           RightPanelItems: this.RightPanelItems,
@@ -128,8 +160,25 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
 const mapStateToProps = (state: reducerIState) => {
   return {
     activedToolbar: state.gobalReducer.activedToolbar,
+    leftPanelContainer: state.gobalReducer.leftPanelContainer,
+    rightPanelContainer: state.gobalReducer.rightPanelContainer,
   }
 }
 
-let NavigateComponent = connect(mapStateToProps)(ToolbarPanel)
+/**
+ *  将dispatch映射到props(改变state)
+ * @param dispatch
+ */
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setLeftPanelContainer(value: string[]) {
+      dispatch(setLeftPanelContainer(value))
+    },
+    setRightPanelContainer(value: string[]) {
+      dispatch(setRightPanelContainer(value))
+    },
+  }
+}
+
+let NavigateComponent = connect(mapStateToProps, mapDispatchToProps)(ToolbarPanel)
 export default NavigateComponent

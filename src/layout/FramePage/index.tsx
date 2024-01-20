@@ -16,10 +16,11 @@ interface FrameIProps {
   activeLeftPanelName?: string
   visibleRightTabs?: boolean
   visibleLeftTabs?: boolean
+  isAllDisplay?: boolean
   onRightPanelActived?: (name: string) => void
   onLeftPanelActived?: (name: string) => void
-  onLeftPanelDelete?: (name: string) => void
-  onRightPanelDelete?: (name: string) => void
+  onLeftPanelDelete?: (name: string,deletedName?:string) => void
+  onRightPanelDelete?: (name: string,deletedName?:string) => void
   children: FrameChildrenIProps
 } // 布局主框架的参数类型声明
 
@@ -28,7 +29,7 @@ function FramePage(props: FrameIProps, ref: any) {
   let LeftPanelRef = useRef(null)
   let RightPanelRef = useRef(null)
   let BottomPanelRef = useRef(null)
-  let { activeRightPanelName, activeLeftPanelName, visibleLeftTabs, visibleRightTabs, children, onRightPanelActived, onLeftPanelActived, onLeftPanelDelete, onRightPanelDelete } = props
+  let { isAllDisplay, activeRightPanelName, activeLeftPanelName, visibleLeftTabs, visibleRightTabs, children, onRightPanelActived, onLeftPanelActived, onLeftPanelDelete, onRightPanelDelete } = props
   let { TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems } = children
   // console.log('activeLeftPanel', activeLeftPanelName)
   // console.log('activeRightPanel', activeRightPanelName)
@@ -38,7 +39,7 @@ function FramePage(props: FrameIProps, ref: any) {
     return () => {
       // 类似于 componentWillUnmount
     }
-  }, [ TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems])
+  }, [TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems])
 
   // 重新计算右侧面板的偏移量
   let updateRightLayout = () => {
@@ -95,12 +96,12 @@ function FramePage(props: FrameIProps, ref: any) {
     onRightPanelActived && onRightPanelActived(name)
   }
   // 删除左侧面板的某个项
-  function onDeleteLeftPanel(name: string) {
-    onLeftPanelDelete && onLeftPanelDelete(name)
+  function onDeleteLeftPanel(name: string, deletedName: string) {
+    onLeftPanelDelete && onLeftPanelDelete(name, deletedName)
   }
   // 删除右侧面板的某个项
-  function onDeleteRightPanel(name: string) {
-    onRightPanelDelete && onRightPanelDelete(name)
+  function onDeleteRightPanel(name: string, deletedName: string) {
+    onRightPanelDelete && onRightPanelDelete(name, deletedName)
   }
   return (
     <div className='App-frame-panel'>
@@ -108,22 +109,24 @@ function FramePage(props: FrameIProps, ref: any) {
       <TopPanel ref={TopPanelRef} slot={TopPanelItems}></TopPanel>
       {/* 左侧面板 */}
       <LeftPanel
-          ref={LeftPanelRef}
-          slot={LeftPanelItems}
-          activePanelName={activeLeftPanelName}
-          visibleTabs={visibleLeftTabs}
-          onActivedPanel={(name) => onActivedLeftPanel(name)}
-          onDeletePanel={(name) => onDeleteLeftPanel(name)}
-        ></LeftPanel>
+        ref={LeftPanelRef}
+        slot={LeftPanelItems}
+        activePanelName={activeLeftPanelName}
+        visibleTabs={visibleLeftTabs}
+        onActivedPanel={(name) => onActivedLeftPanel(name)}
+        onDeletePanel={(name, deletedName = '') => onDeleteLeftPanel(name, deletedName)}
+        isAllDisplay={isAllDisplay}
+      ></LeftPanel>
       {/* 右侧面板 */}
       <RightPanel
-          ref={RightPanelRef}
-          slot={RightPanelItems}
-          activePanelName={activeRightPanelName}
-          visibleTabs={visibleRightTabs}
-          onActivedPanel={(name) => onActivedRightPanel(name)}
-          onDeletePanel={(name) => onDeleteRightPanel(name)}
-        ></RightPanel>
+        ref={RightPanelRef}
+        slot={RightPanelItems}
+        activePanelName={activeRightPanelName}
+        visibleTabs={visibleRightTabs}
+        onActivedPanel={(name) => onActivedRightPanel(name)}
+        onDeletePanel={(name, deletedName = '') => onDeleteRightPanel(name, deletedName)}
+        isAllDisplay={isAllDisplay}
+      ></RightPanel>
       {/* 底部面板 */}
       <BottomPanel ref={BottomPanelRef} slot={BottomPanelItems}></BottomPanel>
     </div>

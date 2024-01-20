@@ -4,15 +4,16 @@ import type { reducerIState } from '@/store/type'
 import { useSelector, useDispatch } from 'react-redux'
 import { getPxToRem } from '@/utils/layout'
 import { setRightPanelWidth } from '@/store/reducers/LayoutReducer'
-import { setRightPanelContainer } from '@/store/reducers/LayoutReducer'
+import { setRightPanelContainer, setActivedToolbar } from '@/store/reducers/GobalReducer'
 import './index.scss'
 import Icon from '@/components/Icon'
+import _ from 'lodash'
 
 let RightPanel = (props: PropType, ref: any) => {
   const dispatch = useDispatch()
   const currentRef = useRef<HTMLInputElement | null>(null)
   let { topPanelHeight, bottomPanelHeight } = useSelector((state: reducerIState) => state.layoutReducer)
-  let { rightPanelContainer } = useSelector((state: reducerIState) => state.gobalReducer)
+  let { rightPanelContainer, activedToolbar } = useSelector((state: reducerIState) => state.gobalReducer)
   // let [rightWidth, setRightWidth] = useState<number>(0)
   let [style, setStyle] = useState<object>({})
 
@@ -48,7 +49,18 @@ let RightPanel = (props: PropType, ref: any) => {
   }
   // 点击删除图标的事件
   const clickTabDelete = (name: string) => {
-    props.onDeletePanel && props.onDeletePanel(name)
+    let newRightPanelContainer = _.cloneDeep(rightPanelContainer)
+    if (newRightPanelContainer) {
+      let removeArray = _.remove(newRightPanelContainer, function (n) {
+        return n === name
+      })
+      removeArray.length && dispatch(setRightPanelContainer(newRightPanelContainer))
+    }
+    // 取消激活的工具栏
+    if (activedToolbar && activedToolbar.id === name) {
+      setActivedToolbar && dispatch(setActivedToolbar({}))
+    }
+    props.onDeletePanel && props.onDeletePanel(newRightPanelContainer.length ? newRightPanelContainer[0] : '', name)
   }
   //监听props.updateLayout值的变化
   //打开弹窗
@@ -113,4 +125,7 @@ let RightPanel = (props: PropType, ref: any) => {
   return ''
 }
 let ForwardRefComponents = forwardRef(RightPanel)
+ForwardRefComponents.defaultProps = {
+  isAllDisplay: true,
+}
 export default ForwardRefComponents
