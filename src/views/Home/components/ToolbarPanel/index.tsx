@@ -8,6 +8,9 @@ import { IObj } from '@/utils/type'
 import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import Com from './components'
 import LeftPanelItem from '@/layout/LayoutPanel/LeftPanel/LeftPanelItem'
+import { toolbarList } from '@/data/toolbar'
+import './index.scss'
+import _ from 'lodash'
 
 interface PropType {
   activedToolbar: IObj
@@ -15,22 +18,25 @@ interface PropType {
 interface StateType {
   leftPanelName: string
   rightPanelName: string
-  leftContainer: string[]
-  rightContainer: string[]
 }
+function getToolbarList(type: string) {
+  return JSON.parse(JSON.stringify(toolbarList.leftList.filter((e) => e.panelType == type)))
+}
+let leftPanelList = getToolbarList('left') //获取哪些工具栏项使用左侧面板
+let rightPanelList = getToolbarList('right') //获取哪些工具栏项使用右侧面板
+// 工具栏面板页面
 class ToolbarPanel extends React.Component<PropType, StateType> {
   constructor(props: PropType) {
     super(props)
     this.state = {
       leftPanelName: '',
       rightPanelName: '',
-      leftContainer: [],
-      rightContainer: [],
     }
   }
   componentDidUpdate(prevProps: Readonly<PropType>): void {
-    watchProps(this, prevProps, ['activedToolbar', this.watchToolbar])
+    watchProps(this, prevProps, ['activedToolbar', this.watchToolbar]) //监听事件
   }
+
   // 监听工具栏改变事件
   watchToolbar() {
     let { activedToolbar } = this.props
@@ -47,14 +53,9 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
   }
   // 右侧面板标签激活事件
   onRightPanelActived(name: string) {
-    let rightContainer = this.state.rightContainer
-    if (!rightContainer.includes(name)) {
-      rightContainer.push(name)
-    }
     this.setState({
       ...this.state,
       rightPanelName: name,
-      rightContainer,
     })
     console.log('onRightPanelActived', name)
     // setActiveRightPanelName(name)
@@ -65,14 +66,9 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
   }
   // 左侧面板标签激活事件
   onLeftPanelActived(name: string) {
-    let leftContainer = this.state.leftContainer
-    if (!leftContainer.includes(name)) {
-      leftContainer.push(name)
-    }
     this.setState({
       ...this.state,
       leftPanelName: name,
-      leftContainer,
     })
     console.log('onLeftPanelActived', name)
     // setActiveRightPanelName(name)
@@ -85,7 +81,10 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
   LeftPanelItems() {
     return (
       <>
-        <LeftPanelItem slot={() => <Com.Plotting />} label='标绘' name='plotting'></LeftPanelItem>
+        {leftPanelList.map((item: IObj) => {
+          let PanelCom = Com[item?.panelComponet as keyof typeof Com]
+          return <LeftPanelItem slot={() => <PanelCom />} label={item.label} name={item.id} key={item.id}></LeftPanelItem>
+        })}
       </>
     )
   }
@@ -93,8 +92,10 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
   RightPanelItems() {
     return (
       <>
-        <RightPanelItem slot={() => <Com.AttributeQuery />} label='属性' name='attributeQuery'></RightPanelItem>
-        <RightPanelItem slot={() => <Com.DataOverlay />} label='数据叠加' name='dataOverlay'></RightPanelItem>
+        {rightPanelList.map((item: IObj) => {
+          let PanelCom = Com[item?.panelComponet as keyof typeof Com]
+          return <RightPanelItem slot={() => <PanelCom />} label={item.label} name={item.id} key={item.id}></RightPanelItem>
+        })}
       </>
     )
   }
@@ -113,8 +114,8 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
         onLeftPanelDelete={(name) => this.onLeftPanelDelete(name)}
         children={{
           TopPanelItems: this.TopPanelItems,
-          RightPanelItems: this.state.rightContainer.length ? this.RightPanelItems : null,
-          LeftPanelItems: this.state.leftContainer.length ? this.LeftPanelItems : null,
+          RightPanelItems: this.RightPanelItems,
+          LeftPanelItems: this.LeftPanelItems,
         }}
       />
     )

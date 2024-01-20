@@ -4,6 +4,7 @@ import type { reducerIState } from '@/store/type'
 import { useSelector, useDispatch } from 'react-redux'
 import { getPxToRem } from '@/utils/layout'
 import { setRightPanelWidth } from '@/store/reducers/LayoutReducer'
+import { setRightPanelContainer } from '@/store/reducers/LayoutReducer'
 import './index.scss'
 import Icon from '@/components/Icon'
 
@@ -11,6 +12,7 @@ let RightPanel = (props: PropType, ref: any) => {
   const dispatch = useDispatch()
   const currentRef = useRef<HTMLInputElement | null>(null)
   let { topPanelHeight, bottomPanelHeight } = useSelector((state: reducerIState) => state.layoutReducer)
+  let { rightPanelContainer } = useSelector((state: reducerIState) => state.gobalReducer)
   // let [rightWidth, setRightWidth] = useState<number>(0)
   let [style, setStyle] = useState<object>({})
 
@@ -75,6 +77,7 @@ let RightPanel = (props: PropType, ref: any) => {
     rightPanels = (
       <div className='right-panel-content'>
         {React.Children.map(panels, (panel) => {
+          if (!rightPanelContainer?.includes(panel.props?.name || '')) return null
           return React.cloneElement(panel, { className: getActivedClassName(panel.props?.name || '') })
         })}
       </div>
@@ -84,16 +87,19 @@ let RightPanel = (props: PropType, ref: any) => {
       let rightTabsProps = panels?.map((e: any) => e.props)
       rightTabs = (
         <div className='right-panel-tabs'>
-          {rightTabsProps.map((tab: any) => (
-            <div className={`right-tab-item ${getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`} onClick={() => clickTabActived(tab.name)}>
-              <div className='tab-item-title'>{tab.label}</div>
-              {!tab.cancelClose && (
-                <div className='tab-item-icon' onClick={() => clickTabDelete(tab.name)}>
-                  <Icon iconName='icon-guanbi'></Icon>
-                </div>
-              )}
-            </div>
-          ))}
+          {rightTabsProps.map((tab: any) => {
+            if (!rightPanelContainer?.includes(tab.name || '')) return null
+            return (
+              <div className={`right-tab-item ${getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`} onClick={() => clickTabActived(tab.name)}>
+                <div className='tab-item-title'>{tab.label}</div>
+                {!tab.cancelClose && (
+                  <div className='tab-item-icon' onClick={() => clickTabDelete(tab.name)}>
+                    <Icon iconName='icon-guanbi'></Icon>
+                  </div>
+                )}
+              </div>
+            )
+          })}
         </div>
       )
     }

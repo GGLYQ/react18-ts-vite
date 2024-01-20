@@ -1,4 +1,5 @@
 import React from 'react'
+import './index.scss'
 interface PropType {}
 interface StateType {}
 class AttributeQuery extends React.Component<PropType, StateType> {
@@ -9,7 +10,7 @@ class AttributeQuery extends React.Component<PropType, StateType> {
   }
   render(): React.ReactNode {
     return (
-      <div>属性</div>
+      <div className='toolbar-panel-attributeQuery'>属性</div>
     )
   }
 }

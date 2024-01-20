@@ -1,3 +1,4 @@
+import { IObj } from '@/utils/type'
 import React from 'react'
 
 interface PropType {
@@ -7,6 +8,9 @@ interface PropType {
   topPanelHeight?: number,
   bottomPanelHeight?: number,
   asidePanelWidth?: number,
+  activedToolbar?:IObj,
+  leftPanelContainer?:string[]
+  rightPanelContainer?:string[]
   setTopHeight?: (value: number) => void
   setLeftWidth?: (value: number) => void
   onActivedPanel?: (name: string) => void

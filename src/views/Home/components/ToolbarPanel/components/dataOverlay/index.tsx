@@ -1,4 +1,5 @@
 import React from 'react'
+import './index.scss'
 interface PropType {}
 interface StateType {}
 class DataOverlay extends React.Component<PropType, StateType> {
@@ -9,7 +10,7 @@ class DataOverlay extends React.Component<PropType, StateType> {
   }
   render(): React.ReactNode {
     return (
-      <div>数据叠加</div>
+      <div className='toolbar-panel-dataOverlay'>数据叠加</div>
     )
   }
 }

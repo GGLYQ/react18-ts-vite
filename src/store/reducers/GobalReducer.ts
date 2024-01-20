@@ -11,6 +11,8 @@ export let gobalSlice = createSlice({
     isHideAside: false, //是否隐藏侧边栏
     activedAside: {}, //被激活的侧边栏
     activedToolbar: {}, //被激活的工具栏
+    leftPanelContainer: [],
+    rightPanelContainer: []
   },
   // 定义的action。由于内置了immutable插件，可以直接使用赋值的方式进行数据的改变
   reducers: {
@@ -33,9 +35,15 @@ export let gobalSlice = createSlice({
     setActivedToolbar: (state, action) => {
       state.activedToolbar = action.payload
     },
+    setLeftPanelContainer: (state, action) => {
+      state.leftPanelContainer = action.payload
+    },
+    setRightPanelContainer: (state, action) => {
+      state.rightPanelContainer = action.payload
+    },
   },
 })
 
-export let { setFontSize, setIsHideHeader, setIsHideAside, setIsFullScreen, setActivedAside, setActivedToolbar } = gobalSlice.actions
+export let { setFontSize, setIsHideHeader, setIsHideAside, setIsFullScreen, setActivedAside, setActivedToolbar, setLeftPanelContainer, setRightPanelContainer } = gobalSlice.actions
 
 export default gobalSlice.reducer

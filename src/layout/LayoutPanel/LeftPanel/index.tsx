@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import type { PropType } from '../type'
 import type { reducerIState } from '@/store/type'
 import { setLeftPanelWidth } from '@/store/reducers/LayoutReducer'
+import { setLeftPanelContainer } from '@/store/reducers/GobalReducer'
 import { getPxToRem } from '@/utils/layout'
 import { watchProps } from '@/utils/hook'
 import Icon from '@/components/Icon'
@@ -29,7 +30,14 @@ class LeftPanel extends PureComponent<PropType, StateType> {
     this.handleLeftWidth()
   }
   componentDidUpdate(...prev: [PropType, StateType]) {
-    watchProps(this, prev[0], ['topPanelHeight', this.updateLeftAndRightWidth], ['bottomPanelHeight', this.updateLeftAndRightWidth], ['asidePanelWidth', this.updateLeftAndRightWidth])
+    watchProps(
+      this,
+      prev[0],
+      ['topPanelHeight', this.updateLeftAndRightWidth],
+      ['bottomPanelHeight', this.updateLeftAndRightWidth],
+      ['asidePanelWidth', this.updateLeftAndRightWidth],
+      ['activedToolbar', this.handleLeftWidth]
+    )
   }
   componentWillUnmount() {}
   // 设置左右侧的宽度
@@ -85,6 +93,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
     // 渲染页面模板的逻辑
     let visibleTabs = this.props.visibleTabs
     let slot = this.props.slot
+    let leftPanelContainer = this.props.leftPanelContainer
     let slotTem = slot && slot()
     if (slotTem) {
       let children = slotTem?.props?.children
@@ -100,6 +109,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       leftPanels = (
         <div className='left-panel-content'>
           {React.Children.map(panels, (panel) => {
+            if (!leftPanelContainer?.includes(panel.props?.name || '')) return null
             return React.cloneElement(panel, { className: this.getActivedClassName(panel.props?.name || '') })
           })}
         </div>
@@ -109,16 +119,21 @@ class LeftPanel extends PureComponent<PropType, StateType> {
         let leftTabsProps = panels?.map((e: any) => e.props)
         leftTabs = (
           <div className='left-panel-tabs'>
-            {leftTabsProps.map((tab: any) => (
-              <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')} flex-cloumn-center`} key={`tabItem-${tab.name}`} onClick={() => this.clickTabActived(tab.name)}>
-                <div className='tab-item-title'>{tab.label}</div>
-                {!tab.cancelClose && (
-                  <div className='tab-item-icon' onClick={() => this.clickTabDelete(tab.name)}>
-                    <Icon iconName='icon-guanbi'></Icon>
-                  </div>
-                )}
-              </div>
-            ))}
+            {leftTabsProps.map((tab: any) => {
+              if (!leftPanelContainer?.includes(tab.name || '')) return null
+              return (
+                <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')} flex-cloumn-center`} key={`tabItem-${tab.name}`} onClick={() => this.clickTabActived(tab.name)}>
+                  {/* 标签标题 */}
+                  <div className='tab-item-title'>{tab.label}</div>
+                  {/* 是否可关闭 */}
+                  {!tab.cancelClose && (
+                    <div className='tab-item-icon' onClick={() => this.clickTabDelete(tab.name)}>
+                      <Icon iconName='icon-guanbi'></Icon>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         )
       }
@@ -141,6 +156,8 @@ const mapStateToProps = (state: reducerIState) => {
     topPanelHeight: state.layoutReducer.topPanelHeight,
     bottomPanelHeight: state.layoutReducer.bottomPanelHeight,
     asidePanelWidth: state.layoutReducer.asidePanelWidth,
+    activedToolbar: state.gobalReducer.activedToolbar,
+    leftPanelContainer: state.gobalReducer.leftPanelContainer,
   }
 }
 
@@ -153,7 +170,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     setLeftWidth(value: number) {
       dispatch(setLeftPanelWidth(value))
     },
+    setLeftPanelContainer(value: string[]) {
+      dispatch(setLeftPanelContainer(value))
+    },
   }
 }
-let NavigateComponent = connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true,})(LeftPanel)
+let NavigateComponent = connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(LeftPanel)
 export default NavigateComponent

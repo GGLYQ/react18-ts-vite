@@ -1,4 +1,6 @@
 import React from 'react'
+import './index.scss'
+
 interface PropType {}
 interface StateType {}
 class Plotting extends React.Component<PropType, StateType> {
@@ -7,7 +9,7 @@ class Plotting extends React.Component<PropType, StateType> {
     this.state = {}
   }
   render(): React.ReactNode {
-    return <div>标绘</div>
+    return <div className='toolbar-panel-plotting'>标绘</div>
   }
 }
 export default Plotting

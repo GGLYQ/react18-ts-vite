@@ -32,7 +32,7 @@ let BottomPanel = (props: PropType, ref: any) => {
   //打开弹窗
   useImperativeHandle(ref, () => ({
     updateLayout: () => {
-    console.log('重新计算偏移量 bottomPanel')
+    console.log('重新计算偏移量 bottomanel')
       setLayoutFn()
     },
   }))
