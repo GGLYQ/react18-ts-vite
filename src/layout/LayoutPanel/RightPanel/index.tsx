@@ -8,6 +8,7 @@ import { setRightPanelContainer, setActivedToolbar } from '@/store/reducers/Goba
 import './index.scss'
 import Icon from '@/components/Icon'
 import _ from 'lodash'
+import { IObj } from '@/utils/type'
 
 let RightPanel = (props: PropType, ref: any) => {
   const dispatch = useDispatch()
@@ -16,7 +17,26 @@ let RightPanel = (props: PropType, ref: any) => {
   let { rightPanelContainer, activedToolbar } = useSelector((state: reducerIState) => state.gobalReducer)
   // let [rightWidth, setRightWidth] = useState<number>(0)
   let [style, setStyle] = useState<object>({})
-
+  // 初始化左面的面板
+  const initLeftPanelContainer = () => {
+    let { isAllDisplay, slot } = props
+    // 是否展示全部面板
+    if (isAllDisplay) {
+      let panels = null
+      let slotTem = slot && slot()
+      let children = slotTem?.props?.children
+      if (!children) return
+      let type = Object.prototype.toString.call(children)
+      panels = type === '[object Object]' ? [children] : type === '[object Array]' ? children : []
+      let nameList = panels.map((panel: IObj) => panel.props?.name || '')
+      _.remove(nameList, function (e) {
+        return !e
+      })
+      setRightPanelContainer && dispatch(setRightPanelContainer(nameList))
+    }else{
+      setRightPanelContainer && dispatch(setRightPanelContainer([]))
+    }
+  }
   // 设置右侧面板的宽度
   const setLayoutFn = useCallback(() => {
     let clientWidth = currentRef.current?.clientWidth // 获取DOM元素
@@ -38,6 +58,9 @@ let RightPanel = (props: PropType, ref: any) => {
     // return 清理工作
     return () => {}
   }, [setLayoutFn])
+  useEffect(() => {
+    initLeftPanelContainer()
+  }, [])
   // 判断是否被激活的面板 设置激活的className
   const getActivedClassName = (v: string) => {
     return v === props.activePanelName ? 'actived' : ''

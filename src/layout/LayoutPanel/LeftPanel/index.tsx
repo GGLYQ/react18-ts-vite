@@ -29,6 +29,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   }
   // 组件内生命周期
   componentDidMount() {
+    this.initLeftPanelContainer()
     this.handleLeftWidth()
   }
   componentDidUpdate(...prev: [PropType, StateType]) {
@@ -93,12 +94,31 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       })
       removeArray.length && setLeftPanelContainer && setLeftPanelContainer(newLeftPanelContainer)
     }
-    console.log(activedToolbar, name)
     // 取消激活的工具栏
     if (activedToolbar && activedToolbar.id === name) {
       setActivedToolbar && setActivedToolbar({})
     }
     this.props.onDeletePanel && this.props.onDeletePanel(newLeftPanelContainer.length ? newLeftPanelContainer[0] : '', name)
+  }
+  // 初始化左面的面板
+  initLeftPanelContainer() {
+    let { setLeftPanelContainer, isAllDisplay, slot } = this.props
+    // 是否展示全部面板
+    if (isAllDisplay) {
+      let panels = null
+      let slotTem = slot && slot()
+      let children = slotTem?.props?.children
+      if (!children) return
+      let type = Object.prototype.toString.call(children)
+      panels = type === '[object Object]' ? [children] : type === '[object Array]' ? children : []
+      let nameList = panels.map((panel: IObj) => panel.props?.name || '')
+      _.remove(nameList, function (e) {
+        return !e
+      })
+      setLeftPanelContainer && setLeftPanelContainer(nameList)
+    } else {
+      setLeftPanelContainer && setLeftPanelContainer([])
+    }
   }
   // 重新计算偏移量
   updateLayout() {

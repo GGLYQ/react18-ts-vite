@@ -19,8 +19,8 @@ interface FrameIProps {
   isAllDisplay?: boolean
   onRightPanelActived?: (name: string) => void
   onLeftPanelActived?: (name: string) => void
-  onLeftPanelDelete?: (name: string,deletedName?:string) => void
-  onRightPanelDelete?: (name: string,deletedName?:string) => void
+  onLeftPanelDelete?: (name: string, deletedName?: string) => void
+  onRightPanelDelete?: (name: string, deletedName?: string) => void
   children: FrameChildrenIProps
 } // 布局主框架的参数类型声明
 
@@ -137,5 +137,6 @@ let ForwardRefComponents = forwardRef(FramePage)
 ForwardRefComponents.defaultProps = {
   visibleRightTabs: true,
   visibleLeftTabs: true,
+  isAllDisplay: true,
 }
 export default ForwardRefComponents
