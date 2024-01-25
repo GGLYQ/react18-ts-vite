@@ -4,8 +4,10 @@
   background-color: #ffffff;
   border-left: #eeeeee;
   .right-panel-content {
+    width: fit-content;
     height: 100%;
     .right-panel-item {
+      width: fit-content;
       height: 100%;
       display: none;
       &.actived {

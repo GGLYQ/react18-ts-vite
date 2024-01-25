@@ -64,6 +64,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
     // console.log('handleLeftWidth', leftPanelContainer, activePanelName)
     let clientWidth = this.currentRef.current?.clientWidth // 获取DOM元素
     let clientWidthRem = clientWidth ? getPxToRem(clientWidth) : 0
+
     // 获取子元素的宽度
     if (this.currentRef.current?.children && this.currentRef.current.children.length) {
       for (let i = 0; i < this.currentRef.current.children.length; i++) {
@@ -97,7 +98,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   // 点击删除图标的事件
   clickTabDelete(name: string) {
     // 删除右侧容器的某一项
-    let { leftPanelContainer, _setLeftPanelContainer, activedToolbar,_setActivedToolbarByName } = this.props
+    let { leftPanelContainer, _setLeftPanelContainer, activedToolbar, _setActivedToolbarByName } = this.props
     let newLeftPanelContainer = _.cloneDeep(leftPanelContainer) || []
     if (newLeftPanelContainer) {
       let removeArray = _.remove(newLeftPanelContainer, function (n) {
@@ -111,7 +112,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       let activedName = newLeftPanelContainer.length ? newLeftPanelContainer[0] : ''
       _setActivedToolbarByName(activedName)
       this.props.onDeletePanel && this.props.onDeletePanel(activedName, name)
-    } else if(activedToolbar.id){
+    } else if (activedToolbar.id) {
       _setActivedToolbarByName(activedToolbar.id)
       this.props.onDeletePanel && this.props.onDeletePanel(activedToolbar.id, name)
     }
@@ -176,12 +177,25 @@ class LeftPanel extends PureComponent<PropType, StateType> {
             {leftTabsProps.map((tab: any) => {
               if (!leftPanelContainer?.includes(tab.name || '')) return null
               return (
-                <div className={`left-tab-item ${this.getActivedClassName(tab.name || '')} flex-cloumn-center`} key={`tabItem-${tab.name}`} onClick={() => this.clickTabActived(tab.name)}>
+                <div
+                  className={`left-tab-item ${this.getActivedClassName(tab.name || '')} flex-cloumn-center`}
+                  key={`tabItem-${tab.name}`}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    this.clickTabActived(tab.name)
+                  }}
+                >
                   {/* 标签标题 */}
                   <div className='tab-item-title'>{tab.label}</div>
                   {/* 是否可关闭 */}
                   {!tab.cancelClose && (
-                    <div className='tab-item-icon' onClick={() => this.clickTabDelete(tab.name)}>
+                    <div
+                      className='tab-item-icon'
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        this.clickTabDelete(tab.name)
+                      }}
+                    >
                       <Icon iconName='icon-guanbi'></Icon>
                     </div>
                   )}

@@ -80,8 +80,7 @@ class ToolbarPanel extends React.PureComponent<PropType, StateType> {
       ...this.state,
       rightPanelName: name,
     })
-
-    console.log('onRightPanelActived', name)
+    console.log('toolbarPanelRightActived', name)
   }
   // 右侧面板标签关闭事件
   onRightPanelDelete(name: string, deletedName?: string) {
@@ -99,7 +98,7 @@ class ToolbarPanel extends React.PureComponent<PropType, StateType> {
       ...this.state,
       leftPanelName: name,
     })
-    console.log('onLeftPanelActived', name)
+    console.log('toolbarPanelLeftActived', name)
   }
   // 左侧面板标签关闭事件
   onLeftPanelDelete(name: string, deletedName?: string) {

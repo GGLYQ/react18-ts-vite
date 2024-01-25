@@ -4,7 +4,7 @@ import type { reducerIState } from '@/store/type'
 import { useSelector, useDispatch } from 'react-redux'
 import { getPxToRem } from '@/utils/layout'
 import { setRightPanelWidth } from '@/store/reducers/LayoutReducer'
-import { setRightPanelContainer, setActivedToolbar } from '@/store/reducers/GobalReducer'
+import { setRightPanelContainer, setActivedToolbarByName } from '@/store/reducers/GobalReducer'
 import './index.scss'
 import Icon from '@/components/Icon'
 import _ from 'lodash'
@@ -40,6 +40,16 @@ let RightPanel = (props: PropType, ref: any) => {
   const setLayoutFn = useCallback(() => {
     let clientWidth = currentRef.current?.clientWidth // 获取DOM元素
     let clientWidthRem = clientWidth ? getPxToRem(clientWidth) : 0
+    // 获取子元素的宽度
+    if (currentRef.current?.children && currentRef.current.children.length) {
+      for (let i = 0; i < currentRef.current.children.length; i++) {
+        let children = currentRef.current.children[i]
+        if (children.className === 'right-panel-content') {
+          let clientWidth_ = children?.clientWidth
+          clientWidthRem = clientWidth_ ? getPxToRem(clientWidth_) : 0
+        }
+      }
+    }
     // setRightWidth(clientWidthRem)
     setStyle({
       width: clientWidthRem + 'rem',
@@ -48,7 +58,7 @@ let RightPanel = (props: PropType, ref: any) => {
     })
     // console.log(rightWidth)
     dispatch(setRightPanelWidth(clientWidthRem))
-  }, [dispatch, topPanelHeight, bottomPanelHeight])
+  }, [dispatch, topPanelHeight, bottomPanelHeight, rightPanelContainer, activedToolbar, props.activePanelName])
 
   // 监听面板尺寸
   useEffect(() => {
@@ -79,11 +89,17 @@ let RightPanel = (props: PropType, ref: any) => {
       })
       removeArray.length && dispatch(setRightPanelContainer(newRightPanelContainer))
     }
+    if (!activedToolbar || !setActivedToolbarByName) return
+
     // 取消激活的工具栏
-    if (activedToolbar && activedToolbar.id === name) {
-      setActivedToolbar && dispatch(setActivedToolbar({}))
+    if (activedToolbar.id === name && setActivedToolbarByName) {
+      let activedName = newRightPanelContainer.length ? newRightPanelContainer[0] : ''
+      dispatch(setActivedToolbarByName(activedName))
+      props.onDeletePanel && props.onDeletePanel(activedName, name)
+    } else if (activedToolbar.id) {
+      dispatch(setActivedToolbarByName(activedToolbar.id))
+      props.onDeletePanel && props.onDeletePanel(activedToolbar.id, name)
     }
-    props.onDeletePanel && props.onDeletePanel(newRightPanelContainer.length ? newRightPanelContainer[0] : '', name)
   }
   //监听props.updateLayout值的变化
   //打开弹窗
@@ -125,10 +141,23 @@ let RightPanel = (props: PropType, ref: any) => {
           {rightTabsProps.map((tab: any) => {
             if (!rightPanelContainer?.includes(tab.name || '')) return null
             return (
-              <div className={`right-tab-item ${getActivedClassName(tab.name || '')}`} key={`tabItem-${tab.name}`} onClick={() => clickTabActived(tab.name)}>
+              <div
+                className={`right-tab-item ${getActivedClassName(tab.name || '')}`}
+                key={`tabItem-${tab.name}`}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  clickTabActived(tab.name)
+                }}
+              >
                 <div className='tab-item-title'>{tab.label}</div>
                 {!tab.cancelClose && (
-                  <div className='tab-item-icon' onClick={() => clickTabDelete(tab.name)}>
+                  <div
+                    className='tab-item-icon'
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      clickTabDelete(tab.name)
+                    }}
+                  >
                     <Icon iconName='icon-guanbi'></Icon>
                   </div>
                 )}
