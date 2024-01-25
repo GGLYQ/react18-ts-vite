@@ -8,7 +8,7 @@ import { IObj } from '@/utils/type'
 import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import Com from './components'
 import LeftPanelItem from '@/layout/LayoutPanel/LeftPanel/LeftPanelItem'
-import { setLeftPanelContainer, setRightPanelContainer } from '@/store/reducers/GobalReducer'
+import { setLeftPanelContainer, setRightPanelContainer, setActivedToolbarByName } from '@/store/reducers/GobalReducer'
 import { Dispatch } from 'redux'
 import { toolbarList } from '@/data/toolbar'
 import './index.scss'
@@ -18,8 +18,9 @@ interface PropType {
   activedToolbar: IObj
   leftPanelContainer: string[]
   rightPanelContainer: string[]
-  setRightPanelContainer: (_value: string[]) => void
-  setLeftPanelContainer: (_value: string[]) => void
+  _setRightPanelContainer: (_value: string[]) => void
+  _setLeftPanelContainer: (_value: string[]) => void
+  _setActivedToolbarByName: (_value: string) => void
 }
 interface StateType {
   leftPanelName: string
@@ -63,20 +64,24 @@ class ToolbarPanel extends React.PureComponent<PropType, StateType> {
         break
     }
   }
+  setActivedToolbar(name: string) {
+    let { _setActivedToolbarByName } = this.props
+    _setActivedToolbarByName && _setActivedToolbarByName(name)
+  }
   // 右侧面板标签激活事件
   onRightPanelActived(name: string) {
-    let { rightPanelContainer, setRightPanelContainer } = this.props
+    let { rightPanelContainer, _setRightPanelContainer } = this.props
     let newRightPanelContainer = _.cloneDeep(rightPanelContainer) || []
     if (!newRightPanelContainer.includes(name)) {
       newRightPanelContainer.push(name)
-      setRightPanelContainer(newRightPanelContainer)
+      _setRightPanelContainer(newRightPanelContainer)
     }
     this.setState({
       ...this.state,
       rightPanelName: name,
     })
+
     console.log('onRightPanelActived', name)
-    // setActiveRightPanelName(name)
   }
   // 右侧面板标签关闭事件
   onRightPanelDelete(name: string, deletedName?: string) {
@@ -84,18 +89,17 @@ class ToolbarPanel extends React.PureComponent<PropType, StateType> {
   }
   // 左侧面板标签激活事件
   onLeftPanelActived(name: string) {
-    let { leftPanelContainer, setLeftPanelContainer } = this.props
+    let { leftPanelContainer, _setLeftPanelContainer } = this.props
     let newLeftPanelContainer = _.cloneDeep(leftPanelContainer) || []
     if (!newLeftPanelContainer.includes(name)) {
       newLeftPanelContainer.push(name)
-      setLeftPanelContainer(newLeftPanelContainer)
+      _setLeftPanelContainer(newLeftPanelContainer)
     }
     this.setState({
       ...this.state,
       leftPanelName: name,
     })
     console.log('onLeftPanelActived', name)
-    // setActiveRightPanelName(name)
   }
   // 左侧面板标签关闭事件
   onLeftPanelDelete(name: string, deletedName?: string) {
@@ -132,9 +136,9 @@ class ToolbarPanel extends React.PureComponent<PropType, StateType> {
       <FramePage
         activeRightPanelName={this.state.rightPanelName}
         activeLeftPanelName={this.state.leftPanelName}
-        onRightPanelActived={(name) => this.onRightPanelActived(name)}
+        onRightPanelActived={(name) => this.setActivedToolbar(name)}
         onRightPanelDelete={(name, deletedName) => this.onRightPanelDelete(name, deletedName)}
-        onLeftPanelActived={(name) => this.onLeftPanelActived(name)}
+        onLeftPanelActived={(name) => this.setActivedToolbar(name)}
         onLeftPanelDelete={(name, deletedName) => this.onLeftPanelDelete(name, deletedName)}
         isAllDisplay={false}
         children={{
@@ -164,11 +168,14 @@ const mapStateToProps = (state: reducerIState) => {
  */
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setLeftPanelContainer(value: string[]) {
+    _setLeftPanelContainer(value: string[]) {
       dispatch(setLeftPanelContainer(value))
     },
-    setRightPanelContainer(value: string[]) {
+    _setRightPanelContainer(value: string[]) {
       dispatch(setRightPanelContainer(value))
+    },
+    _setActivedToolbarByName(value: string) {
+      dispatch(setActivedToolbarByName(value))
     },
   }
 }
