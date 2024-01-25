@@ -31,7 +31,7 @@ function getToolbarList(type: string) {
 let leftPanelList = getToolbarList('left') //获取哪些工具栏项使用左侧面板
 let rightPanelList = getToolbarList('right') //获取哪些工具栏项使用右侧面板
 // 工具栏面板页面
-class ToolbarPanel extends React.Component<PropType, StateType> {
+class ToolbarPanel extends React.PureComponent<PropType, StateType> {
   constructor(props: PropType) {
     super(props)
     this.state = {
@@ -46,6 +46,7 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
   // 监听工具栏改变事件
   watchToolbar() {
     let { activedToolbar } = this.props
+    // console.log('watchToolbar',activedToolbar);
     switch (activedToolbar.panelType) {
       case 'left':
         if (activedToolbar.id !== this.state.leftPanelName) this.onLeftPanelActived(activedToolbar.id)
@@ -80,10 +81,6 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
   // 右侧面板标签关闭事件
   onRightPanelDelete(name: string, deletedName?: string) {
     console.log('onRightPanelDelete', name, deletedName)
-    this.setState({
-      ...this.state,
-      rightPanelName: name,
-    })
   }
   // 左侧面板标签激活事件
   onLeftPanelActived(name: string) {
@@ -103,10 +100,6 @@ class ToolbarPanel extends React.Component<PropType, StateType> {
   // 左侧面板标签关闭事件
   onLeftPanelDelete(name: string, deletedName?: string) {
     console.log('onLeftPanelDelete', name, deletedName)
-    this.setState({
-      ...this.state,
-      leftPanelName: name,
-    })
   }
   // 右侧面板
   LeftPanelItems() {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import type { PropType } from '../type'
 import type { reducerIState } from '@/store/type'
 import { setLeftPanelWidth } from '@/store/reducers/LayoutReducer'
-import { setLeftPanelContainer, setActivedToolbar } from '@/store/reducers/GobalReducer'
+import { setLeftPanelContainer, setActivedToolbarByName } from '@/store/reducers/GobalReducer'
 import { getPxToRem } from '@/utils/layout'
 import { watchProps } from '@/utils/hook'
 import Icon from '@/components/Icon'
@@ -38,7 +38,9 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       prev[0],
       ['topPanelHeight', this.updateLeftAndRightWidth],
       ['bottomPanelHeight', this.updateLeftAndRightWidth],
+      ['leftPanelContainer', this.handleLeftWidth],
       ['asidePanelWidth', this.updateLeftAndRightWidth],
+      ['activePanelName', this.handleLeftWidth],
       ['activedToolbar', this.handleLeftWidth]
     )
   }
@@ -58,11 +60,20 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   }
   // 初始化左侧布局的宽度
   handleLeftWidth() {
-    let { setLeftWidth, topPanelHeight, bottomPanelHeight, asidePanelWidth } = this.props
+    let { _setLeftPanelWidth, topPanelHeight, bottomPanelHeight, asidePanelWidth } = this.props
+    // console.log('handleLeftWidth', leftPanelContainer, activePanelName)
     let clientWidth = this.currentRef.current?.clientWidth // 获取DOM元素
     let clientWidthRem = clientWidth ? getPxToRem(clientWidth) : 0
-    // console.log(clientWidthRem, this)
-    // console.dir(this.currentRef.current)
+    // 获取子元素的宽度
+    if (this.currentRef.current?.children && this.currentRef.current.children.length) {
+      for (let i = 0; i < this.currentRef.current.children.length; i++) {
+        let children = this.currentRef.current.children[i]
+        if (children.className === 'left-panel-content') {
+          let clientWidth_ = children?.clientWidth
+          clientWidthRem = clientWidth_ ? getPxToRem(clientWidth_) : 0
+        }
+      }
+    }
     this.setState({
       leftWidth: clientWidthRem,
       style: {
@@ -72,7 +83,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
         left: asidePanelWidth + 'rem',
       },
     })
-    setLeftWidth && setLeftWidth(clientWidthRem)
+    _setLeftPanelWidth && _setLeftPanelWidth(clientWidthRem)
   }
   // 判断是否被激活的面板 设置激活的className
   getActivedClassName(v: string) {
@@ -86,23 +97,28 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   // 点击删除图标的事件
   clickTabDelete(name: string) {
     // 删除右侧容器的某一项
-    let { leftPanelContainer, setLeftPanelContainer, activedToolbar, setActivedToolbar } = this.props
+    let { leftPanelContainer, _setLeftPanelContainer, activedToolbar,_setActivedToolbarByName } = this.props
     let newLeftPanelContainer = _.cloneDeep(leftPanelContainer) || []
     if (newLeftPanelContainer) {
       let removeArray = _.remove(newLeftPanelContainer, function (n) {
         return n === name
       })
-      removeArray.length && setLeftPanelContainer && setLeftPanelContainer(newLeftPanelContainer)
+      removeArray.length && _setLeftPanelContainer && _setLeftPanelContainer(newLeftPanelContainer)
     }
+    if (!activedToolbar || !_setActivedToolbarByName) return
     // 取消激活的工具栏
-    if (activedToolbar && activedToolbar.id === name) {
-      setActivedToolbar && setActivedToolbar({})
+    if (activedToolbar.id === name && _setActivedToolbarByName) {
+      let activedName = newLeftPanelContainer.length ? newLeftPanelContainer[0] : ''
+      _setActivedToolbarByName(activedName)
+      this.props.onDeletePanel && this.props.onDeletePanel(activedName, name)
+    } else if(activedToolbar.id){
+      _setActivedToolbarByName(activedToolbar.id)
+      this.props.onDeletePanel && this.props.onDeletePanel(activedToolbar.id, name)
     }
-    this.props.onDeletePanel && this.props.onDeletePanel(newLeftPanelContainer.length ? newLeftPanelContainer[0] : '', name)
   }
   // 初始化左面的面板
   initLeftPanelContainer() {
-    let { setLeftPanelContainer, isAllDisplay, slot } = this.props
+    let { _setLeftPanelContainer, isAllDisplay, slot } = this.props
     // 是否展示全部面板
     if (isAllDisplay) {
       let panels = null
@@ -115,9 +131,9 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       _.remove(nameList, function (e) {
         return !e
       })
-      setLeftPanelContainer && setLeftPanelContainer(nameList)
+      _setLeftPanelContainer && _setLeftPanelContainer(nameList)
     } else {
-      setLeftPanelContainer && setLeftPanelContainer([])
+      _setLeftPanelContainer && _setLeftPanelContainer([])
     }
   }
   // 重新计算偏移量
@@ -130,11 +146,13 @@ class LeftPanel extends PureComponent<PropType, StateType> {
     let visibleTabs = this.props.visibleTabs
     let slot = this.props.slot
     let leftPanelContainer = this.props.leftPanelContainer
+    // let activePanelName = this.props.activePanelName
+    // console.log('render', leftPanelContainer, activePanelName)
+
     let slotTem = slot && slot()
     if (slotTem) {
       let children = slotTem?.props?.children
       if (!children) return ''
-      // console.log(children)
       let panels = null
       let leftPanels = null
       let leftTabs = null
@@ -203,14 +221,14 @@ const mapStateToProps = (state: reducerIState) => {
  */
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setLeftWidth(value: number) {
+    _setLeftPanelWidth(value: number) {
       dispatch(setLeftPanelWidth(value))
     },
-    setLeftPanelContainer(value: string[]) {
+    _setLeftPanelContainer(value: string[]) {
       dispatch(setLeftPanelContainer(value))
     },
-    setActivedToolbar(value: IObj) {
-      dispatch(setActivedToolbar(value))
+    _setActivedToolbarByName(value: string) {
+      dispatch(setActivedToolbarByName(value))
     },
   }
 }

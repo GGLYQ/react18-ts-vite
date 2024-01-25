@@ -1,7 +1,9 @@
 .App-aside-panel {
   position: absolute;
   bottom: 0;
-  border-right: 1px solid #eeeeee;
-  box-shadow: 1px 0 3px 0 rgba(0, 0, 0, 0.15);
   background-color: var(--app-aside-panel-background-color);
+  &.actived {
+    border-right: 1px solid #eeeeee;
+    box-shadow: 1px 0 3px 0 rgba(0, 0, 0, 0.15);
+  }
 }

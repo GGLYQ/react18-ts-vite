@@ -1,5 +1,4 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
 import type { reducerIState } from '@/store/type'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
@@ -84,8 +83,9 @@ class AsidePanel extends React.PureComponent<PropType, StateType> {
       let activedElement = elementMap[this.props.activedAside.id] || null
       Element = (activedElement as React.ReactElement) ? activedElement : null
     }
+    let className = this.state.style.width && this.state.style.width !== '0rem' ? 'actived' : ''
     return (
-      <div className='App-aside-panel' ref={this.currentRef} style={this.state.style}>
+      <div className={`App-aside-panel ${className}`} ref={this.currentRef} style={this.state.style}>
         {Element ? <Element /> : null}
       </div>
     )

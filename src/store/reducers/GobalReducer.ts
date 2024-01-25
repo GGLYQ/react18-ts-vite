@@ -1,5 +1,6 @@
 // src/store/dic.js
 import { createSlice } from '@reduxjs/toolkit'
+import { toolbarList } from '@/data/toolbar'
 
 export let gobalSlice = createSlice({
   // 命名空间
@@ -35,6 +36,11 @@ export let gobalSlice = createSlice({
     setActivedToolbar: (state, action) => {
       state.activedToolbar = action.payload
     },
+    setActivedToolbarByName: (state, action) => {
+      let id = action.payload
+      let activedToolbarItem = toolbarList.leftList.find((e) => e.id === id)
+      state.activedToolbar = activedToolbarItem ? JSON.parse(JSON.stringify(activedToolbarItem)) : {}
+    },
     setLeftPanelContainer: (state, action) => {
       state.leftPanelContainer = action.payload
     },
@@ -44,6 +50,6 @@ export let gobalSlice = createSlice({
   },
 })
 
-export let { setFontSize, setIsHideHeader, setIsHideAside, setIsFullScreen, setActivedAside, setActivedToolbar, setLeftPanelContainer, setRightPanelContainer } = gobalSlice.actions
+export let { setFontSize, setIsHideHeader, setIsHideAside, setIsFullScreen, setActivedAside, setActivedToolbar, setActivedToolbarByName, setLeftPanelContainer, setRightPanelContainer } = gobalSlice.actions
 
 export default gobalSlice.reducer

@@ -24,16 +24,16 @@ class TopPanel extends Component<PropType, StateType> {
   }
   componentDidUpdate() {
     // console.log('componentDidUpdate TopPanel')
-    // this.setTopHeight()
+    // this._setTopPanelHeight()
   }
   componentWillUnmount() {}
 
   // 设置顶部布局的高度
   handleTopHeight() {
-    let { setTopHeight } = this.props
+    let { _setTopPanelHeight } = this.props
     let clientHeight = this.currentRef.current?.clientHeight // 获取DOM元素
     let clientHeightRem = clientHeight ? getPxToRem(clientHeight) : 0
-    setTopHeight && setTopHeight(clientHeightRem)
+    _setTopPanelHeight && _setTopPanelHeight(clientHeightRem)
   }
   // 重新计算偏移量
   updateLayout() {
@@ -66,7 +66,7 @@ const mapStateToProps = (state: reducerIState) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     // 聚焦
-    setTopHeight(value: number) {
+    _setTopPanelHeight(value: number) {
       dispatch(setTopPanelHeight(value))
     },
   }

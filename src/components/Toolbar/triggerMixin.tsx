@@ -20,31 +20,35 @@ function useTriggerMixin() {
     // if (location.pathname != '/home') {
     //   navigate('/home')
     // }
-    dispatch(setActivedToolbar(item.id === activedToolbar.id ? {} : item))
+    dispatch(setActivedToolbar(item.id === activedToolbar.id ? {} : JSON.parse(JSON.stringify(item))))
   }
   // 全图
   function positionHandler() {
     clearActived()
   }
   // 标绘
-  function plottingHandler(item: IObj) {
-    setActived(item)
+  function plottingHandler(item: IObj, flag: boolean = true) {
+    flag && setActived(item)
   }
   // 测面
-  function rangingHandler(item: IObj) {
-    setActived(item)
+  function rangingHandler(item: IObj, flag: boolean = true) {
+    flag && setActived(item)
   }
   // 测面
-  function surfaceMeasurementHandler(item: IObj) {
-    setActived(item)
+  function surfaceMeasurementHandler(item: IObj, flag: boolean = true) {
+    flag && setActived(item)
   }
   // 属性
-  function attributeQueryHandler(item: IObj) {
-    setActived(item)
+  function attributeQueryHandler(item: IObj, flag: boolean = true) {
+    flag && setActived(item)
   }
   // 数据叠加
-  function dataOverlayHandler(item: IObj) {
-    setActived(item)
+  function dataOverlayHandler(item: IObj, flag: boolean = true) {
+    flag && setActived(item)
+  }
+  // 条件定位
+  function conditionPositionHandler(item: IObj, flag: boolean = true) {
+    flag && setActived(item)
   }
   // 清除
   function clearHandler() {
@@ -54,9 +58,10 @@ function useTriggerMixin() {
   function fullScreenHandler() {
     // 是否设置全屏
     dispatch(setIsFullScreen(!(isHideHeader && isHideAside)))
-    clearActived()
+    // clearActived()
   }
   return {
+    clearActived,
     positionHandler,
     plottingHandler,
     rangingHandler,
@@ -65,6 +70,7 @@ function useTriggerMixin() {
     dataOverlayHandler,
     clearHandler,
     fullScreenHandler,
+    conditionPositionHandler,
   }
 }
 

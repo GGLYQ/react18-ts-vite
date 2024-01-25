@@ -39,7 +39,7 @@ function FramePage(props: FrameIProps, ref: any) {
     return () => {
       // 类似于 componentWillUnmount
     }
-  }, [TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems])
+  }, [TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems,activeRightPanelName,activeLeftPanelName])
 
   // 重新计算右侧面板的偏移量
   let updateRightLayout = () => {

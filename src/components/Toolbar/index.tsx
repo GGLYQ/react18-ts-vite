@@ -17,6 +17,13 @@ function Toolbar(): React.ReactNode {
     let attr = `${item.id}Handler`
     triggerMap[attr] && triggerMap[attr](item)
   }
+  // useEffect(() => {
+  //   console.log(activedToolbar);
+  //   if (activedToolbar.id) {
+  //     let attr = `${activedToolbar.id}Handler`
+  //     triggerMap[attr] && triggerMap[attr](activedToolbar,false)
+  //   }
+  // }, [activedToolbar, triggerMap])
   return (
     <div className='toolbar-container flex-align-center'>
       <div className='toolbar-location'>

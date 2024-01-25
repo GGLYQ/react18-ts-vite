@@ -15,10 +15,9 @@ let RightPanel = (props: PropType, ref: any) => {
   const currentRef = useRef<HTMLInputElement | null>(null)
   let { topPanelHeight, bottomPanelHeight } = useSelector((state: reducerIState) => state.layoutReducer)
   let { rightPanelContainer, activedToolbar } = useSelector((state: reducerIState) => state.gobalReducer)
-  // let [rightWidth, setRightWidth] = useState<number>(0)
   let [style, setStyle] = useState<object>({})
   // 初始化左面的面板
-  const initLeftPanelContainer = () => {
+  const initRightPanelContainer = useCallback(() => {
     let { isAllDisplay, slot } = props
     // 是否展示全部面板
     if (isAllDisplay) {
@@ -33,10 +32,10 @@ let RightPanel = (props: PropType, ref: any) => {
         return !e
       })
       setRightPanelContainer && dispatch(setRightPanelContainer(nameList))
-    }else{
+    } else {
       setRightPanelContainer && dispatch(setRightPanelContainer([]))
     }
-  }
+  }, [dispatch, props])
   // 设置右侧面板的宽度
   const setLayoutFn = useCallback(() => {
     let clientWidth = currentRef.current?.clientWidth // 获取DOM元素
@@ -58,8 +57,9 @@ let RightPanel = (props: PropType, ref: any) => {
     // return 清理工作
     return () => {}
   }, [setLayoutFn])
+  // 初始化监听面板
   useEffect(() => {
-    initLeftPanelContainer()
+    initRightPanelContainer()
   }, [])
   // 判断是否被激活的面板 设置激活的className
   const getActivedClassName = (v: string) => {

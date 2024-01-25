@@ -6,6 +6,7 @@ let toolbarList = {
     { id: 'surfaceMeasurement', label: '测面', icon: 'icon-bianjietiaojian' },
     { id: 'attributeQuery', label: '属性', icon: 'icon-dietu', panelType: 'right', panelComponet: "AttributeQuery" },
     { id: 'dataOverlay', label: '数据叠加', icon: 'icon-dietumoshi', panelType: 'right', panelComponet: "DataOverlay" },
+    { id: 'conditionPosition', label: '条件定位', icon: 'icon-logistics-map', panelType: 'left', panelComponet: "ConditionPosition" },
   ],
   rightList: [
     { id: 'clear', label: '清除', icon: 'icon-qingchu' },
