@@ -1,7 +1,7 @@
 // import { useState } from 'react'
 import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
-import Query from '../components/Query'
+import BaseInfo from '../components/BaseInfo'
 import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import Toolbar from '@/components/Toolbar'
 import './index.scss'
@@ -21,8 +21,8 @@ function Page3(): React.ReactNode {
     return (
       <>
         <RightPanelItem slot={RightPageContent} label='插槽1' name='page3RightSlot1'></RightPanelItem>
-        <RightPanelItem slot={Query} label='插槽2' name='page3RightSlot2' cancelClose></RightPanelItem>
-        <RightPanelItem slot={Query} label='插槽3' name='page3RightSlot3' cancelClose></RightPanelItem>
+        <RightPanelItem slot={BaseInfo} label='插槽2' name='page3RightSlot2' cancelClose></RightPanelItem>
+        <RightPanelItem slot={BaseInfo} label='插槽3' name='page3RightSlot3' cancelClose></RightPanelItem>
       </>
     )
   }

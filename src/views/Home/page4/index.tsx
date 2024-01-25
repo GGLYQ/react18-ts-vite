@@ -19,7 +19,7 @@ function Page4(): React.ReactNode {
     return (
       <>
         <LeftPanelItem slot={LeftPageContent} label='插槽1' name='page4LeftSlot1'></LeftPanelItem>
-        {/* <LeftPanelItem slot={Query}></LeftPanelItem> */}
+        {/* <LeftPanelItem slot={BaseInfo}></LeftPanelItem> */}
       </>
     )
   }

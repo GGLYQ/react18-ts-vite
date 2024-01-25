@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import FramePage from '@/layout/FramePage'
-import Query from '../components/Query'
+import BaseInfo from '../components/BaseInfo'
 import LeftPanelItem from '@/layout/LayoutPanel/LeftPanel/LeftPanelItem'
 import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import Toolbar from '@/components/Toolbar'
@@ -27,8 +27,8 @@ function Page2(): React.ReactNode {
     return (
       <>
         <LeftPanelItem slot={LeftPageContent} label='插槽1' name='page2LeftSlot1'></LeftPanelItem>
-        <LeftPanelItem slot={Query} label='插槽2' name='page2LeftSlot2'></LeftPanelItem>
-        <LeftPanelItem slot={Query} label='插槽3' name='page2LeftSlot3'></LeftPanelItem>
+        <LeftPanelItem slot={BaseInfo} label='插槽2' name='page2LeftSlot2'></LeftPanelItem>
+        <LeftPanelItem slot={BaseInfo} label='插槽3' name='page2LeftSlot3'></LeftPanelItem>
       </>
     )
   }

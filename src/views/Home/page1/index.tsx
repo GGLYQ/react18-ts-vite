@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef, useState } from 'react'
 import FramePage from '@/layout/FramePage'
-import Query from '../components/Query'
+import BaseInfo from '../components/BaseInfo'
 import LeftPanelItem from '@/layout/LayoutPanel/LeftPanel/LeftPanelItem'
 import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import Toolbar from '@/components/Toolbar'
@@ -44,7 +44,7 @@ function Page1(): React.ReactNode {
     return (
       <>
         <LeftPanelItem slot={LeftPageContent} label='插槽1' name='page1LeftSlot1'></LeftPanelItem>
-        <LeftPanelItem slot={Query} label='插槽2' name='page1LeftSlot2' cancelClose></LeftPanelItem>
+        <LeftPanelItem slot={BaseInfo} label='插槽2' name='page1LeftSlot2' cancelClose></LeftPanelItem>
       </>
     )
   }
@@ -53,7 +53,7 @@ function Page1(): React.ReactNode {
     return (
       <>
         <RightPanelItem slot={RightPageContent} label='插槽3' name='page1RightSlot1'></RightPanelItem>
-        <RightPanelItem slot={Query} label='插槽4' name='page1RightSlot2'></RightPanelItem>
+        <RightPanelItem slot={BaseInfo} label='插槽4' name='page1RightSlot2'></RightPanelItem>
       </>
     )
   }
