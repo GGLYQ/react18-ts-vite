@@ -70,12 +70,6 @@ class ToolbarPanel extends React.PureComponent<PropType, StateType> {
   }
   // 右侧面板标签激活事件
   onRightPanelActived(name: string) {
-    // let { rightPanelContainer, _setRightPanelContainer } = this.props
-    // let newRightPanelContainer = _.cloneDeep(rightPanelContainer) || []
-    // if (!newRightPanelContainer.includes(name)) {
-    //   newRightPanelContainer.push(name)
-    //   _setRightPanelContainer(newRightPanelContainer)
-    // }
     this.setState({
       ...this.state,
       rightPanelName: name,
