@@ -8,7 +8,7 @@ import { IObj } from '@/utils/type'
 import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import Com from './components'
 import LeftPanelItem from '@/layout/LayoutPanel/LeftPanel/LeftPanelItem'
-import { setRightPanelContainer, setActivedToolbarByName } from '@/store/reducers/GobalReducer'
+import { setActivedToolbarByName } from '@/store/reducers/GobalReducer'
 import { Dispatch } from 'redux'
 import { toolbarList } from '@/data/toolbar'
 import './index.scss'
@@ -16,10 +16,6 @@ import './index.scss'
 
 interface PropType {
   activedToolbar: IObj
-  leftPanelContainer: string[]
-  rightPanelContainer: string[]
-  _setRightPanelContainer: (_value: string[]) => void
-  _setLeftPanelContainer: (_value: string[]) => void
   _setActivedToolbarByName: (_value: string) => void
 }
 interface StateType {
@@ -144,8 +140,6 @@ class ToolbarPanel extends React.PureComponent<PropType, StateType> {
 const mapStateToProps = (state: reducerIState) => {
   return {
     activedToolbar: state.gobalReducer.activedToolbar,
-    leftPanelContainer: state.gobalReducer.leftPanelContainer,
-    rightPanelContainer: state.gobalReducer.rightPanelContainer,
   }
 }
 
@@ -155,9 +149,6 @@ const mapStateToProps = (state: reducerIState) => {
  */
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    _setRightPanelContainer(value: string[]) {
-      dispatch(setRightPanelContainer(value))
-    },
     _setActivedToolbarByName(value: string) {
       dispatch(setActivedToolbarByName(value))
     },

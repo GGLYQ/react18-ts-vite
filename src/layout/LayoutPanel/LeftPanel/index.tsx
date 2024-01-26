@@ -117,6 +117,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       removeArray.length && _setLeftPanelContainer && _setLeftPanelContainer(newLeftPanelContainer)
     }
     if (!activedToolbar || !_setActivedToolbarByName) return
+    console.log(activedToolbar,newLeftPanelContainer);
     // 取消激活的工具栏
     if (activedToolbar.id === name && _setActivedToolbarByName) {
       let activedName = newLeftPanelContainer.length ? newLeftPanelContainer[0] : ''
@@ -125,6 +126,9 @@ class LeftPanel extends PureComponent<PropType, StateType> {
     } else if (activedToolbar.id) {
       _setActivedToolbarByName(activedToolbar.id)
       this.props.onDeletePanel && this.props.onDeletePanel(activedToolbar.id, name)
+    }else{
+      let activedName = newLeftPanelContainer.length ? newLeftPanelContainer[0] : ''
+      this.props.onDeletePanel && this.props.onDeletePanel(activedName, name)
     }
   }
   // 初始化左面的面板

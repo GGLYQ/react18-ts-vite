@@ -112,6 +112,9 @@ let RightPanel = (props: PropType, ref: any) => {
     } else if (activedToolbar.id) {
       dispatch(setActivedToolbarByName(activedToolbar.id))
       props.onDeletePanel && props.onDeletePanel(activedToolbar.id, name)
+    } else {
+      let activedName = newRightPanelContainer.length ? newRightPanelContainer[0] : ''
+      props.onDeletePanel && props.onDeletePanel(activedName, name)
     }
   }
   //监听props.updateLayout值的变化
@@ -146,6 +149,7 @@ let RightPanel = (props: PropType, ref: any) => {
         })}
       </div>
     )
+    console.log(rightPanelContainer)
     // 是否显示标签
     if (visibleTabs) {
       let rightTabsProps = panels?.map((e: any) => e.props)
