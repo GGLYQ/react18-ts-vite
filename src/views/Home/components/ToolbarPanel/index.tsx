@@ -12,7 +12,7 @@ import { setRightPanelContainer, setActivedToolbarByName } from '@/store/reducer
 import { Dispatch } from 'redux'
 import { toolbarList } from '@/data/toolbar'
 import './index.scss'
-import _ from 'lodash'
+// import _ from 'lodash'
 
 interface PropType {
   activedToolbar: IObj
