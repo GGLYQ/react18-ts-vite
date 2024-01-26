@@ -40,7 +40,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       ['bottomPanelHeight', this.updateLeftAndRightWidth],
       ['leftPanelContainer', this.handleLeftWidth],
       ['asidePanelWidth', this.updateLeftAndRightWidth],
-      ['activePanelName', this.handleLeftWidth],
+      ['activePanelName', this.watchActivePanelName],
       ['activedToolbar', this.handleLeftWidth]
     )
   }
@@ -57,6 +57,16 @@ class LeftPanel extends PureComponent<PropType, StateType> {
         left: asidePanelWidth + 'rem',
       },
     })
+  }
+  // 监听激活的面板
+  watchActivePanelName() {
+    let { leftPanelContainer, _setLeftPanelContainer, activePanelName } = this.props
+    let newLeftPanelContainer = _.cloneDeep(leftPanelContainer) || []
+    if (activePanelName && _setLeftPanelContainer && !newLeftPanelContainer.includes(activePanelName)) {
+      newLeftPanelContainer.push(activePanelName)
+      _setLeftPanelContainer(newLeftPanelContainer)
+    }
+    this.handleLeftWidth()
   }
   // 初始化左侧布局的宽度
   handleLeftWidth() {

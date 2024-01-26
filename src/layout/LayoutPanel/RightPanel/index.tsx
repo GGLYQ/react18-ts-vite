@@ -58,19 +58,32 @@ let RightPanel = (props: PropType, ref: any) => {
     })
     // console.log(rightWidth)
     dispatch(setRightPanelWidth(clientWidthRem))
-  }, [dispatch, topPanelHeight, bottomPanelHeight, rightPanelContainer, activedToolbar, props.activePanelName])
-
-  // 监听面板尺寸
+  }, [dispatch, topPanelHeight, bottomPanelHeight, rightPanelContainer, activedToolbar])
+  // 设置面板容器
+  const setPanelContainer = useCallback(() => {
+    let activePanelName = props.activePanelName
+    let newRightPanelContainer = _.cloneDeep(rightPanelContainer) || []
+    if (activePanelName && !newRightPanelContainer.includes(activePanelName)) {
+      newRightPanelContainer.push(activePanelName)
+      setRightPanelContainer && dispatch(setRightPanelContainer(newRightPanelContainer))
+    }
+    setLayoutFn()
+  }, [props.activePanelName])
+  // 1、监听面板尺寸
   useEffect(() => {
     setLayoutFn()
     // console.log("RightPanel",currentRef) // 获取DOM元素
     // return 清理工作
     return () => {}
   }, [setLayoutFn])
-  // 初始化监听面板
+  // 2、初始化监听面板
   useEffect(() => {
     initRightPanelContainer()
   }, [])
+  // 3、监听激活的面板
+  useEffect(() => {
+    setPanelContainer()
+  }, [setPanelContainer])
   // 判断是否被激活的面板 设置激活的className
   const getActivedClassName = (v: string) => {
     return v === props.activePanelName ? 'actived' : ''

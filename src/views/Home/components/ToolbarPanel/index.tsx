@@ -8,7 +8,7 @@ import { IObj } from '@/utils/type'
 import RightPanelItem from '@/layout/LayoutPanel/RightPanel/RightPanelItem'
 import Com from './components'
 import LeftPanelItem from '@/layout/LayoutPanel/LeftPanel/LeftPanelItem'
-import { setLeftPanelContainer, setRightPanelContainer, setActivedToolbarByName } from '@/store/reducers/GobalReducer'
+import { setRightPanelContainer, setActivedToolbarByName } from '@/store/reducers/GobalReducer'
 import { Dispatch } from 'redux'
 import { toolbarList } from '@/data/toolbar'
 import './index.scss'
@@ -70,12 +70,12 @@ class ToolbarPanel extends React.PureComponent<PropType, StateType> {
   }
   // 右侧面板标签激活事件
   onRightPanelActived(name: string) {
-    let { rightPanelContainer, _setRightPanelContainer } = this.props
-    let newRightPanelContainer = _.cloneDeep(rightPanelContainer) || []
-    if (!newRightPanelContainer.includes(name)) {
-      newRightPanelContainer.push(name)
-      _setRightPanelContainer(newRightPanelContainer)
-    }
+    // let { rightPanelContainer, _setRightPanelContainer } = this.props
+    // let newRightPanelContainer = _.cloneDeep(rightPanelContainer) || []
+    // if (!newRightPanelContainer.includes(name)) {
+    //   newRightPanelContainer.push(name)
+    //   _setRightPanelContainer(newRightPanelContainer)
+    // }
     this.setState({
       ...this.state,
       rightPanelName: name,
@@ -88,12 +88,6 @@ class ToolbarPanel extends React.PureComponent<PropType, StateType> {
   }
   // 左侧面板标签激活事件
   onLeftPanelActived(name: string) {
-    let { leftPanelContainer, _setLeftPanelContainer } = this.props
-    let newLeftPanelContainer = _.cloneDeep(leftPanelContainer) || []
-    if (!newLeftPanelContainer.includes(name)) {
-      newLeftPanelContainer.push(name)
-      _setLeftPanelContainer(newLeftPanelContainer)
-    }
     this.setState({
       ...this.state,
       leftPanelName: name,
@@ -167,9 +161,6 @@ const mapStateToProps = (state: reducerIState) => {
  */
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    _setLeftPanelContainer(value: string[]) {
-      dispatch(setLeftPanelContainer(value))
-    },
     _setRightPanelContainer(value: string[]) {
       dispatch(setRightPanelContainer(value))
     },
