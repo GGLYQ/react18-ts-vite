@@ -9,15 +9,18 @@ import './index.scss'
 import Icon from '@/components/Icon'
 import _ from 'lodash'
 import { IObj } from '@/utils/type'
+import { useNavigate } from 'react-router-dom'
 
 let RightPanel = (props: PropType, ref: any) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const currentRef = useRef<HTMLInputElement | null>(null)
   let layoutReducer = useSelector((state: reducerIState) => state.layoutReducer)
   let gobalReducer = useSelector((state: reducerIState) => state.gobalReducer)
   let topPanelHeight = useMemo(() => layoutReducer.topPanelHeight, [layoutReducer])
   let bottomPanelHeight = useMemo(() => layoutReducer.bottomPanelHeight, [layoutReducer])
   let rightPanelContainer = useMemo(() => gobalReducer.rightPanelContainer, [gobalReducer])
+  let leftPanelContainer = useMemo(() => gobalReducer.leftPanelContainer, [gobalReducer])
   let activedToolbar = useMemo(() => gobalReducer.activedToolbar, [gobalReducer])
   let activePanelName = useMemo(() => props.activePanelName, [props])
   let [style, setStyle] = useState<object>({})
@@ -31,7 +34,11 @@ let RightPanel = (props: PropType, ref: any) => {
       let panels = null
       let slotTem = slot && slot()
       let children = slotTem?.props?.children
-      if (!children) return
+      if (!children) {
+        pContainer.current = []
+        setRightPanelContainer && dispatch(setRightPanelContainer([]))
+        return
+      }
       let type = Object.prototype.toString.call(children)
       panels = type === '[object Object]' ? [children] : type === '[object Array]' ? children : []
       let nameList = panels.map((panel: IObj) => panel.props?.name || '')
@@ -82,6 +89,7 @@ let RightPanel = (props: PropType, ref: any) => {
   // 1、初始化监听面板
   useEffect(() => {
     initRightPanelContainer()
+    return () => {}
   }, [])
   // 2、监听面板尺寸
   useEffect(() => {
@@ -106,6 +114,7 @@ let RightPanel = (props: PropType, ref: any) => {
   const clickTabDelete = (name: string) => {
     let newRightPanelContainer = _.cloneDeep(pContainer.current)
     // console.log(newRightPanelContainer);
+    // 删除被删除的面板容器
     if (newRightPanelContainer) {
       let removeArray = _.remove(newRightPanelContainer, function (n) {
         return n === name
@@ -113,7 +122,7 @@ let RightPanel = (props: PropType, ref: any) => {
       pContainer.current = newRightPanelContainer
       removeArray.length && dispatch(setRightPanelContainer(newRightPanelContainer))
     }
-    
+
     if (!activedToolbar || !setActivedToolbarByName) return
 
     // 取消激活的工具栏
@@ -127,6 +136,10 @@ let RightPanel = (props: PropType, ref: any) => {
     } else {
       let activedName = newRightPanelContainer.length ? newRightPanelContainer[0] : ''
       props.onDeletePanel && props.onDeletePanel(activedName, name)
+    }
+    // console.log(leftPanelContainer, newRightPanelContainer)
+    if (leftPanelContainer && !leftPanelContainer.length && !newRightPanelContainer.length) {
+      navigate('/home')
     }
   }
   //监听props.updateLayout值的变化

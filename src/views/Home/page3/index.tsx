@@ -14,15 +14,17 @@ function Page3(): React.ReactNode {
   }
   // 顶部面板
   let TopPanelItems = () => {
-    return <Toolbar/>
+    return <Toolbar />
   }
   // 右侧面板
   let RightPanelItems = () => {
     return (
       <>
         <RightPanelItem slot={RightPageContent} label='插槽1' name='page3RightSlot1'></RightPanelItem>
-        <RightPanelItem slot={BaseInfo} label='插槽2' name='page3RightSlot2' cancelClose></RightPanelItem>
-        <RightPanelItem slot={BaseInfo} label='插槽3' name='page3RightSlot3' cancelClose></RightPanelItem>
+        <RightPanelItem slot={BaseInfo} label='插槽2' name='page3RightSlot2'></RightPanelItem>
+        <RightPanelItem slot={BaseInfo} label='插槽3' name='page3RightSlot3'></RightPanelItem>
+        {/* <RightPanelItem slot={BaseInfo} label='插槽2' name='page3RightSlot2' cancelClose></RightPanelItem>
+        <RightPanelItem slot={BaseInfo} label='插槽3' name='page3RightSlot3' cancelClose></RightPanelItem> */}
       </>
     )
   }
@@ -30,12 +32,15 @@ function Page3(): React.ReactNode {
   let BottomPanelItems = () => {
     return <div className='page3-bottom-item'>page3底部</div>
   }
+  // 右侧面板标签激活事件
   let onRightPanelActived = (name: string) => {
     // console.log('onRightPanelActived', name)
     setActiveRightPanelName(name)
   }
+  // 右侧面板标签关闭事件
   let onRightPanelDelete = (name: string) => {
-    console.log('onRightPanelDelete', name)
+    // console.log('onRightPanelDelete', name)
+    setActiveRightPanelName(name)
   }
   return (
     <FramePage

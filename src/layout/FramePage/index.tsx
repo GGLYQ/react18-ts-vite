@@ -35,12 +35,15 @@ function FramePage(props: FrameIProps, ref: any) {
   // console.log('activeRightPanel', activeRightPanelName)
   useEffect(() => {
     // 类似于 componentDidMount 和 componentDidUpdate:
-
     return () => {
       // 类似于 componentWillUnmount
     }
-  }, [TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems,activeRightPanelName,activeLeftPanelName])
-
+  }, [TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems, activeRightPanelName, activeLeftPanelName])
+  useEffect(() => {
+    // 类似于 componentDidMount 和 componentDidUpdate:
+    return () => {
+    }
+  },[])
   // 重新计算右侧面板的偏移量
   let updateRightLayout = () => {
     let current = RightPanelRef.current || { updateLayout: () => {} }

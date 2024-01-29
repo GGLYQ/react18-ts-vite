@@ -19,12 +19,15 @@ function Page5(): React.ReactNode {
       </>
     )
   }
+  // 右侧面板标签激活事件
   let onRightPanelActived = (name: string) => {
     // console.log('onRightPanelActived', name)
     setActiveRightPanelName(name)
   }
+  // 右侧面板标签关闭事件
   let onRightPanelDelete = (name: string) => {
-    console.log('onRightPanelDelete', name)
+    // console.log('onRightPanelDelete', name)
+    setActiveRightPanelName(name)
   }
   return (
     <FramePage

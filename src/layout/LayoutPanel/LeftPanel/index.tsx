@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import { withRouterAndRef } from '@/utils/withRouter'
 import type { PropType } from '../type'
 import type { reducerIState } from '@/store/type'
 import { setLeftPanelWidth } from '@/store/reducers/LayoutReducer'
@@ -44,7 +45,8 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       ['activedToolbar', this.handleLeftWidth]
     )
   }
-  componentWillUnmount() {}
+  componentWillUnmount() {
+  }
   // 设置左右侧的宽度
   updateLeftAndRightWidth() {
     let { topPanelHeight, bottomPanelHeight, asidePanelWidth } = this.props
@@ -108,8 +110,9 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   // 点击删除图标的事件
   clickTabDelete(name: string) {
     // 删除右侧容器的某一项
-    let { leftPanelContainer, _setLeftPanelContainer, activedToolbar, _setActivedToolbarByName } = this.props
+    let { leftPanelContainer, _setLeftPanelContainer, activedToolbar, _setActivedToolbarByName, rightPanelContainer } = this.props
     let newLeftPanelContainer = _.cloneDeep(leftPanelContainer) || []
+    // 删除被删除的面板容器
     if (newLeftPanelContainer) {
       let removeArray = _.remove(newLeftPanelContainer, function (n) {
         return n === name
@@ -117,7 +120,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       removeArray.length && _setLeftPanelContainer && _setLeftPanelContainer(newLeftPanelContainer)
     }
     if (!activedToolbar || !_setActivedToolbarByName) return
-    console.log(activedToolbar,newLeftPanelContainer);
+    // console.log(activedToolbar, newLeftPanelContainer)
     // 取消激活的工具栏
     if (activedToolbar.id === name && _setActivedToolbarByName) {
       let activedName = newLeftPanelContainer.length ? newLeftPanelContainer[0] : ''
@@ -126,9 +129,14 @@ class LeftPanel extends PureComponent<PropType, StateType> {
     } else if (activedToolbar.id) {
       _setActivedToolbarByName(activedToolbar.id)
       this.props.onDeletePanel && this.props.onDeletePanel(activedToolbar.id, name)
-    }else{
+    } else {
       let activedName = newLeftPanelContainer.length ? newLeftPanelContainer[0] : ''
       this.props.onDeletePanel && this.props.onDeletePanel(activedName, name)
+    }
+    // console.log(rightPanelContainer,newLeftPanelContainer);
+    if(rightPanelContainer && !rightPanelContainer.length && !newLeftPanelContainer.length){
+      let { navigate } = this.props.router || {}
+      navigate && navigate('/home')
     }
   }
   // 初始化左面的面板
@@ -139,7 +147,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       let panels = null
       let slotTem = slot && slot()
       let children = slotTem?.props?.children
-      if (!children) return
+      if (!children) return _setLeftPanelContainer && _setLeftPanelContainer([])
       let type = Object.prototype.toString.call(children)
       panels = type === '[object Object]' ? [children] : type === '[object Array]' ? children : []
       let nameList = panels.map((panel: IObj) => panel.props?.name || '')
@@ -240,6 +248,7 @@ const mapStateToProps = (state: reducerIState) => {
     asidePanelWidth: state.layoutReducer.asidePanelWidth,
     activedToolbar: state.gobalReducer.activedToolbar,
     leftPanelContainer: state.gobalReducer.leftPanelContainer,
+    rightPanelContainer: state.gobalReducer.rightPanelContainer,
   }
 }
 
@@ -260,5 +269,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
   }
 }
-let NavigateComponent = connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(LeftPanel)
+let NavigateComponent = withRouterAndRef(connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(LeftPanel))
 export default NavigateComponent

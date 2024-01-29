@@ -1,8 +1,9 @@
-import { IObj } from '@/utils/type'
 import React from 'react'
+import type { IObj, IRouter } from '@/utils/type'
 
 interface PropType {
   slot?: (() => React.ReactElement) | null,
+  router?: IRouter
   activePanelName?: string,
   visibleTabs?: boolean,
   topPanelHeight?: number,

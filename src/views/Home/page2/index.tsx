@@ -40,19 +40,25 @@ function Page2(): React.ReactNode {
       </>
     )
   }
+  // 左侧面板标签激活事件
   let onLeftPanelActived = (name: string) => {
     // console.log('onLeftPanelActived', name)
     setActiveLeftPanelName(name)
   }
+  // 右侧面板标签激活事件
   let onRightPanelActived = (name: string) => {
     // console.log('onRightPanelActived', name)
     setActiveRightPanelName(name)
   }
+  // 左侧面板标签关闭事件
   let onLeftPanelDelete = (name: string) => {
-    console.log('onLeftPanelDelete', name)
+    // console.log('onLeftPanelDelete', name)
+    setActiveLeftPanelName(name)
   }
+  // 右侧面板标签关闭事件
   let onRightPanelDelete = (name: string) => {
-    console.log('onRightPanelDelete', name)
+    // console.log('onRightPanelDelete', name)
+    setActiveRightPanelName(name)
   }
   return (
     <FramePage

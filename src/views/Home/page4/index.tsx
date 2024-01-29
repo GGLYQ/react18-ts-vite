@@ -12,7 +12,7 @@ function Page4(): React.ReactNode {
   }
   // 顶部面板
   let TopPanelItems = () => {
-    return <Toolbar/>
+    return <Toolbar />
   }
   // 左侧面板
   let LeftPanelItems = () => {
@@ -27,15 +27,17 @@ function Page4(): React.ReactNode {
   let BottomPanelItems = () => {
     return <div className='page4-bottom-item'>page4底部</div>
   }
+  // 左侧面板标签激活事件
   let onLeftPanelActived = (name: string) => {
     // console.log('onLeftPanelActived', name)
     setActiveLeftPanelName(name)
   }
-  
+  // 左侧面板标签关闭事件
   let onLeftPanelDelete = (name: string) => {
-    console.log('onLeftPanelDelete', name)
+    // console.log('onLeftPanelDelete', name)
+    setActiveLeftPanelName(name)
   }
-  
+
   return (
     <FramePage
       activeLeftPanelName={activeLeftPanelName}

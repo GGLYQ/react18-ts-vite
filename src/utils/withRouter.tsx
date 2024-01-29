@@ -4,6 +4,7 @@ import { IObj } from './type'
 // 高阶函数接收一个泛型参数 P，表示原始组件的 props 类型
 interface WithRouterProps {
   router?: any
+  forwardRef?: any
 }
 
 // Router6 之后，代码类的API都迁移到了hooks上，但不能再类组件中调用
@@ -26,6 +27,14 @@ const withRouter = <P extends object>(WrappedComponent: React.ComponentType<P>) 
   // 设置新组件的 displayName，便于调试
   WithRouterCom.displayName = `WithRouterComHook(${WrappedComponent.displayName || WrappedComponent.name})`
   return WithRouterCom
+}
+// 封装高阶组件，使hooks可以在class类组件中调用
+const withRouterAndRef = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
+  const WithRouter = withRouter(({ forwardRef, ...otherProps }: IObj) => <WrappedComponent ref={forwardRef} {...(otherProps as P)} />)
+  const WithRouterAndRef = React.forwardRef((props, ref) => <WithRouter {...props} forwardRef={ref} />)
+  const name = WithRouterAndRef.displayName || WithRouterAndRef.name
+  WithRouterAndRef.displayName = `withRouterAndRef(${name})`
+  return WithRouterAndRef
 }
 
 const getQueryParams = (url: string) => {
@@ -52,4 +61,4 @@ function load(componentPath: string): React.ReactNode {
     </Suspense>
   )
 }
-export { withRouter, getQueryParams, load }
+export { withRouter, withRouterAndRef, getQueryParams, load }

@@ -53,7 +53,8 @@ function Page1(): React.ReactNode {
     return (
       <>
         <RightPanelItem slot={RightPageContent} label='插槽3' name='page1RightSlot1'></RightPanelItem>
-        <RightPanelItem slot={BaseInfo} label='插槽4' name='page1RightSlot2' cancelClose></RightPanelItem>
+        <RightPanelItem slot={BaseInfo} label='插槽4' name='page1RightSlot2'></RightPanelItem>
+        {/* <RightPanelItem slot={BaseInfo} label='插槽4' name='page1RightSlot2' cancelClose></RightPanelItem> */}
       </>
     )
   }
@@ -63,17 +64,17 @@ function Page1(): React.ReactNode {
   }
   // 左侧面板标签激活事件
   let onLeftPanelActived = (name: string) => {
-    console.log('onLeftPanelActived', name)
+    // console.log('onLeftPanelActived', name)
     setActiveLeftPanelName(name)
   }
   // 右侧面板标签激活事件
   let onRightPanelActived = (name: string) => {
-    console.log('onRightPanelActived', name)
+    // console.log('onRightPanelActived', name)
     setActiveRightPanelName(name)
   }
   // 左侧面板标签关闭事件
   let onLeftPanelDelete = (name: string) => {
-    console.log('onLeftPanelDelete', name)
+    // console.log('onLeftPanelDelete', name)
     setActiveLeftPanelName(name)
   }
   // 右侧面板标签关闭事件
