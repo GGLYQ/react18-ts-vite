@@ -8,6 +8,7 @@ interface PropType {
   visibleTabs?: boolean,
   topPanelHeight?: number,
   bottomPanelHeight?: number,
+  leftPanelWidth?: number,
   asidePanelWidth?: number,
   activedToolbar?: IObj,
   leftPanelContainer?: string[]

@@ -45,15 +45,14 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       ['activedToolbar', this.handleLeftWidth]
     )
   }
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
   // 设置左右侧的宽度
   updateLeftAndRightWidth() {
     let { topPanelHeight, bottomPanelHeight, asidePanelWidth } = this.props
     this.setState({
       ...this.state,
       style: {
-        width: this.state.leftWidth + 'rem',
+        // width: this.state.leftWidth + 'rem',
         top: topPanelHeight + 'rem',
         bottom: bottomPanelHeight + 'rem',
         left: asidePanelWidth + 'rem',
@@ -72,7 +71,7 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   }
   // 初始化左侧布局的宽度
   handleLeftWidth() {
-    let { _setLeftPanelWidth, topPanelHeight, bottomPanelHeight, asidePanelWidth } = this.props
+    let { _setLeftPanelWidth, topPanelHeight, bottomPanelHeight, asidePanelWidth, leftPanelWidth } = this.props
     // console.log('handleLeftWidth', leftPanelContainer, activePanelName)
     let clientWidth = this.currentRef.current?.clientWidth // 获取DOM元素
     let clientWidthRem = clientWidth ? getPxToRem(clientWidth) : 0
@@ -90,13 +89,13 @@ class LeftPanel extends PureComponent<PropType, StateType> {
     this.setState({
       leftWidth: clientWidthRem,
       style: {
-        width: clientWidthRem + 'rem',
+        // width: clientWidthRem + 'rem',
         top: topPanelHeight + 'rem',
         bottom: bottomPanelHeight + 'rem',
         left: asidePanelWidth + 'rem',
       },
     })
-    _setLeftPanelWidth && _setLeftPanelWidth(clientWidthRem)
+    if (leftPanelWidth != clientWidthRem) _setLeftPanelWidth && _setLeftPanelWidth(clientWidthRem)
   }
   // 判断是否被激活的面板 设置激活的className
   getActivedClassName(v: string) {
@@ -134,11 +133,11 @@ class LeftPanel extends PureComponent<PropType, StateType> {
       this.props.onDeletePanel && this.props.onDeletePanel(activedName, name)
     }
     // console.log(rightPanelContainer,newLeftPanelContainer);
-    if(rightPanelContainer && !rightPanelContainer.length && !newLeftPanelContainer.length){
-      let router = this.props.router 
-      let navigate=router?.navigate
-      let location=router?.location || {}
-      if ("pathname" in location && location?.pathname != '/home') return navigate && navigate('/home')
+    if (rightPanelContainer && !rightPanelContainer.length && !newLeftPanelContainer.length) {
+      let router = this.props.router
+      let navigate = router?.navigate
+      let location = router?.location || {}
+      if ('pathname' in location && location?.pathname != '/home') return navigate && navigate('/home')
     }
   }
   // 初始化左面的面板
@@ -163,8 +162,10 @@ class LeftPanel extends PureComponent<PropType, StateType> {
   }
   // 重新计算偏移量
   updateLayout() {
-    console.log('重新计算偏移量 leftPanel')
-    this.handleLeftWidth()
+    window.requestAnimationFrame(() => {
+      this.handleLeftWidth()
+    })
+    // console.log('重新计算偏移量 leftPanel')
   }
   render() {
     // 渲染页面模板的逻辑
@@ -247,6 +248,7 @@ const mapStateToProps = (state: reducerIState) => {
   return {
     topPanelHeight: state.layoutReducer.topPanelHeight,
     bottomPanelHeight: state.layoutReducer.bottomPanelHeight,
+    leftPanelWidth: state.layoutReducer.leftPanelWidth,
     asidePanelWidth: state.layoutReducer.asidePanelWidth,
     activedToolbar: state.gobalReducer.activedToolbar,
     leftPanelContainer: state.gobalReducer.leftPanelContainer,

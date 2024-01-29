@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef, useImperativeHandle, forwardRef, useMemo } from 'react'
+import React, { useEffect, useLayoutEffect, useState, useCallback, useRef, useImperativeHandle, forwardRef, useMemo } from 'react'
 import type { PropType } from '../type'
 import type { reducerIState } from '@/store/type'
 import { useSelector, useDispatch } from 'react-redux'
@@ -20,6 +20,7 @@ let RightPanel = (props: PropType, ref: any) => {
   let gobalReducer = useSelector((state: reducerIState) => state.gobalReducer)
   let topPanelHeight = useMemo(() => layoutReducer.topPanelHeight, [layoutReducer])
   let bottomPanelHeight = useMemo(() => layoutReducer.bottomPanelHeight, [layoutReducer])
+  let rightPanelWidth = useMemo(() => layoutReducer.rightPanelWidth, [layoutReducer])
   let rightPanelContainer = useMemo(() => gobalReducer.rightPanelContainer, [gobalReducer])
   let leftPanelContainer = useMemo(() => gobalReducer.leftPanelContainer, [gobalReducer])
   let activedToolbar = useMemo(() => gobalReducer.activedToolbar, [gobalReducer])
@@ -64,19 +65,25 @@ let RightPanel = (props: PropType, ref: any) => {
         let children = currentRef.current.children[i]
         if (children.className === 'right-panel-content') {
           let clientWidth_ = children?.clientWidth
-          console.log(clientWidth_);
           clientWidthRem = clientWidth_ ? getPxToRem(clientWidth_) : 0
         }
       }
     }
-    console.log(clientWidthRem);
     setStyle({
-      width: clientWidthRem + 'rem',
+      // width: clientWidthRem + 'rem',
       top: topPanelHeight + 'rem',
       bottom: bottomPanelHeight + 'rem',
     })
-    dispatch(setRightPanelWidth(clientWidthRem))
-  }, [dispatch, topPanelHeight, bottomPanelHeight, rightPanelContainer, activedToolbar])
+    if (rightPanelWidth != clientWidthRem) dispatch(setRightPanelWidth(clientWidthRem))
+  }, [dispatch, rightPanelContainer, activedToolbar])
+  // 设置top和bottom 的偏移量
+  const setTopAndBottom = useCallback(() => {
+    setStyle({
+      // width: clientWidthRem + 'rem',
+      top: topPanelHeight + 'rem',
+      bottom: bottomPanelHeight + 'rem',
+    })
+  }, [topPanelHeight, bottomPanelHeight])
   // 设置面板容器
   const setPanelContainer = useCallback(() => {
     let newRightPanelContainer = _.cloneDeep(pContainer.current) || []
@@ -95,11 +102,12 @@ let RightPanel = (props: PropType, ref: any) => {
     return () => {}
   }, [])
   // 2、监听面板尺寸
-  useEffect(() => {
+  useLayoutEffect(() => {
     setLayoutFn()
+    setTopAndBottom()
     // return 清理工作
     return () => {}
-  }, [setLayoutFn])
+  }, [setLayoutFn, setTopAndBottom])
   // 3、监听激活的面板
   useEffect(() => {
     setPanelContainer()
@@ -142,16 +150,17 @@ let RightPanel = (props: PropType, ref: any) => {
     }
     // console.log(leftPanelContainer, newRightPanelContainer)
     if (leftPanelContainer && !leftPanelContainer.length && !newRightPanelContainer.length) {
-      if ("pathname" in location && location?.pathname != '/home')  navigate('/home')
+      if ('pathname' in location && location?.pathname != '/home') navigate('/home')
     }
   }
   //监听props.updateLayout值的变化
   //打开弹窗
   useImperativeHandle(ref, () => ({
     updateLayout: () => {
-      console.dir(currentRef.current)
-      console.log('重新计算偏移量 rightPanel')
-      setLayoutFn()
+      window.requestAnimationFrame(() => {
+        setLayoutFn()
+      })
+      // console.log('重新计算偏移量 rightPanel')
     },
   }))
 
