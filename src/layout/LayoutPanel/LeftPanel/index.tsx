@@ -135,8 +135,10 @@ class LeftPanel extends PureComponent<PropType, StateType> {
     }
     // console.log(rightPanelContainer,newLeftPanelContainer);
     if(rightPanelContainer && !rightPanelContainer.length && !newLeftPanelContainer.length){
-      let { navigate } = this.props.router || {}
-      navigate && navigate('/home')
+      let router = this.props.router 
+      let navigate=router?.navigate
+      let location=router?.location || {}
+      if ("pathname" in location && location?.pathname != '/home') return navigate && navigate('/home')
     }
   }
   // 初始化左面的面板

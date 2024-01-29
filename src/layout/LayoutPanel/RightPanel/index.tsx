@@ -9,11 +9,12 @@ import './index.scss'
 import Icon from '@/components/Icon'
 import _ from 'lodash'
 import { IObj } from '@/utils/type'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 let RightPanel = (props: PropType, ref: any) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
   const currentRef = useRef<HTMLInputElement | null>(null)
   let layoutReducer = useSelector((state: reducerIState) => state.layoutReducer)
   let gobalReducer = useSelector((state: reducerIState) => state.gobalReducer)
@@ -63,10 +64,12 @@ let RightPanel = (props: PropType, ref: any) => {
         let children = currentRef.current.children[i]
         if (children.className === 'right-panel-content') {
           let clientWidth_ = children?.clientWidth
+          console.log(clientWidth_);
           clientWidthRem = clientWidth_ ? getPxToRem(clientWidth_) : 0
         }
       }
     }
+    console.log(clientWidthRem);
     setStyle({
       width: clientWidthRem + 'rem',
       top: topPanelHeight + 'rem',
@@ -139,7 +142,7 @@ let RightPanel = (props: PropType, ref: any) => {
     }
     // console.log(leftPanelContainer, newRightPanelContainer)
     if (leftPanelContainer && !leftPanelContainer.length && !newRightPanelContainer.length) {
-      navigate('/home')
+      if ("pathname" in location && location?.pathname != '/home')  navigate('/home')
     }
   }
   //监听props.updateLayout值的变化
