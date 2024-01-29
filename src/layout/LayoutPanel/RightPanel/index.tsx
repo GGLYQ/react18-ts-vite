@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef, useImperativeHandle, forwardRef } from 'react'
+import React, { useEffect, useState, useCallback, useRef, useImperativeHandle, forwardRef, useMemo } from 'react'
 import type { PropType } from '../type'
 import type { reducerIState } from '@/store/type'
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,9 +13,16 @@ import { IObj } from '@/utils/type'
 let RightPanel = (props: PropType, ref: any) => {
   const dispatch = useDispatch()
   const currentRef = useRef<HTMLInputElement | null>(null)
-  let { topPanelHeight, bottomPanelHeight } = useSelector((state: reducerIState) => state.layoutReducer)
-  let { rightPanelContainer, activedToolbar } = useSelector((state: reducerIState) => state.gobalReducer)
+  let layoutReducer = useSelector((state: reducerIState) => state.layoutReducer)
+  let gobalReducer = useSelector((state: reducerIState) => state.gobalReducer)
+  let topPanelHeight = useMemo(() => layoutReducer.topPanelHeight, [layoutReducer])
+  let bottomPanelHeight = useMemo(() => layoutReducer.bottomPanelHeight, [layoutReducer])
+  let rightPanelContainer = useMemo(() => gobalReducer.rightPanelContainer, [gobalReducer])
+  let activedToolbar = useMemo(() => gobalReducer.activedToolbar, [gobalReducer])
+  let activePanelName = useMemo(() => props.activePanelName, [props])
   let [style, setStyle] = useState<object>({})
+  let pContainer = useRef<string[]>([])
+
   // 初始化左面的面板
   const initRightPanelContainer = useCallback(() => {
     let { isAllDisplay, slot } = props
@@ -31,8 +38,11 @@ let RightPanel = (props: PropType, ref: any) => {
       _.remove(nameList, function (e) {
         return !e
       })
+      // console.log('initRightPanelContainer', nameList)
+      pContainer.current = [...nameList]
       setRightPanelContainer && dispatch(setRightPanelContainer(nameList))
     } else {
+      pContainer.current = []
       setRightPanelContainer && dispatch(setRightPanelContainer([]))
     }
   }, [dispatch, props])
@@ -50,36 +60,35 @@ let RightPanel = (props: PropType, ref: any) => {
         }
       }
     }
-    // setRightWidth(clientWidthRem)
     setStyle({
       width: clientWidthRem + 'rem',
       top: topPanelHeight + 'rem',
       bottom: bottomPanelHeight + 'rem',
     })
-    // console.log(rightWidth)
     dispatch(setRightPanelWidth(clientWidthRem))
   }, [dispatch, topPanelHeight, bottomPanelHeight, rightPanelContainer, activedToolbar])
   // 设置面板容器
   const setPanelContainer = useCallback(() => {
-    let activePanelName = props.activePanelName
-    let newRightPanelContainer = _.cloneDeep(rightPanelContainer) || []
+    let newRightPanelContainer = _.cloneDeep(pContainer.current) || []
+    // console.log(newRightPanelContainer);
     if (activePanelName && !newRightPanelContainer.includes(activePanelName)) {
       newRightPanelContainer.push(activePanelName)
+      // console.log('setPanelContainer', newRightPanelContainer)
+      pContainer.current = newRightPanelContainer
       setRightPanelContainer && dispatch(setRightPanelContainer(newRightPanelContainer))
     }
     setLayoutFn()
-  }, [props.activePanelName])
-  // 1、监听面板尺寸
-  useEffect(() => {
-    setLayoutFn()
-    // console.log("RightPanel",currentRef) // 获取DOM元素
-    // return 清理工作
-    return () => {}
-  }, [setLayoutFn])
-  // 2、初始化监听面板
+  }, [activePanelName])
+  // 1、初始化监听面板
   useEffect(() => {
     initRightPanelContainer()
   }, [])
+  // 2、监听面板尺寸
+  useEffect(() => {
+    setLayoutFn()
+    // return 清理工作
+    return () => {}
+  }, [setLayoutFn])
   // 3、监听激活的面板
   useEffect(() => {
     setPanelContainer()
@@ -95,13 +104,16 @@ let RightPanel = (props: PropType, ref: any) => {
   }
   // 点击删除图标的事件
   const clickTabDelete = (name: string) => {
-    let newRightPanelContainer = _.cloneDeep(rightPanelContainer)
+    let newRightPanelContainer = _.cloneDeep(pContainer.current)
+    // console.log(newRightPanelContainer);
     if (newRightPanelContainer) {
       let removeArray = _.remove(newRightPanelContainer, function (n) {
         return n === name
       })
+      pContainer.current = newRightPanelContainer
       removeArray.length && dispatch(setRightPanelContainer(newRightPanelContainer))
     }
+    
     if (!activedToolbar || !setActivedToolbarByName) return
 
     // 取消激活的工具栏
@@ -126,7 +138,8 @@ let RightPanel = (props: PropType, ref: any) => {
       setLayoutFn()
     },
   }))
-  // 渲染页面模板的逻辑
+
+  // 开始渲染页面模板的逻辑
   let visibleTabs = props.visibleTabs
   let slot = props.slot
   let slotTem = slot && slot()
@@ -149,7 +162,6 @@ let RightPanel = (props: PropType, ref: any) => {
         })}
       </div>
     )
-    console.log(rightPanelContainer)
     // 是否显示标签
     if (visibleTabs) {
       let rightTabsProps = panels?.map((e: any) => e.props)

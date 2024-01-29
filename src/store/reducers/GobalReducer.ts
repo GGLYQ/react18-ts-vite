@@ -42,7 +42,6 @@ export let gobalSlice = createSlice({
       state.activedToolbar = activedToolbarItem ? JSON.parse(JSON.stringify(activedToolbarItem)) : {}
     },
     setLeftPanelContainer: (state, action) => {
-      console.log(action.payload);
       state.leftPanelContainer = action.payload
     },
     setRightPanelContainer: (state, action) => {
