@@ -22,21 +22,29 @@ const withRouter = <P extends object>(WrappedComponent: React.ComponentType<P>) 
     const searchParams = useSearchParams()
     // 将获取到的navigate放到一个对象中
     const router = { navigate, location, params, searchParams }
-    return <WrappedComponent {...(props as P)} router={router} />
+    return <WrappedComponent {...(props as P & WithRouterProps)} router={router} />
   }
   // 设置新组件的 displayName，便于调试
   WithRouterCom.displayName = `WithRouterComHook(${WrappedComponent.displayName || WrappedComponent.name})`
   return WithRouterCom
 }
+
 // 封装高阶组件，使hooks可以在class类组件中调用
 const withRouterAndRef = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
-  const WithRouter = withRouter(({ forwardRef, ...otherProps }: IObj) => <WrappedComponent ref={forwardRef} {...(otherProps as P)} />)
-  const WithRouterAndRef = React.forwardRef((props, ref) => <WithRouter {...props} forwardRef={ref} />)
+  const WithRouter = withRouter(({ forwardRef, ...otherProps }: P & WithRouterProps) => {
+    console.log(otherProps)
+    return <WrappedComponent ref={forwardRef} {...(otherProps as P & WithRouterProps)} />
+  })
+  const WithRouterAndRef = React.forwardRef((props, ref) => {
+    console.log(props)
+    return <WithRouter {...(props as P & WithRouterProps)} forwardRef={ref} />
+  })
   const name = WithRouterAndRef.displayName || WithRouterAndRef.name
   WithRouterAndRef.displayName = `withRouterAndRef(${name})`
   return WithRouterAndRef
 }
 
+// 获取路由地址的参数
 const getQueryParams = (url: string) => {
   const paramsString = new URLSearchParams(url).toString() // 将查询字符串转换为字符串
   const paramsArray = paramsString.split('&') // 将字符串按 & 分割成数组

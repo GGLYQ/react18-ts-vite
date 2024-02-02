@@ -4,7 +4,7 @@ import type { reducerIState } from '@/store/type'
 import './index.scss'
 
 interface propType {
-  slot?: () => React.ReactElement
+  slot?: (() => React.ReactNode) | null
 }
 function Main(props: propType): React.ReactNode {
   let { leftPanelWidth, rightPanelWidth, topPanelHeight, bottomPanelHeight, asidePanelWidth } = useSelector((state: reducerIState) => state.layoutReducer)

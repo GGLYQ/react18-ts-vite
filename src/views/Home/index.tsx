@@ -1,6 +1,7 @@
 // import { useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Main from '@/layout/Main'
+import Map from '@/components/Map'
 import Aside from '@/layout/Aside'
 import React, { useEffect, useState, memo } from 'react'
 import './index.scss'
@@ -17,7 +18,7 @@ function Home(): React.ReactNode {
     <div className='App-homePage'>
       <Aside />
       <div className='App-content'>
-        <Main></Main>
+        <Main slot={Map}></Main>
         {pathName == '/home' ? <ToolbarPanel /> : ''}
         <Outlet></Outlet>
       </div>

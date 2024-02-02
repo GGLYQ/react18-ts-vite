@@ -20,6 +20,6 @@ interface PropType {
   _setActivedToolbar?: (value: IObj) => void
   _setActivedToolbarByName?: (value: string) => void
   onActivedPanel?: (name: string) => void
-  onDeletePanel?: (name: string,deletedName?:string) => void
+  onDeletePanel?: (name: string, deletedName?: string) => void
 }
 export { PropType }

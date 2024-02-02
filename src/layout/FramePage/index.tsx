@@ -116,8 +116,8 @@ function FramePage(props: FrameIProps, ref: any) {
         slot={LeftPanelItems}
         activePanelName={activeLeftPanelName}
         visibleTabs={visibleLeftTabs}
-        onActivedPanel={(name) => onActivedLeftPanel(name)}
-        onDeletePanel={(name, deletedName = '') => onDeleteLeftPanel(name, deletedName)}
+        onActivedPanel={(name: string) => onActivedLeftPanel(name)}
+        onDeletePanel={(name: string, deletedName = '') => onDeleteLeftPanel(name, deletedName)}
         isAllDisplay={isAllDisplay}
       ></LeftPanel>
       {/* 右侧面板 */}
