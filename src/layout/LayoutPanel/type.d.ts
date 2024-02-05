@@ -2,7 +2,7 @@ import React from 'react'
 import type { IObj, IRouter } from '@/utils/type'
 
 interface PropType {
-  slot?: (() => React.ReactElement) | null,
+  slot?: (() => React.ReactElement) | (() => React.ReactNode) | null | undefined,
   router?: IRouter
   activePanelName?: string,
   visibleTabs?: boolean,

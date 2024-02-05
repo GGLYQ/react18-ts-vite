@@ -4,7 +4,7 @@ import './index.scss'
 
 let { LeftPanel, RightPanel, TopPanel, BottomPanel } = Panel
 
-type PanelType = (() => React.ReactElement) | null
+type PanelType = (() => React.ReactElement) | (() => React.ReactNode) | null | undefined
 interface FrameChildrenIProps {
   TopPanelItems?: PanelType
   LeftPanelItems?: PanelType
@@ -41,9 +41,8 @@ function FramePage(props: FrameIProps, ref: any) {
   }, [TopPanelItems, LeftPanelItems, RightPanelItems, BottomPanelItems, activeRightPanelName, activeLeftPanelName])
   useEffect(() => {
     // 类似于 componentDidMount 和 componentDidUpdate:
-    return () => {
-    }
-  },[])
+    return () => {}
+  }, [])
   // 重新计算右侧面板的偏移量
   let updateRightLayout = () => {
     let current = RightPanelRef.current || { updateLayout: () => {} }

@@ -5,6 +5,7 @@ import { IObj } from './type'
 interface WithRouterProps {
   router?: any
   forwardRef?: any
+  [prop: string]: any
 }
 
 // Router6 之后，代码类的API都迁移到了hooks上，但不能再类组件中调用
@@ -32,11 +33,10 @@ const withRouter = <P extends object>(WrappedComponent: React.ComponentType<P>) 
 // 封装高阶组件，使hooks可以在class类组件中调用
 const withRouterAndRef = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
   const WithRouter = withRouter(({ forwardRef, ...otherProps }: P & WithRouterProps) => {
-    console.log(otherProps)
+    // console.log(otherProps)
     return <WrappedComponent ref={forwardRef} {...(otherProps as P & WithRouterProps)} />
   })
-  const WithRouterAndRef = React.forwardRef((props, ref) => {
-    console.log(props)
+  const WithRouterAndRef = React.forwardRef<HTMLDivElement, P & WithRouterProps>((props, ref) => {
     return <WithRouter {...(props as P & WithRouterProps)} forwardRef={ref} />
   })
   const name = WithRouterAndRef.displayName || WithRouterAndRef.name
