@@ -8,6 +8,7 @@
   }
   .App-map-suspension {
     position: absolute;
+    z-index: 2;
     right: 40px;
     bottom: 120px;
   }

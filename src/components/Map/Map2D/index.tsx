@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import type { reducerIState } from '@/store/type'
 import { setFirstGisScreen, setSecondGisScreen, setThirdGisScreen, setFourthGisScreen, setFifthGisScreen } from '@/store/reducers/GisWholeReducer'
 import { IObj } from '@/utils/type'
+import viewControl from '../mixins/viewControl'
 
 interface PropType {
   screenMode: number
@@ -179,4 +180,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }
 }
 let NavigateComponent = connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(Map2D)
+Object.assign(NavigateComponent.WrappedComponent.prototype, viewControl)
+console.log(NavigateComponent);
 export default NavigateComponent
