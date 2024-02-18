@@ -22,31 +22,64 @@ class Map extends React.PureComponent<PropType, StateType> {
     this.loadMap()
   }
   async loadMap() {
-    const {Map, MapView, TileLayer, Fullscreen, Zoom}=mapConfig
+    const { Map, MapView, TileLayer, ScaleBar, TileInfo, Extent } = mapConfig
+    let { spatialReference, tileInfo } = (window as any).Map2DConfig
+    let { extent } = (window as any).MapServerConfig
+    // 配置瓦片
+    const MapTileInfo = new TileInfo({
+      dpi: tileInfo.dpi,
+      format: 'image/png',
+      spatialReference: spatialReference,
+      size: [256, 256],
+      origin: tileInfo.origin,
+      lods: tileInfo.lods,
+    })
+    // 定义初始位置
+    let MapExtent = new Extent({
+      xmin: extent.xmin,
+      ymin: extent.ymin,
+      xmax: extent.xmax,
+      ymax: extent.ymax,
+      spatialReference: spatialReference,
+    })
     // 第一屏地图
     let transportationLayer = new TileLayer({
-      url: (window as any).Map2DConfig.digitalMapUrl,
-      id: 'streets',
+      url: (window as any).Map2DConfig.digitalMapUrl, //电子地图
     })
     let FirstMap = new Map({
-      // 底图的图层
-      layers: [transportationLayer],
+      layers: [transportationLayer], // 底图的图层
     })
     let FirstMapView = new MapView({
       map: FirstMap,
       container: 'FirstMap',
-      // center: [-118.244, 34.052],
-      // zoom: 12,
+      spatialReference: spatialReference,
+      constraints: {
+        rotationEnabled: false,
+        lods: MapTileInfo.lods,
+      },
+      popup: {
+        actions: [],
+        dockOptions: {
+          buttonEnabled: false,
+        },
+      },
     })
+    FirstMapView.extent = MapExtent
+
+    // 配置map底图小组件
     FirstMapView.ui.empty('top-left') // 清除左上轿的组件
     FirstMapView.ui.remove('attribution') //清除底部powered by ESRI
-    FirstMapView.ui.add(new Zoom({ view: FirstMapView }), 'bottom-right') //在右下角添加缩放组件
     FirstMapView.ui.add(
-      new Fullscreen({
+      new ScaleBar({
         view: FirstMapView,
+        unit: 'metric',
       }),
-      'bottom-right'
-    ) //在右下角添加全屏组件
+      {
+        position: 'bottom-left',
+      }
+    ) //在左下角比例尺添加
+
+    // reudx存储map容器
     let { _setFirstGisScreen } = this.props
     _setFirstGisScreen &&
       _setFirstGisScreen({
