@@ -1,0 +1,17 @@
+.App-map-suspension {
+  .map-button {
+    cursor: pointer;
+    background-color: #ffffff;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.15);
+    margin-bottom: 4px;
+    border-radius: 3px;
+    color: #999999;
+    font-size: 28px;
+    text-align: center;
+    &:hover {
+      color: #333333;
+    }
+  }
+}

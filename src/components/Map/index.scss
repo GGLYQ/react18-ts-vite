@@ -1,10 +1,14 @@
-.App-Map {
+.App-map {
   width: 100%;
   height: 100%;
-  .App-FirstMap {
-    &-1 {
-      width: 100%;
-      height: 100%;
-    }
+  position: relative;
+  .App-map-container {
+    width: 100%;
+    height: 100%;
+  }
+  .App-map-suspension {
+    position: absolute;
+    right: 40px;
+    bottom: 120px;
   }
 }
