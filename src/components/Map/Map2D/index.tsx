@@ -7,10 +7,11 @@ import type { reducerIState } from '@/store/type'
 import { setFirstGisScreen, setSecondGisScreen, setThirdGisScreen, setFourthGisScreen, setFifthGisScreen } from '@/store/reducers/GisWholeReducer'
 import { IObj } from '@/utils/type'
 import viewControl from '../mixins/viewControl'
+import { watchProps } from '@/utils/hook'
 
 interface PropType {
   screenMode: number
-  firstGisScreen: IObj
+  excuteMapMethod: IObj
   _setFirstGisScreen?: (value: IObj) => void
   _setSecondGisScreen?: (value: IObj) => void
   _setThirdGisScreen?: (value: IObj) => void
@@ -19,6 +20,7 @@ interface PropType {
 }
 interface StateType {}
 class Map2D extends React.PureComponent<PropType, StateType> {
+  [x: string]: any
   constructor(props: PropType) {
     super(props)
     this.state = {}
@@ -26,6 +28,15 @@ class Map2D extends React.PureComponent<PropType, StateType> {
   componentDidMount(): void {
     // 加载地图
     this.loadMap()
+  }
+  componentDidUpdate(...prev: [PropType]) {
+    watchProps(this, prev[0], ['excuteMapMethod', this.excuteMapMethodChange])
+  }
+  excuteMapMethodChange() {
+    let excuteMapMethod = this.props.excuteMapMethod
+    let { method, params } = excuteMapMethod
+    method && this[method] && this[method](...params)
+    // console.log('excuteMapMethod', excuteMapMethod)
   }
   async loadMap() {
     const { Map, MapView, TileLayer, ScaleBar, TileInfo, Extent } = mapConfig
@@ -148,11 +159,12 @@ class Map2D extends React.PureComponent<PropType, StateType> {
 const mapStateToProps = (state: reducerIState) => {
   return {
     screenMode: state.gisWholeReducer.screenMode,
-    firstGisScreen: state.gisWholeReducer.firstGisScreen,
-    secondGisScreen: state.gisWholeReducer.secondGisScreen,
-    thirdGisScreen: state.gisWholeReducer.thirdGisScreen,
-    fourthGisScreen: state.gisWholeReducer.fourthGisScreen,
-    fifthGisScreen: state.gisWholeReducer.fifthGisScreen,
+    excuteMapMethod: state.gisWholeReducer.excuteMapMethod,
+    mapView1: state.gisWholeReducer.firstGisScreen.mapView || null,
+    mapView2: state.gisWholeReducer.secondGisScreen.mapView || null,
+    mapView3: state.gisWholeReducer.thirdGisScreen.mapView || null,
+    mapView4: state.gisWholeReducer.fourthGisScreen.mapView || null,
+    mapView5: state.gisWholeReducer.fifthGisScreen.mapView || null,
   }
 }
 
@@ -181,5 +193,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 }
 let NavigateComponent = connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(Map2D)
 Object.assign(NavigateComponent.WrappedComponent.prototype, viewControl)
-console.log(NavigateComponent);
 export default NavigateComponent

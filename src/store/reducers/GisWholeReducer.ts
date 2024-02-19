@@ -19,11 +19,15 @@ export let gisWholeSlice = createSlice({
     thirdGisScreen: {} as IObj,//第三屏
     fourthGisScreen: {} as IObj,//第四屏
     fifthGisScreen: {} as IObj,//第五屏
+    excuteMapMethod: {} as IObj //执行方法
   },
   // 定义的action。由于内置了immutable插件，可以直接使用赋值的方式进行数据的改变
   reducers: {
     setScreenMode: (state, action) => {
       state.screenMode = action.payload
+    },
+    setexcuteMapMethod: (state, action) => {
+      state.excuteMapMethod = action.payload
     },
     setFirstGisScreen: (state, action) => {
       state.firstGisScreen = action.payload
@@ -48,11 +52,10 @@ export let gisWholeSlice = createSlice({
         screenItem[item] = value
       }
     },
-
   },
 
 })
 
-export let { setScreenMode, setFirstGisScreen, setSecondGisScreen, setThirdGisScreen, setFourthGisScreen, setFifthGisScreen, setGisScreenItem } = gisWholeSlice.actions
+export let { setScreenMode, setexcuteMapMethod, setFirstGisScreen, setSecondGisScreen, setThirdGisScreen, setFourthGisScreen, setFifthGisScreen, setGisScreenItem } = gisWholeSlice.actions
 
 export default gisWholeSlice.reducer
