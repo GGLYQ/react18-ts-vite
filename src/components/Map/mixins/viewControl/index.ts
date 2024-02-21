@@ -4,8 +4,6 @@ import mapConfig from "../../mapConfig"
 //地图缩小//地图放大
 function mapZoomEnlargeAndShrink(type: string) {
   let { mapView1 } = this.props
-  console.log("mapZoomEnlargeAndShrink", type);
-  console.log(this)
   // 获取MapServerConfig文件中的最大最小缩放级别
   let zoomArr = (window as any).MapServerConfig.scale2levelsArray.map((item: IObj) => {
     return item.id
@@ -13,7 +11,7 @@ function mapZoomEnlargeAndShrink(type: string) {
   let minZoom = Math.min(...zoomArr)
   let maxZoom = Math.max(...zoomArr)
 
-  let curZoom = mapView1.view.zoom
+  let curZoom = mapView1.zoom
   let boolean = type === "enlarge"
   if (curZoom >= minZoom && curZoom <= maxZoom) {
     let nextZoom = boolean ? 1 : -1

@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import type { reducerIState } from '@/store/type'
 import { setFirstGisScreen, setSecondGisScreen, setThirdGisScreen, setFourthGisScreen, setFifthGisScreen } from '@/store/reducers/GisWholeReducer'
 import { IObj } from '@/utils/type'
+import layerControl from '../mixins/layerControl'
 import viewControl from '../mixins/viewControl'
 import { watchProps } from '@/utils/hook'
 
@@ -36,7 +37,6 @@ class Map2D extends React.PureComponent<PropType, StateType> {
     let excuteMapMethod = this.props.excuteMapMethod
     let { method, params } = excuteMapMethod
     method && this[method] && this[method](...params)
-    // console.log('excuteMapMethod', excuteMapMethod)
   }
   async loadMap() {
     const { Map, MapView, TileLayer, ScaleBar, TileInfo, Extent } = mapConfig
@@ -192,5 +192,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }
 }
 let NavigateComponent = connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(Map2D)
-Object.assign(NavigateComponent.WrappedComponent.prototype, viewControl)
+Object.assign(NavigateComponent.WrappedComponent.prototype, viewControl, layerControl)
 export default NavigateComponent
