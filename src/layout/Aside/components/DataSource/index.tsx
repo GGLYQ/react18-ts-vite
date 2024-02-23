@@ -8,10 +8,13 @@ import type { IObj } from '@/utils/type'
 import { arrayToTree } from '@/utils/arrayUtil'
 import { Tree } from 'antd'
 import type { TreeProps } from 'antd'
+import { FolderOutlined } from '@ant-design/icons'
+import type { TreeDataNode } from 'antd'
 
+type treeDataIf = IObj & TreeDataNode
 interface PropType {}
 interface StateType {
-  treeData: IObj[]
+  treeData: treeDataIf[]
   defaultCheckedKeys: string[]
 }
 class DataSource extends React.PureComponent<PropType, StateType> {
@@ -29,13 +32,15 @@ class DataSource extends React.PureComponent<PropType, StateType> {
   initDataSource() {
     let newDatasource = dataResource.map((leaf: IObj) => {
       leaf.key = leaf.id
-      leaf.isFolder = true //是否为文件夹
+      leaf.disableCheckbox = true //是否为文件夹
+      leaf.icon = <FolderOutlined />
       leaf.children = leaf.resourceAndLayers.map((item: IObj) => {
         let { resourceid, resourcename } = item.resourceByTree
         Object.assign(item, {
           key: resourceid,
           title: resourcename,
-          isFolder: true, //是否为文件夹
+          disableCheckbox: true, //是否为文件夹
+          icon: <FolderOutlined />,
         })
         const rooterList = item.layerinfos.filter((layer: IObj) => layer.parentlayerid === null)
         const treeObj = arrayToTree(item.layerinfos, 'layerid', 'parentlayerid', (layer) => {
@@ -48,14 +53,12 @@ class DataSource extends React.PureComponent<PropType, StateType> {
               Object.assign(ele_, {
                 key: ele_.layerid,
                 title: ele_.layername,
-                isFolder: false,
               })
             })
           let { layerid, layername } = currentParentlayer
           Object.assign(currentParentlayer, {
             key: layerid,
             title: layername,
-            isFolder: false,
           })
           return currentParentlayer
         })
@@ -84,7 +87,7 @@ class DataSource extends React.PureComponent<PropType, StateType> {
     return (
       <div className='aside-panel-dataSource'>
         <p>资源目录</p>
-        <Tree checkable defaultCheckedKeys={this.state.defaultCheckedKeys} onSelect={this.onSelect} onCheck={this.onCheck} treeData={this.state.treeData} />
+        <Tree checkable showLine defaultCheckedKeys={this.state.defaultCheckedKeys} onSelect={this.onSelect} onCheck={this.onCheck} treeData={this.state.treeData} />
       </div>
     )
   }

@@ -1,5 +1,11 @@
-.aside-panel-dataSource{
+.aside-panel-dataSource {
   width: 400px;
   height: 100%;
   padding: 0 16px;
+}
+:where(.ant-tree) {
+  font-size: 14px;
+  .ant-tree-checkbox.ant-tree-checkbox-disabled {
+    display: none;
+  }
 }
