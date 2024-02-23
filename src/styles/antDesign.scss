@@ -1,0 +1,6 @@
+.ant-tree {
+  background-color: transparent;
+  .ant-tree-checkbox:not(.ant-tree-checkbox-checked) .ant-tree-checkbox-inner {
+    background-color: transparent;
+  }
+}
