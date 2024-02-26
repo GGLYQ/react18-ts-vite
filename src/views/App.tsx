@@ -18,6 +18,10 @@ function App(): React.ReactNode {
   useEffect(() => {
     setClassName(isHideHeader ? 'fullScreen' : '')
   }, [isHideHeader])
+
+  useEffect(()=>{
+    window.document.documentElement.setAttribute('data-theme', 'default') //设置全局样式
+  })
   return (
     <ConfigProvider theme={themeConfig}>
       <Header></Header>
