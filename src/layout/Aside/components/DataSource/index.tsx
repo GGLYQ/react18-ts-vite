@@ -8,14 +8,14 @@ import type { IObj } from '@/utils/type'
 import { arrayToTree } from '@/utils/arrayUtil'
 import { Tree } from 'antd'
 import type { TreeProps } from 'antd'
-import { FolderOutlined } from '@ant-design/icons'
-import type { TreeDataNode } from 'antd'
+import { FolderOutlined, FolderOpenOutlined } from '@ant-design/icons'
+import { Input } from 'antd'
 
-type treeDataIf = IObj & TreeDataNode
 interface PropType {}
 interface StateType {
-  treeData: treeDataIf[]
+  treeData: IObj[]
   defaultCheckedKeys: string[]
+  inputValue: string
 }
 class DataSource extends React.PureComponent<PropType, StateType> {
   constructor(props: PropType) {
@@ -23,6 +23,7 @@ class DataSource extends React.PureComponent<PropType, StateType> {
     this.state = {
       treeData: [],
       defaultCheckedKeys: [],
+      inputValue: '',
     }
   }
   componentDidMount(): void {
@@ -86,8 +87,12 @@ class DataSource extends React.PureComponent<PropType, StateType> {
   render(): React.ReactNode {
     return (
       <div className='aside-panel-dataSource'>
-        <p>资源目录</p>
-        <Tree checkable showLine defaultCheckedKeys={this.state.defaultCheckedKeys} onSelect={this.onSelect} onCheck={this.onCheck} treeData={this.state.treeData} />
+        <div className='dataSource-title'>
+          <FolderOpenOutlined />
+          <span>资源目录</span>
+        </div>
+        <Input size="small" placeholder='搜索' defaultValue={this.state.inputValue}/>
+        <Tree checkable showLine showIcon defaultCheckedKeys={this.state.defaultCheckedKeys} onSelect={this.onSelect} onCheck={this.onCheck} treeData={this.state.treeData} />
       </div>
     )
   }

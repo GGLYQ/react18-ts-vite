@@ -1,11 +1,24 @@
 .aside-panel-dataSource {
   width: 400px;
   height: 100%;
-  padding: 0 16px;
+  padding: 20px 16px;
+  .dataSource-title {
+    span {
+      padding-left: 12px;
+      font-size: 18px;
+      color: var(--app-title-text-color);
+      font-weight: 500;
+    }
+  }
 }
 :where(.ant-tree) {
-  font-size: 14px;
+  font-size: 1rem !important;
+  color: var(--app-title-subtext-color) !important;
   .ant-tree-checkbox.ant-tree-checkbox-disabled {
     display: none;
   }
+}
+
+:where(.ant-input-sm) {
+  margin: 12px 0 !important;
 }
